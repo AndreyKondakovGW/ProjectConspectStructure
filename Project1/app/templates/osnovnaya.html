@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title></title>
+
+        <!-- Последняя компиляция и сжатый CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Дополнение к теме -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Последняя компиляция и сжатый JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity=								"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Custom styles for this template -->
+    <link href={{url_for('static', filename = 'osnovnaya.css')}} rel="stylesheet">
+
+
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top stnavbar" >
+	
+      <div class="container-fluid stnavbar">
+		
+		<div class="navbar-header">
+          
+          <div class="navbar-brand" ><div class="stnavbar">Conspect structure</div> </div>  
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+			<form class="form-signin">
+				<img src={{url_for('static', filename = '-AW7FLYCB-8.png')}} class="foto">
+				<br>
+				<br>
+				<label for="search" class="sr-only">поиск</label>
+				<input type="text" id="search" class="form-control " placeholder="поиск" required autofocus>
+				<br>
+				<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('redactor') }}" >Редактор</a>
+				<input type="submit" name="delite" id="delite" class="btn btn-lg btn-primary btn-block cnopka" value="удалить страницу">
+				<input type="submit" name="t1" id="t1" class="btn btn-lg btn-primary btn-block cnopka" value="тема 1">
+				<input type="submit" name="t2" id="t2" class="btn btn-lg btn-primary btn-block cnopka" value="тема 2">
+				<input type="submit" name="t3" id="t3" class="btn btn-lg btn-primary btn-block cnopka" value="тема 3">
+				<input type="submit" name="t4" id="t4" class="btn btn-lg btn-primary btn-block cnopka" value="тема 4">
+				<input type="submit" name="t5" id="t5" class="btn btn-lg btn-primary btn-block cnopka" value="тема 5">
+				<input type="submit" name="t6" id="t6" class="btn btn-lg btn-primary btn-block cnopka" value="тема 6">
+				<input type="submit" name="t7" id="t7" class="btn btn-lg btn-primary btn-block cnopka" value="тема 7">
+				<input type="submit" name="t8" id="t8" class="btn btn-lg btn-primary btn-block cnopka" value="тема 8">
+				<input type="submit" name="t9" id="t9" class="btn btn-lg btn-primary btn-block cnopka" value="тема 9">
+				<input type="submit" name="exit" id="exit" class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('index') }}" value="выйти">
+			</form>
+        </div>
+		
+		
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          
+        </div>
+		
+      </div>
+    </div>
+	
+  </body>
+</html>

@@ -1,0 +1,10 @@
+<MWFConfig>
+  <FileDialog>
+    <value name="LastFolder" type="string">Z:\media\andrew\Disk2\Games\SteamLibrary1\steamapps\common\Morrowind\MGE3</value>
+    <value name="FileNames" type="string-array" />
+    <value name="Width" type="int">555</value>
+    <value name="X" type="int">712</value>
+    <value name="Y" type="int">347</value>
+    <value name="Height" type="int">385</value>
+  </FileDialog>
+</MWFConfig>

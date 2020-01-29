@@ -52,19 +52,19 @@ def main(username='', filename='American_Beaver.jpg'):
              req =(request.form.get('img_name'))
              if (check_conspect_in_base(req)):
                 get_conspect(req)
-                return render_template('osnovnaya.html',filename=req)
-        return render_template('osnovnaya.html',filename=filename)
+                return render_template('osnovnaya.html',filename='Photo/'+req)
+        return render_template('osnovnaya.html',filename='Photo/'+filename)
     else:
         flash('please log in')
         logout()
 
 
 @app.route('/redactor', methods=['GET', 'POST'])
-def redactor():
-    if (request.method == 'POST'):
-        print(request.files['upload'])
+def redactor(filename='American_Beaver.jpg'):
+    #if (request.method == 'POST'):
+       # print(request.files['upload'])
         # add_file
-    return render_template('redactorMisha.html')
+    return render_template('redactorMisha.html',filename='Photo/'+filename)
 
 
 def allowed_file(filename):

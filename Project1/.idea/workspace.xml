@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8ddcc05-16a5-4bbf-b781-e05800dacf6e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/Flask.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../FirsServer/.idea/FirsServer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../FirsServer/app/.idea/app.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/DataBase.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/DataBaseControler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DBStarter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/UserDBAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/UserDBAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/-AW7FLYCB-8.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/-AW7FLYCB-8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/American_Beaver.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/American_Beaver.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/photo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/photo.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/upload/0Vf2QKFahu4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/0Vf2QKFahu4.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/osnovnaya.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/osnovnaya.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/redactorMisha.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/redactorMisha.html" afterDir="false" />
     </list>

@@ -42,14 +42,14 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
 			<form class="form-signin" action="" method="post">
-				<img src={{url_for('static', filename = '-AW7FLYCB-8.png')}} class="foto">
+				<img src={{url_for('static', filename = 'Photo/-AW7FLYCB-8.png')}} class="foto">
 				<br>
 				<br>
 				<label for="search" class="sr-only">поиск</label>
 				<input type="text"  name ="img_name" id="search" class="form-control " placeholder="поиск" required autofocus>
                 <input type="submit" name="t1" id="t1" class="btn btn-lg btn-primary btn-block cnopka" value="открыть">
 				<br>
-				<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('redactor') }}" >Редактор</a>
+				<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('redactor',filename=filename) }}" >Редактор</a>
 				<input type="" name="delite" id="delite" class="btn btn-lg btn-primary btn-block cnopka" value="удалить страницу">
 				<input type="" name="t2" id="t2" class="btn btn-lg btn-primary btn-block cnopka" value="тема 1">
 				<input type="" name="t3" id="t3" class="btn btn-lg btn-primary btn-block cnopka" value="тема 2">

@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f8ddcc05-16a5-4bbf-b781-e05800dacf6e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/osnovnaya.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/osnovnaya.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/redactorMisha.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/redactorMisha.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README" beforeDir="false" afterPath="$PROJECT_DIR$/README" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,7 +29,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="CommandLine" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.project" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -144,6 +142,12 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.flask" />
+      <item itemvalue="Python.__init__" />
+      <item itemvalue="Python.models" />
+      <item itemvalue="Python.routes" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.__init__" />

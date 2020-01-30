@@ -14,3 +14,5 @@ set FLASK_APP=start.py
 flask run
 после чего перейти по ссылке
 
+Для удобного запуска проетка в Pycharm нужно просто зайти в поле Edit Configurations и в поле Python interpreteter выбрать свой интарпритатор Питона
+

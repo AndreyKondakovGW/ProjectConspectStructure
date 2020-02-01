@@ -1,4 +1,4 @@
-##### Зависимости проекта:
+### Зависимости проекта:
 (указаны в requirements.txt)
 ```
 Flask-Login
@@ -13,7 +13,7 @@ Flask-WTF
 SQLAlchemy
 ```
 
-##### Запуск:
+### Запуск:
 ```
 .\venv\Scripts\activate.bat` (или activate.ps1 для PowerShell)
 flask run

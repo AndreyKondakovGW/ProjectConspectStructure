@@ -1,7 +1,7 @@
 # Основной скрипт сайта задаёт как сайт будет отвечать на те или иные запросы пользователя
 from app import app
 from flask import render_template, flash, redirect, url_for, session, request
-from app.forms import LoginForm
+from app.forms import LoginForm, RegistrationForm
 from app import UserDBAPI
 from app.models import User,db,UserDB,get_user
 from app.config import Config
@@ -9,34 +9,36 @@ from app.DataBaseControler import check_conspect_in_base,add_conspet,get_conspec
 import os
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    print(db)
+    Lform = LoginForm()
+    Rform = RegistrationForm()
+    if Lform.validate_on_submit():
+        login(Lform)
+    if Rform.validate_on_submit():
+        registration(Rform)
     if ('user' in session):
         print('пользователь', session['user'], 'вошёл в сеть')
         return redirect(url_for('main',username=session['user']))
-    return render_template('home.html')
+    return render_template('signin.html', Lform=Lform, Rform=Rform)
 
 
 @app.route('/registrate', methods=['GET', 'POST'])
-def Registration():
-    form = LoginForm()
-    if form.validate_on_submit():
+def registration(form):
         if not(user_exist(form.username.data)):
             add_user(form.username.data,form.password.data)
             return TryLoginUser(form.username.data,form.password.data)
         else:
             print('пользователь существует')
-            return redirect(url_for('Registration'))
-    return render_template('RegestrationMishaF.html', title='Regestration', form=form)
+            return redirect(url_for('registration'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
-def login():
-     form = LoginForm()
-     if form.validate_on_submit():
+def login(form):
         return TryLoginUser(form.username.data,form.password.data)
-     return render_template('LoginMishaF.html', title='Sign In', form=form)
+
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -61,6 +63,7 @@ def main(username='', filename='American_Beaver.jpg'):
 
 @app.route('/redactor', methods=['GET', 'POST'])
 def redactor(filename='American_Beaver.jpg'):
+    username=session['user']
     #if (request.method == 'POST'):
        # print(request.files['upload'])
         # add_file
@@ -88,6 +91,7 @@ def TryLoginUser(name,password):
          session['user']=name
          return redirect(url_for('index'))
      else:
+         print('Пользователь', name, 'имеет другой пароль', password)
          return redirect(url_for('login'))
         # user = get_user(form.username.data)
       #  if user is None or not user.check_password(form.password.data):
@@ -100,4 +104,5 @@ def user_exist(name):
     return db.get(name)
 
 def add_user(name,password):
+    print('Добавлен пользователь',name,password)
     UserDBAPI.add_to_db(name,password)

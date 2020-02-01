@@ -15,7 +15,9 @@ SQLAlchemy
 
 ### Запуск:
 ```
-.\venv\Scripts\activate.bat (или activate.ps1 для PowerShell)
+Для cmd:        .\venv\Scripts\activate.bat
+Для PowerShell: .\venv\Scripts\Activate.ps1
+Для bash:       source linuxenv/bin/activate
 flask run
 Перейти по ссылке: http://127.0.0.1:5000/
 

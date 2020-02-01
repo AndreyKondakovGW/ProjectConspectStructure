@@ -1,4 +1,3 @@
 Flask-Login
 Flask-WTF
-WTForms
 SQLAlchemy

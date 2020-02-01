@@ -7,9 +7,11 @@ FotoBase=['photo.jpg','-AW7FLYCB-8.png','American_Beaver.jpg','0Vf2QKFahu4.jpg']
 def check_conspect_in_base(name):
     return name in FotoBase
 
+
 def add_conspet(name):
     FotoBase.append(name)
     print('пользователь загрузил фото', name, 'в базу')
+
 
 def get_conspect(name):
     print('пользователь загрузил фото', name, 'из базы')

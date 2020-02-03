@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Project1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DataBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataBase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,8 +168,16 @@
       <updated>1580477281557</updated>
       <workItem from="1580477289086" duration="679000" />
       <workItem from="1580586090135" duration="1102000" />
-      <workItem from="1580660043367" duration="3528000" />
+      <workItem from="1580660043367" duration="4270000" />
     </task>
+    <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
+      <created>1580753469582</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1580753469582</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,32 +200,42 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
+    <MESSAGE value="убрал лишнее описание basedir в файле DataBase.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="убрал лишнее описание basedir в файле DataBase.py" />
   </component>
   <component name="WindowStateProjectService">
     <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580586143564">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1580586143564" />
+    <state x="726" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580753891986">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="726" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1580753891986" />
     <state x="667" y="159" width="642" height="787" key="#flask" timestamp="1580586449968">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="667" y="159" width="642" height="787" key="#flask/67.27.1853.1053@67.27.1853.1053" timestamp="1580586449968" />
-    <state width="1354" height="260" key="GridCell.Tab.0.bottom" timestamp="1580592702350">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580753469444">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1354" height="260" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1580592702350" />
-    <state width="1354" height="260" key="GridCell.Tab.0.center" timestamp="1580592702350">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580753469444" />
+    <state width="1807" height="278" key="GridCell.Tab.0.bottom" timestamp="1580753892135">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1354" height="260" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1580592702350" />
-    <state width="1354" height="260" key="GridCell.Tab.0.left" timestamp="1580592702350">
+    <state width="1807" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1580753892135" />
+    <state width="1807" height="278" key="GridCell.Tab.0.center" timestamp="1580753892134">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1354" height="260" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1580592702350" />
-    <state width="1354" height="260" key="GridCell.Tab.0.right" timestamp="1580592702350">
+    <state width="1807" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1580753892134" />
+    <state width="1807" height="278" key="GridCell.Tab.0.left" timestamp="1580753892134">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1354" height="260" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1580592702350" />
+    <state width="1807" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1580753892134" />
+    <state width="1807" height="278" key="GridCell.Tab.0.right" timestamp="1580753892135">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1580753892135" />
     <state x="482" y="188" key="SettingsEditor" timestamp="1580660233366">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -225,6 +244,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1580660043392" />
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1580753772079">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1580753772079" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1580661471763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

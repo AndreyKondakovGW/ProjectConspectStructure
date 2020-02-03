@@ -16,7 +16,7 @@ Base = declarative_base()
 
 Session = sessionmaker(bind=engine)
 
-sessoion = Session()
+session = Session()
 
 # ----------configure section ---------------------
 app = Flask(__name__)

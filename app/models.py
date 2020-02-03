@@ -1,4 +1,4 @@
-from app import sessoion
+from app import session
 from app.__init__ import engine, Base
 from sqlalchemy import Column, Integer, String, create_engine
 import sqlalchemy

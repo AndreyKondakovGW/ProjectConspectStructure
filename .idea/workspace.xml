@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataBase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +165,7 @@
       <updated>1580477281557</updated>
       <workItem from="1580477289086" duration="679000" />
       <workItem from="1580586090135" duration="1102000" />
-      <workItem from="1580660043367" duration="4270000" />
+      <workItem from="1580660043367" duration="4794000" />
     </task>
     <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
       <created>1580753469582</created>
@@ -177,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580753469582</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="убрал лишний файл DataBase.py">
+      <created>1580754064639</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1580754064639</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +205,8 @@
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
     <MESSAGE value="убрал лишнее описание basedir в файле DataBase.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="убрал лишнее описание basedir в файле DataBase.py" />
+    <MESSAGE value="убрал лишний файл DataBase.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="убрал лишний файл DataBase.py" />
   </component>
   <component name="WindowStateProjectService">
     <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580586143564">
@@ -216,26 +221,26 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="667" y="159" width="642" height="787" key="#flask/67.27.1853.1053@67.27.1853.1053" timestamp="1580586449968" />
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580753469444">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580754064541">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580753469444" />
-    <state width="1807" height="278" key="GridCell.Tab.0.bottom" timestamp="1580753892135">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580754064541" />
+    <state width="1807" height="278" key="GridCell.Tab.0.bottom" timestamp="1580754585986">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1580753892135" />
-    <state width="1807" height="278" key="GridCell.Tab.0.center" timestamp="1580753892134">
+    <state width="1807" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1580754585986" />
+    <state width="1807" height="278" key="GridCell.Tab.0.center" timestamp="1580754585986">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1580753892134" />
-    <state width="1807" height="278" key="GridCell.Tab.0.left" timestamp="1580753892134">
+    <state width="1807" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1580754585986" />
+    <state width="1807" height="278" key="GridCell.Tab.0.left" timestamp="1580754585986">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1580753892134" />
-    <state width="1807" height="278" key="GridCell.Tab.0.right" timestamp="1580753892135">
+    <state width="1807" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1580754585986" />
+    <state width="1807" height="278" key="GridCell.Tab.0.right" timestamp="1580754585986">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1580753892135" />
+    <state width="1807" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1580754585986" />
     <state x="482" y="188" key="SettingsEditor" timestamp="1580660233366">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -250,6 +255,6 @@
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1580753772079" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1580661471763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1580754130890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/UserDBAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/UserDBAPI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +169,7 @@
       <updated>1580477281557</updated>
       <workItem from="1580477289086" duration="679000" />
       <workItem from="1580586090135" duration="1102000" />
-      <workItem from="1580660043367" duration="4794000" />
+      <workItem from="1580660043367" duration="7749000" />
     </task>
     <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
       <created>1580753469582</created>
@@ -181,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580754064639</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="исправил грамматическую ошибку)">
+      <created>1580754643709</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1580754643709</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,7 +217,8 @@
     </ignored-roots>
     <MESSAGE value="убрал лишнее описание basedir в файле DataBase.py" />
     <MESSAGE value="убрал лишний файл DataBase.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="убрал лишний файл DataBase.py" />
+    <MESSAGE value="исправил грамматическую ошибку)" />
+    <option name="LAST_COMMIT_MESSAGE" value="исправил грамматическую ошибку)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580586143564">
@@ -221,10 +233,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="667" y="159" width="642" height="787" key="#flask/67.27.1853.1053@67.27.1853.1053" timestamp="1580586449968" />
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580754064541">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580754643633">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580754064541" />
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580754643633" />
     <state width="1807" height="278" key="GridCell.Tab.0.bottom" timestamp="1580754585986">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

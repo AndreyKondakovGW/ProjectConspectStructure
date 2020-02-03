@@ -105,10 +105,6 @@ def TryLoginUser(name, password):
         '''
 
 
-def user_exist(name):
-    return db.get(name)
 
 
-def add_user(name, password):
-    print('Добавлен пользователь', name, password)
-    UserDBAPI.add_to_db(name, password)
+

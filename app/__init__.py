@@ -1,11 +1,19 @@
 from flask import Flask
 from app.config import basedir
 from app.config import Config
-from app.DataBase import Session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
+from app.config import basedir
+import os
 
 # ----------db section ----------------------------
 
+engine = create_engine('sqlite:///' + os.path.join(basedir, 'DB.db'))
+
+Session = sessionmaker(bind=engine)
+
+# ----------configure section ---------------------
 app = Flask(__name__)
 app.config.from_object(Config)
 
@@ -20,7 +28,6 @@ from flask_login import LoginManager
 login = LoginManager(app)
 login.login_view = 'index'
 
-sessoion = Session()
 db = {}  # dict
 
 from app import routes, models

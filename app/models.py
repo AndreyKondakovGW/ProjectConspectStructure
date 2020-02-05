@@ -1,7 +1,7 @@
-from app import sessoion
-from app.DataBase import engine, Base
+from app import Session
+from app.__init__ import engine
 from sqlalchemy import Column, Integer, String, create_engine
-import sqlalchemy
+from sqlalchemy.ext.declarative import declarative_base
 from app import db, login
 from flask_login import UserMixin
 import random
@@ -33,27 +33,28 @@ class User(UserMixin):
 
 db['admin'] = User('admin', 123)
 
+
+Base = declarative_base()  # описание таблицы пользователей вместе с классом пользователя
+session = Session()
+
+
 # Обект пользователья с использованием базы данных скюл лайт
-
-
 class UserDB(UserMixin, Base):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    password = Column(String)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, unique=True)
+    password = Column(String, nullable=False)
 
     def __init__(self, name, password):
         self.name = name
         self.password = password
 
-    def check_password(self, password):
-        return self.password == password
 
     @staticmethod
     @login.user_loader
     def load_user(id):
         print(id)
-        user = sessoion.query(UserDB).filter_by(id=int(id)).first()
+        user = session.query(UserDB).filter_by(id=int(id)).first()
         return user
 
     def __repr__(self):
@@ -63,12 +64,11 @@ class UserDB(UserMixin, Base):
 Base.metadata.create_all(engine)
 
 
-def get_user(name):
-    # print(sessoion.query(UserDB).filter_by(name=name).first())
-    return sessoion.query(UserDB).filter_by(name=name).first()
 
 
-sessoion.add(UserDB('admin', 123))
+
+session.add(UserDB('admin', str(123)))
+session.commit()
 # print(sessoion.query(UserDB).first())
 # print(sessoion.query(UserDB).filter_by(name='admin').first())
 # print(sessoion.query(UserDB).filter_by(name='admin1').first())

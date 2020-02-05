@@ -3,8 +3,8 @@
 from app import app
 from flask import render_template, flash, redirect, url_for, session, request
 from app.forms import LoginForm, RegistrationForm
-from app import UserDBAPI
-from app.models import User, db, UserDB, get_user
+from app.UserDBAPI import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
+from app.models import User, db, UserDB
 from app.config import Config
 from app.DataBaseControler import check_conspect_in_base, add_conspet, \
      get_conspect
@@ -14,12 +14,13 @@ import os
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    print(db)
+    #print(db)
+    #print_all_users()
     Lform = LoginForm()
     Rform = RegistrationForm()
-    if Lform.validate_on_submit():
+    if Lform.submit1.data and Lform.validate():
         login(Lform)
-    if Rform.validate_on_submit():
+    if Rform.submit2.data and Rform.validate():
         registration(Rform)
     if ('user' in session):
         print('пользователь', session['user'], 'вошёл в сеть')
@@ -29,16 +30,20 @@ def index():
 
 @app.route('/registrate', methods=['GET', 'POST'])
 def registration(form):
+    print('registration')
     if not(user_exist(form.username.data)):
-        add_user(form.username.data, form.password.data)
+        print('начата регистрация')
+        add_to_db(name=form.username.data, password=form.password.data)
         return TryLoginUser(form.username.data, form.password.data)
     else:
         print('пользователь существует')
-        return redirect(url_for('registration'))
+        return redirect(url_for('index'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login(form):
+    print('login')
+    print(form.username.data, form.password.data)
     return TryLoginUser(form.username.data, form.password.data)
 
 
@@ -89,12 +94,19 @@ def uploads():
 
 
 def TryLoginUser(name, password):
-    if (db[name].password == int(password)):
-        session['user'] = name
-        return redirect(url_for('index'))
+    if user_exist(name):
+        print('пользователь существует')
+        if check_password(name, password):
+            session['user'] = name
+            return redirect(url_for('index'))
+        else:
+            print('введён пароль', password)
+            pw = get_password(name)
+            print('Пользователь', name, 'имеет другой пароль', pw)
+            return redirect(url_for('index'))
     else:
-        print('Пользователь', name, 'имеет другой пароль', password)
-        return redirect(url_for('login'))
+        print('пользователь не существует')
+        return redirect(url_for('index'))
         '''
         user = get_user(form.username.data)
         if user is None or not user.check_password(form.password.data):
@@ -105,10 +117,6 @@ def TryLoginUser(name, password):
         '''
 
 
-def user_exist(name):
-    return db.get(name)
 
 
-def add_user(name, password):
-    print('Добавлен пользователь', name, password)
-    UserDBAPI.add_to_db(name, password)
+

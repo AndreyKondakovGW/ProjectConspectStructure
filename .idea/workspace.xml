@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/signin2.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/signin2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DB.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/DB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/UserDBAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/UserDBAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/signin.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/signin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/signin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +181,7 @@
       <workItem from="1580586090135" duration="1102000" />
       <workItem from="1580660043367" duration="22479000" />
       <workItem from="1580898741243" duration="6233000" />
-      <workItem from="1580917568094" duration="2073000" />
+      <workItem from="1580917568094" duration="2920000" />
     </task>
     <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
       <created>1580753469582</created>
@@ -224,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580757601100</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="первая +- работающая версия с базой пользователей">
+      <created>1580923954933</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1580923954933</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,7 +245,8 @@
     <MESSAGE value="убрал лишний файл DataBase.py" />
     <MESSAGE value="исправил грамматическую ошибку)" />
     <MESSAGE value="реализовал парочку из заглушек, убрал лишние функции из файла routes.py, перенёс описание Base в файл models.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="реализовал парочку из заглушек, убрал лишние функции из файла routes.py, перенёс описание Base в файл models.py" />
+    <MESSAGE value="первая +- работающая версия с базой пользователей" />
+    <option name="LAST_COMMIT_MESSAGE" value="первая +- работающая версия с базой пользователей" />
   </component>
   <component name="WindowStateProjectService">
     <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580586143564">
@@ -266,10 +261,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="667" y="159" width="642" height="787" key="#flask/67.27.1853.1053@67.27.1853.1053" timestamp="1580586449968" />
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580759191122">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580923954711">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580759191122" />
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580923954711" />
     <state width="1807" height="344" key="GridCell.Tab.0.bottom" timestamp="1580918579025">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

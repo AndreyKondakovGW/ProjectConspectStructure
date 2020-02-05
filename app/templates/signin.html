@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="">
+
     <title></title>
 
     <!-- Последняя компиляция и сжатый CSS -->
@@ -20,46 +21,62 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity=								"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- Custom styles for this template -->
-    <link href={{url_for('static', filename = "signin.css")}} rel="stylesheet">
-
+    <link href={{url_for('static', filename = "signin2.css")}} rel="stylesheet">
 	
 	
   </head>
 
   <body>
+	<div id="osn">
 	<!-- /вход            ---------------------------           -->
-    <div class="container" id="vhod">
+      <div class="container" id="vhod">
 
       <form action="" class="form-signin" method="post">
         <h2 class="form-signin-heading">Вход на <br>Conspect structure </h2>
         {{ Lform.hidden_tag() }}
         <p>{{Lform.username.label(class="sr-only", for="inputLog")}}<br>
-          {{ Lform.username(class="form-control", id="inputLog", placeholder="Логин") }}</p>
+          {{ Lform.username(class="form-control", id="inputLog", placeholder="Логин") }}
+          {% for error in Lform.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}</p>
         <p>{{Lform.password.label(class="sr-only", for="inputLog")}}
-          {{ Lform.password(class="form-control", id="inputPassword", placeholder="Пароль") }}</p>
+          {{ Lform.password(class="form-control", id="inputPassword", placeholder="Пароль") }}
+          {% for error in Lform.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}</p>
         <p>{{ Lform.remember_me(class="checkbox",value="remember-me", id="check_box") }} {{ Lform.remember_me.label(for="check_box") }}</p>
-        {{ Lform.submit(class="btn btn-lg btn-primary btn-block cnopka") }}
-		<button class="btn btn-lg btn-primary btn-block cnopka" id="reg">Перейти к регистрации</button>
+        {{ Lform.submit1(class="btn btn-lg btn-primary btn-block cnopka") }}
       </form>
-    </div> <!-- /container -->
-	
-	<!-- /регистрация             ---------------------------        -->
-	<div class="container" id="regist" style="display: none;">
+    </div>
+      <!-- /container -->
+
+	<div class="container" id="regist">
 
       <form class="form-signin" method="post">
         <h2 class="form-signin-heading">Регистрация на <br>Conspect structure </h2>
         {{ Rform.hidden_tag() }}
         <p>{{Rform.username.label(class="sr-only", for="inputLog")}}<br>
-          {{ Rform.username(class="form-control", id="inputLog", placeholder="Придумайте логин") }}</p>
+          {{ Rform.username(class="form-control", id="inputLog", placeholder="Придумайте логин") }}
+          {% for error in Rform.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}</p>
         <p>{{Rform.password.label(class="sr-only", for="inputLog")}}
-          {{ Rform.password(class="form-control", id="inputPassword", placeholder="Придумайте пароль") }}</p>
+          {{ Rform.password(class="form-control", id="inputPassword", placeholder="Придумайте пароль") }}
+          {% for error in Rform.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}</p>
         <p>{{ Rform.remember_me(class="checkbox",value="remember-me") }} {{ Rform.remember_me.label }}</p>
-        {{ Rform.submit(class="btn btn-lg btn-primary btn-block cnopka") }}
+        {{ Rform.submit2(class="btn btn-lg btn-primary btn-block cnopka") }}
       </form>
-
-    </div> <!-- /container -->
+    </div>
 	
+	
+	</div>
+	<div class="form-signin">
+	<button class="btn btn-lg btn-primary btn-block cnopka" id="reg">Перейти к регистрации</button>
+	<button class="btn btn-lg btn-primary btn-block cnopka" id="vh" style="display: none;">Перейти ко входу</button>
+	</div>
     <!-- скрипт для регистрации -->
-	<script src={{url_for('static', filename = "signin.js")}}></script>
+    <script src={{url_for('static', filename = "signin2.js")}}></script>
   </body>
 </html>

@@ -2,16 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/signin2.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/signin2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DB.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/DB.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/UserDBAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/UserDBAPI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/signin.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/signin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/signin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,16 +64,16 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/templates" />
-      <recent name="$PROJECT_DIR$/app/templates/MishTamalates" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/static/Photo" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/static" />
       <recent name="$PROJECT_DIR$/app/static/upload" />
       <recent name="$PROJECT_DIR$/app/templates" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/templates" />
+      <recent name="$PROJECT_DIR$/app/templates/MishTamalates" />
     </key>
   </component>
   <component name="RunManager" selected="Python.flask">
@@ -169,7 +192,9 @@
       <updated>1580477281557</updated>
       <workItem from="1580477289086" duration="679000" />
       <workItem from="1580586090135" duration="1102000" />
-      <workItem from="1580660043367" duration="7749000" />
+      <workItem from="1580660043367" duration="22479000" />
+      <workItem from="1580898741243" duration="6233000" />
+      <workItem from="1580917568094" duration="2073000" />
     </task>
     <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
       <created>1580753469582</created>
@@ -192,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580754643709</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="реализовал парочку из заглушек, убрал лишние функции из файла routes.py, перенёс описание Base в файл models.py">
+      <created>1580757601100</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1580757601100</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,7 +250,8 @@
     <MESSAGE value="убрал лишнее описание basedir в файле DataBase.py" />
     <MESSAGE value="убрал лишний файл DataBase.py" />
     <MESSAGE value="исправил грамматическую ошибку)" />
-    <option name="LAST_COMMIT_MESSAGE" value="исправил грамматическую ошибку)" />
+    <MESSAGE value="реализовал парочку из заглушек, убрал лишние функции из файла routes.py, перенёс описание Base в файл models.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="реализовал парочку из заглушек, убрал лишние функции из файла routes.py, перенёс описание Base в файл models.py" />
   </component>
   <component name="WindowStateProjectService">
     <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580586143564">
@@ -233,40 +266,44 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="667" y="159" width="642" height="787" key="#flask/67.27.1853.1053@67.27.1853.1053" timestamp="1580586449968" />
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580754643633">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1580759191122">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580754643633" />
-    <state width="1807" height="278" key="GridCell.Tab.0.bottom" timestamp="1580754585986">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1580759191122" />
+    <state width="1807" height="344" key="GridCell.Tab.0.bottom" timestamp="1580918579025">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1580754585986" />
-    <state width="1807" height="278" key="GridCell.Tab.0.center" timestamp="1580754585986">
+    <state width="1807" height="344" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1580918579025" />
+    <state width="1807" height="344" key="GridCell.Tab.0.center" timestamp="1580918579025">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1580754585986" />
-    <state width="1807" height="278" key="GridCell.Tab.0.left" timestamp="1580754585986">
+    <state width="1807" height="344" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1580918579025" />
+    <state width="1807" height="344" key="GridCell.Tab.0.left" timestamp="1580918579025">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1580754585986" />
-    <state width="1807" height="278" key="GridCell.Tab.0.right" timestamp="1580754585986">
+    <state width="1807" height="344" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1580918579025" />
+    <state width="1807" height="344" key="GridCell.Tab.0.right" timestamp="1580918579025">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1580754585986" />
+    <state width="1807" height="344" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1580918579025" />
+    <state width="263" height="500" key="HiddenNamespacesPopup" timestamp="1580765892187">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="263" height="500" key="HiddenNamespacesPopup/67.27.1853.1053@67.27.1853.1053" timestamp="1580765892187" />
     <state x="482" y="188" key="SettingsEditor" timestamp="1580660233366">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="482" y="188" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1580660233366" />
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1580660043392">
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1580917573780">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1580660043392" />
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1580917573780" />
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1580753772079">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1580753772079" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1580754130890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1580918579008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

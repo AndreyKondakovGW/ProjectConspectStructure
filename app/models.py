@@ -1,5 +1,5 @@
-from app import session
-from app.__init__ import engine, Base
+from app import Session
+from app.__init__ import engine
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from app import db, login
@@ -35,21 +35,20 @@ db['admin'] = User('admin', 123)
 
 
 Base = declarative_base()  # описание таблицы пользователей вместе с классом пользователя
+session = Session()
 
 
 # Обект пользователья с использованием базы данных скюл лайт
 class UserDB(UserMixin, Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String)
-    password = Column(String)
+    name = Column(String, unique=True)
+    password = Column(String, nullable=False)
 
     def __init__(self, name, password):
         self.name = name
         self.password = password
 
-    def check_password(self, password):
-        return self.password == password
 
     @staticmethod
     @login.user_loader
@@ -65,12 +64,11 @@ class UserDB(UserMixin, Base):
 Base.metadata.create_all(engine)
 
 
-def get_user(name):
-    # print(session.query(UserDB).filter_by(name=name).first())
-    return session.query(UserDB).filter_by(name=name).first()
 
 
-session.add(UserDB('admin', 123))
+
+session.add(UserDB('admin', str(123)))
+session.commit()
 # print(sessoion.query(UserDB).first())
 # print(sessoion.query(UserDB).filter_by(name='admin').first())
 # print(sessoion.query(UserDB).filter_by(name='admin1').first())

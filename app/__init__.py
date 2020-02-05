@@ -9,12 +9,9 @@ import os
 
 # ----------db section ----------------------------
 
-engine = create_engine('sqlite:///' + os.path.join(basedir, 'DB.db'),
-                       convert_unicode=True)
+engine = create_engine('sqlite:///' + os.path.join(basedir, 'DB.db'))
 
 Session = sessionmaker(bind=engine)
-
-session = Session()
 
 # ----------configure section ---------------------
 app = Flask(__name__)

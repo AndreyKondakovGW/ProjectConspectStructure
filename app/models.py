@@ -67,8 +67,8 @@ Base.metadata.create_all(engine)
 
 
 
-session.add(UserDB('admin', str(123)))
-session.commit()
+#session.add(UserDB('admin', str(123)))
+#session.commit()
 # print(sessoion.query(UserDB).first())
 # print(sessoion.query(UserDB).filter_by(name='admin').first())
 # print(sessoion.query(UserDB).filter_by(name='admin1').first())

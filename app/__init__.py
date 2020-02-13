@@ -9,7 +9,7 @@ import os
 
 # ----------db section ----------------------------
 
-engine = create_engine('sqlite:///' + os.path.join(basedir, 'DB.db'))
+engine = create_engine('sqlite:///' + os.path.join(basedir, 'DB.db'), connect_args={'check_same_thread': False})
 
 Session = sessionmaker(bind=engine)
 

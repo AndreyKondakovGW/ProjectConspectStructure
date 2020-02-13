@@ -35,10 +35,10 @@ db['admin'] = User('admin', 123)
 
 
 Base = declarative_base()  # описание таблицы пользователей вместе с классом пользователя
-session = Session()
+session = Session()  # создание объекта-сессии
 
 
-# Обект пользователья с использованием базы данных скюл лайт
+# Класс пользователья с использованием базы данных скюл лайт
 class UserDB(UserMixin, Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, autoincrement=True)

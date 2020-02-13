@@ -15,7 +15,7 @@ import os
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     #print(db)
-    #print_all_users()
+    print_all_users()
     Lform = LoginForm()
     Rform = RegistrationForm()
     if Lform.submit1.data and Lform.validate():

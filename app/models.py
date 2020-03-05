@@ -1,6 +1,6 @@
 from app import Session
 from app.__init__ import engine
-from sqlalchemy import Column, Integer, String, Date, create_engine
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, PrimaryKeyConstraint, ForeignKeyConstraint, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from app import db, login
 from flask_login import UserMixin
@@ -86,10 +86,16 @@ class Tag(Base):
         self.user_id = user_id
 
 
+Base.metadata.create_all(engine)
+
+
 class ConspectTagRelation(Base):
-    __tablename__ = "ConpectTagRelations"
-    conspect_id = Column(Integer,nullable=False)
-    tag_id = Column(Integer, nullable=False)
+    __tablename__ = "ConspectTagRelations"
+    conspect_id = Column(Integer, nullable=False)
+    tag_id = Column(Integer, ForeignKey('Tags.id'), nullable=False)
+    __table_args__ = (PrimaryKeyConstraint('conspect_id', 'tag_id'),
+                      ForeignKeyConstraint(['conspect_id'], ['Conspects.id']),
+                      ForeignKeyConstraint(['tag_id'], ['Tags.id']))
 
     def __init__(self, conspect_id, tag_id):
         self.conspect_id = conspect_id
@@ -102,7 +108,7 @@ class PhotoDB(Base):
     filename = Column(String, unique=True, nullable=False)
     id_pred = Column(Integer)
     id_next = Column(Integer)
-    id_conspect = Column(Integer)
+    id_conspect = Column(Integer, ForeignKey('Conspects.id'))
 
     def __init__(self, filename, predname, nextname, conspect_id):
         self.filename = filename
@@ -114,7 +120,7 @@ class PhotoDB(Base):
 class FragmentDB(Base):
     __tablename__ = "Fragments"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    photo_id = Column(Integer, nullable=False)
+    photo_id = Column(Integer, ForeignKey('Photoes.id'), nullable=False)
     x1 = Column(Integer, nullable=False)
     y1 = Column(Integer, nullable=False)
     x2 = Column(Integer, nullable=False)
@@ -136,6 +142,9 @@ class FragmentsRelation(Base):
     __tablename__ = "FragmentsRelations"
     id_master = Column(Integer, nullable=False)
     id_slave = Column(Integer, nullable=False)
+    __table_args__ = (PrimaryKeyConstraint('id_master', 'id_slave'),
+                      ForeignKeyConstraint(['id_master'], ['Fragments.id']),
+                      ForeignKeyConstraint(['id_slave'], ['Fragments.id']))
 
     def __init__(self, id_master, id_slave):
         self.id_master = id_master
@@ -146,6 +155,9 @@ class FragmentToTagRelations(Base):
     __tablename__ = "FragmentToTagRelations"
     fragment_id = Column(Integer, nullable=False)
     tag_id = Column(Integer, nullable=False)
+    __table_args__ = (PrimaryKeyConstraint('fragment_id', 'tag_id'),
+                      ForeignKeyConstraint(['fragment_id'], ['Fragments.id']),
+                      ForeignKeyConstraint(['tag_id'], ['Tags.id']))
 
     def __init__(self, fragment_id, tag_id):
         if (not session.query(FragmentDB).filter_by(id=fragment_id).all()) or (not session.query(Tag).filter_by(id=tag_id).all()):
@@ -156,5 +168,6 @@ class FragmentToTagRelations(Base):
             self.tag_id = tag_id
 
 
+Base.metadata.create_all(engine)
 # session.add(UserDB('admin', str(123)))
 # session.commit()

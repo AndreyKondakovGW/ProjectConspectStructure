@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DB.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/DB.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -186,7 +187,7 @@
       <workItem from="1581519979156" duration="4997000" />
       <workItem from="1583091327489" duration="1167000" />
       <workItem from="1583162646075" duration="1886000" />
-      <workItem from="1583227154920" duration="10470000" />
+      <workItem from="1583227154920" duration="16814000" />
     </task>
     <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
       <created>1580753469582</created>
@@ -230,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581594014904</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="описал основные классы таблиц базы данных">
+      <created>1583416926368</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1583416926368</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,7 +267,8 @@
     <MESSAGE value="реализовал парочку из заглушек, убрал лишние функции из файла routes.py, перенёс описание Base в файл models.py" />
     <MESSAGE value="первая +- работающая версия с базой пользователей" />
     <MESSAGE value="костыльно исправил существующий баг при входе/регистрации пользователя" />
-    <option name="LAST_COMMIT_MESSAGE" value="костыльно исправил существующий баг при входе/регистрации пользователя" />
+    <MESSAGE value="описал основные классы таблиц базы данных" />
+    <option name="LAST_COMMIT_MESSAGE" value="описал основные классы таблиц базы данных" />
   </component>
   <component name="WindowStateProjectService">
     <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580586143564">
@@ -274,26 +283,26 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="667" y="159" width="642" height="787" key="#flask/67.27.1853.1053@67.27.1853.1053" timestamp="1580586449968" />
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1581594014705">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1583416926107">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1581594014705" />
-    <state width="1807" height="344" key="GridCell.Tab.0.bottom" timestamp="1583146890554">
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1583416926107" />
+    <state width="1807" height="344" key="GridCell.Tab.0.bottom" timestamp="1583423454511">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="344" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1583146890554" />
-    <state width="1807" height="344" key="GridCell.Tab.0.center" timestamp="1583146890552">
+    <state width="1807" height="344" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1583423454511" />
+    <state width="1807" height="344" key="GridCell.Tab.0.center" timestamp="1583423454510">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="344" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1583146890552" />
-    <state width="1807" height="344" key="GridCell.Tab.0.left" timestamp="1583146890552">
+    <state width="1807" height="344" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1583423454510" />
+    <state width="1807" height="344" key="GridCell.Tab.0.left" timestamp="1583423454509">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="344" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1583146890552" />
-    <state width="1807" height="344" key="GridCell.Tab.0.right" timestamp="1583146890553">
+    <state width="1807" height="344" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1583423454509" />
+    <state width="1807" height="344" key="GridCell.Tab.0.right" timestamp="1583423454511">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="344" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1583146890553" />
+    <state width="1807" height="344" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1583423454511" />
     <state width="263" height="500" key="HiddenNamespacesPopup" timestamp="1580765892187">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -312,6 +321,6 @@
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1580753772079" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1583336325400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1583423454491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

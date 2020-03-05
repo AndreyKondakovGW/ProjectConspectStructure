@@ -28,6 +28,5 @@ from flask_login import LoginManager
 login = LoginManager(app)
 login.login_view = 'index'
 
-db = {}  # dict
 
 from app import routes, models

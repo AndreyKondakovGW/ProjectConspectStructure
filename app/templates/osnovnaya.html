@@ -48,25 +48,26 @@
 				<label for="search" class="sr-only">поиск</label>
 				<input type="text"  name ="img_name" id="search" class="form-control " placeholder="поиск" required autofocus>
                 <input type="submit" name="t1" id="t1" class="btn btn-lg btn-primary btn-block cnopka" value="открыть">
+            </form>
 				<br>
 				<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('redactor',filename=filename) }}" >Редактор</a>
 				<input type="" name="delite" id="delite" class="btn btn-lg btn-primary btn-block cnopka" value="удалить страницу">
-				<input type="" name="t2" id="t2" class="btn btn-lg btn-primary btn-block cnopka" value="тема 1">
-				<input type="" name="t3" id="t3" class="btn btn-lg btn-primary btn-block cnopka" value="тема 2">
-				<input type="" name="t4" id="t4" class="btn btn-lg btn-primary btn-block cnopka" value="тема 3">
-				<input type="" name="t5" id="t5" class="btn btn-lg btn-primary btn-block cnopka" value="тема 4">
+                <form type="" name="t2" id="t2" action="/openTopic/1" method="POST" ><input type="submit" class="btn btn-lg btn-primary btn-block cnopka" value="тема 1"></form>
+                <form type="" name="t3" id="t3"  action="/openTopic/2" method="POST"><input type="submit" class="btn btn-lg btn-primary btn-block cnopka" value="тема 2"></form>
+                <a type="" name="t4" id="t4" class="btn btn-lg btn-primary btn-block cnopka" action="openTopic/3" method="POST">тема 3</a>
+                <a type="" name="t5" id="t5" class="btn btn-lg btn-primary btn-block cnopka" action="openTopic/4" method="POST">тема 4</a>
 				<input type="" name="t6" id="t6" class="btn btn-lg btn-primary btn-block cnopka" value="тема 5">
 				<input type="" name="t7" id="t7" class="btn btn-lg btn-primary btn-block cnopka" value="тема 6">
 				<input type="" name="t8" id="t8" class="btn btn-lg btn-primary btn-block cnopka" value="тема 7">
 				<input type="" name="t9" id="t9" class="btn btn-lg btn-primary btn-block cnopka" value="тема 8">
                 <a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('logout') }}" >выйти</a>
-			</form>
+
         </div>
 		
 		
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1>Приветствуем вас в Conspect structure </h1>
-            <img src={{url_for('static', filename = filename)}} class="foto" >
+            <iframe class="pdf" src={{url_for('static', filename = filename)}} width="1300" height="800" class="foto" ></iframe>>
         </div>
 		
       </div>

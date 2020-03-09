@@ -2,25 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/static/Topics/Topic1/-AW7FLYCB-8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/Topics/Topic1/0Vf2QKFahu4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/Topics/Topic1/American_Beaver.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/Topics/Topic2/T_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/Topics/Topic2/T_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/Topics/Topic2/T_3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Project1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DB.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/DB.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/UserDBAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/UserDBAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pdf_creater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/pdf_creater.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/osnovnaya.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/osnovnaya.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/Photo/Topic1_14.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/Topic1_14.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/Photo/Topic2_14.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/Topic2_14.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/Photo/new1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/new1.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/Topics/Topic1/American_Beaver.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Topics/Topic1/American_Beaver.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/osnovnaya.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/osnovnaya.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/redactorMisha.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/redactorMisha.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/signin.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -30,3 +30,16 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         if user_exist(username.data):
             raise ValidationError('Please use a different username.')
+
+class RedactorForm(FlaskForm):
+    teg1=StringField('Добавте тег', validators=[DataRequired()])
+    teg2=StringField('Добавте тег')
+    teg3=StringField('Добавте тег')
+    comments=StringField('Добавте комментарий')
+    w=StringField()
+    h=StringField()
+    x1=StringField()
+    x2=StringField()
+    y1=StringField()
+    y2=StringField()
+    submit = SubmitField('сохранить')

@@ -6,7 +6,7 @@ from app.forms import LoginForm, RegistrationForm
 from app.UserDBAPI import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
 from app.models import User, db, UserDB
 from app.config import Config
-from app.DataBaseControler import check_conspect_in_base, add_conspet, \
+from app.DataBaseControler import check_conspect_in_base, add_conspect, \
      get_conspect
 import os
 

@@ -61,7 +61,7 @@ class UserDB(UserMixin, Base):
         return "<User('%s', '%s')>" % (self.name, self.password)
 
 
-Base.metadata.create_all(engine)
+#Base.metadata.create_all(engine)
 
 
 class ConspectsDB(Base):
@@ -73,6 +73,19 @@ class ConspectsDB(Base):
     def __init__(self, date, name):
         self.name = name
         self.date = date
+
+
+class AccessDB(Base):
+    __tablename__ = "Access"
+    user_id = Column(Integer, nullable=False)
+    conspect_id = Column(Integer, nullable=False)
+    __table_args__ = (PrimaryKeyConstraint('user_id', 'conspect_id'),
+                      ForeignKeyConstraint(['conspect_id'], ['Conspects.id']),
+                      ForeignKeyConstraint(['user_id'], ['users.id']))
+
+    def __init__(self, user_id, conspect_id):
+        self.user_id = user_id
+        self.conspect_id = conspect_id
 
 
 class Tag(Base):

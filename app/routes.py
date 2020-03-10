@@ -96,16 +96,16 @@ def openTopic(index):
 def redactor(filename='American_Beaver.jpg'):
     Rform=RedactorForm()
     if request.method == 'POST':
-        filename = uploads()
-       #  if Rform.submit.data:
-       #      tags=Rform.teg1.data
-       #      for t in [Rform.teg2.data,Rform.teg3.data]:
-       #          if t:
-       #              tags=tags+'/'+t
-       #      tags=basedir+'/static/Topics/'+tags
-       #      if not(os.path.exists(tags)):
-       #          os.mkdir(tags)
-       #      cut(filename,int(Rform.x1.data),int(Rform.y1.data),int(Rform.x2.data),int(Rform.y2.data),tags+'/'+filename)
+        # filename = uploads()
+        if Rform.submit.data:
+           tags=Rform.teg1.data
+           for t in [Rform.teg2.data,Rform.teg3.data]:
+                 if t:
+                    tags=tags+'/'+t
+           tags=basedir+'/static/Topics/'+tags
+           if not(os.path.exists(tags)):
+             os.mkdir(tags)
+           cut(filename,int(Rform.x1.data)/int(Rform.w.data),int(Rform.y1.data)/int(Rform.h.data),int(Rform.x2.data)/int(Rform.w.data),int(Rform.y2.data)/int(Rform.h.data),tags+'/'+filename)
        #      print(Rform.teg1.data)
        #      print(Rform.teg2.data)
        #      print(Rform.teg3.data)

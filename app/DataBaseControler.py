@@ -16,9 +16,11 @@ def add_conspect(name, date, user_id):
 
 
 def add_photo_to_conspect(name, predname, nextname, conspectid):
-    session.add(PhotoDB(name=name, predname=predname, nextname=nextname, conspect_id=conspectid))
+    photo = PhotoDB(name=name, predname=predname, nextname=nextname, conspect_id=conspectid)
+    session.add(photo)
     # TODO: загрузка фото на сервер
     print('пользователь загрузил фото', name, 'в базу')
+    return photo
 
 
 def all_user_concpects(user_id):
@@ -37,7 +39,7 @@ def conspect_id_by_name(conspect_ids, name):
         if (cname==name):
             res = cname
             break
-    return cname
+    return res
 
 
 def get_conspect(name, conspect_name, username):
@@ -49,4 +51,3 @@ def get_conspect(name, conspect_name, username):
     else:
         fnames = []
     return fnames
-    print('пользователь загрузил фото', name, 'из базы')

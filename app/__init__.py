@@ -9,7 +9,7 @@ import os
 
 # ----------db section ----------------------------
 
-engine = create_engine('sqlite:///' + os.path.join(basedir, 'DB.db'), connect_args={'check_same_thread': False})
+engine = create_engine("postgresql+psycopg2://postgres:123@localhost:5432/postgres")
 
 Session = sessionmaker(bind=engine)
 

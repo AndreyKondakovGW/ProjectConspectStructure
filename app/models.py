@@ -37,6 +37,10 @@ class UserDB(UserMixin, Base):
         user = session.query(UserDB).filter_by(id=int(id)).first()
         return user
 
+    def set_permission(self, conspect):
+        acess = AccessDB(self.id, conspect.id)
+        session.add(acess)
+
     def __repr__(self):
         return "<User('%s', '%s')>" % (self.name, self.password)
 
@@ -44,7 +48,7 @@ class UserDB(UserMixin, Base):
 #Base.metadata.create_all(engine)
 
 
-class ConspectsDB(Base):
+class ConspectDB(Base):
     __tablename__ = "Conspects"
     id = Column(Integer, primary_key=True, autoincrement=True)
     date = Column(Date)
@@ -53,6 +57,16 @@ class ConspectsDB(Base):
     def __init__(self, date, name):
         self.name = name
         self.date = date
+
+    def set_date(self, date):
+        self.date = date
+        # изменения не будут закомичены
+
+    def set_tag(self, tag):
+        if tag in session:
+            ctrelation = ConspectTagRelation(self.id, tag.id)
+            session.add(ctrelation)
+            session.commit()
 
 
 class AccessDB(Base):
@@ -78,8 +92,12 @@ class Tag(Base):
         self.name = name
         self.user_id = user_id
 
+    def rename(self, newname):
+        self.name = newname
+        # изменения не будут закомичены
 
-Base.metadata.create_all(engine)
+
+#Base.metadata.create_all(engine)
 
 
 class ConspectTagRelation(Base):
@@ -109,6 +127,14 @@ class PhotoDB(Base):
         self.id_next = session.query(PhotoDB.id).filter_by(filename=nextname)
         self.id_conspect = conspect_id
 
+    def set_next(self, id_next):
+        self.id_next = id_next
+        # незакомиченные изменения
+
+    def set_pred(self, id_pred):
+        self.id_pred = id_pred
+        # незакомиченные изменения
+
 
 class FragmentDB(Base):
     __tablename__ = "Fragments"
@@ -129,6 +155,13 @@ class FragmentDB(Base):
 
     def set_name(self, name):
         self.name = name
+        # незакомиченные изменения
+
+    def set_tag(self, tag):
+        if tag in session:
+            ftrelation = FragmentToTagRelations(self.id, tag.id)
+            session.add(ftrelation)
+            session.commit()
 
 
 class FragmentsRelation(Base):

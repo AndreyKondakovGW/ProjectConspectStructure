@@ -1,6 +1,45 @@
+from app import Session
 from app.models import session, UserDB
-from app.models import ConspectsDB, PhotoDB, Tag, ConspectTagRelation, FragmentDB, FragmentToTagRelations, FragmentsRelation, AccessDB
+from app.models import ConspectDB, PhotoDB, Tag, ConspectTagRelation, FragmentDB, FragmentToTagRelations, FragmentsRelation, AccessDB
 from app.UserDBAPI import get_user
+
+# --------------sessions control--------------
+# controlled_session = Session()
+#
+#
+# def commit_decorator(wrapped_fun, flag, f_session):
+#     def wrapper(self, *args, **kwargs):
+#         wrapped_fun(self, *args, **kwargs)
+#         f_session.commit()
+#
+#     if flag:
+#         return wrapper
+#     else:
+#         return wrapped_fun
+#
+#
+# def add_decorator(wrapped_fun, flag, f_session):
+#     def wrapper(self, *args, **kwargs):
+#         obj = wrapped_fun(self, *args, **kwargs)
+#         f_session.add(obj)
+#         return obj
+#
+#     if flag:
+#         return wrapper
+#     else:
+#         return wrapped_fun
+#
+#
+# class DBController:
+#     commit_flag = True
+#     add_flag = True
+#
+#     def __init__(self, db_session):
+#         self.db_session = db_session
+#
+#     def commit(self, fun_to_decorate):
+#         fun_to_decorate = commit_decorator(fun_to_decorate, self.commit_flag, self.db_session)
+
 
 # Основные функции требующие реализацие в базе текущий код просто заглушки
 # также требуется добавит больше функций для взоимодействия с базой
@@ -10,7 +49,7 @@ def check_conspect_in_base(name):
 
 def add_conspect(name, date, user_id):
     # TODO: настроить корректную работу с датой между питоном и sql
-    conspect = ConspectsDB(name=name, date=date)
+    conspect = ConspectDB(name=name, date=date)
     session.add(conspect)
     session.add(AccessDB(user_id=user_id, conspect_id=conspect.id))
 
@@ -35,7 +74,7 @@ def check_user_access(user_id, conspect_id):
 def conspect_id_by_name(conspect_ids, name):
     res = None
     for id in conspect_ids:
-        cname = session.query(ConspectsDB.name).filter_by(id=id).first()[0]
+        cname = session.query(ConspectDB.name).filter_by(id=id).first()[0]
         if (cname==name):
             res = cname
             break

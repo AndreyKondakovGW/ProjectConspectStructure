@@ -22,7 +22,7 @@
 
     <!-- Custom styles for this template -->
     <link href={{url_for('static', filename = 'osnovnaya.css')}} rel="stylesheet">
-<link rel="stylesheet" type="text/css" href={{url_for('static', filename = 'imgareaselect-default.css')}}>    <!-- стиль для скрпта обрезки фото -->
+	<link rel="stylesheet" type="text/css" href={{url_for('static', filename = 'imgareaselect-default.css')}}>    <!-- стиль для скрпта обрезки фото -->
   
   </head>
   <body>
@@ -41,27 +41,30 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-			<form class="form-signin" method="post">
+			<form class="form-signin">
 				<img src={{url_for('static', filename = 'Photo/-AW7FLYCB-8.png')}} class="foto">
 				<br>
 				<br>
-				<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('index') }}">Основная</a>
+				
+				<a class="btn btn-lg btn-primary btn-block cnopka" href="osnovnaya.html" >Основная</a>
 				<br>
 					<label for="upload" ><div class="btn btn-lg btn-primary btn-block cnopka"> Загрузить фото </div></label>
 					<input style="opacity: 0; z-index: -1; none" type="file" accept=image/* name="upload" id="upload">
 					<!-- часть для обрезки фото -->
-				<input type="submit" name="fotoobrez" id="fotoobrez" class="btn btn-lg btn-primary btn-block cnopka" value="обрезать фото">
-				<input type="hidden" name="x1" value="" />
-									<input type="hidden" name="y1" value="" />
-									<input type="hidden" name="x2" value="" />
-									<input type="hidden" name="y2" value="" />
+									<!-- ширина(w) и высота(h) картинки -->
 									<input type="hidden" name="w" value="" />
 									<input type="hidden" name="h" value="" />
+									<!-- левый верхний угол -->
+									<input type="hidden" name="x1" value="" />
+									<input type="hidden" name="y1" value="" />
+									<!-- правый нижний угол -->
+									<input type="hidden" name="x2" value="" />
+									<input type="hidden" name="y2" value="" />
 				<!-- /часть для обрезки фото -->
 									
-				<br>
+				
 				<label for="teg" class="sr-only">добавить тег</label>
-				<input type="text" id="teg1" class="form-control " placeholder="добавить тег" >
+				<input type="text" id="teg1" class="form-control " placeholder="добавить тег" required autofocus>
 				<label for="teg" class="sr-only">добавить тег</label>
 				<input type="text" id="teg2" class="form-control " placeholder="добавить тег" >
 				<label for="teg" class="sr-only">добавить тег</label>
@@ -70,8 +73,11 @@
 				<textarea class="form-control" rows="3" placeholder="коментарий"></textarea>
 				<br>
 				<input type="submit" name="t1" id="t1" class="btn btn-lg btn-primary btn-block cnopka" value="сохранить">
+			<!-- /форма для выхода -->	
+			</form>
+			<form class="form-exit">
+				<br>
 				<input type="submit" name="exit" id="exit" class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('logout') }}" value="выйти">
-				
 			</form>
         </div>
 		
@@ -80,11 +86,11 @@
 							<!-- обрезка фото -->
 							<div> 
 									<!-- ссылку на фото надо будет убрать, id важен -->
-									<img id="photo" class="photo" src={{url_for('static', filename = filename)}}  />
-								
-								<script type="text/javascript" src={{url_for('static', filename = "jquery-1.5.1.min.js")}}></script>
-								<script type="text/javascript" src={{url_for('static', filename = "jquery.imgareaselect.pack.js")}}></script>
-								<script type="text/javascript" src={{url_for('static', filename = "coordinat.js")}}> </script>
+								<img src={{url_for('static', filename = filename )}} class="photo" id="photo">
+
+								<script type="text/javascript" src={{url_for('static', filename = "jquery-1.5.1.min2.js")}}></script>
+								<script type="text/javascript" src={{url_for('static', filename = "jquery.imgareaselect.pack2.js")}}></script>
+								<script type="text/javascript" src={{url_for('static', filename = "coordinat2.js")}}> </script>
 							</div>
         </div>
 		

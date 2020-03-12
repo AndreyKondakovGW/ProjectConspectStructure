@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/static/coordinat2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Project1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/coordinat.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/imgareaselect-default.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/jquery-1.5.1.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/jquery-1.5.1.min2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/jquery.imgareaselect.pack.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/jquery.imgareaselect.pack2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/redactorMisha.html" beforeDir="false" />
-    </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,18 +60,6 @@
       <recent name="$PROJECT_DIR$/app/templates" />
       <recent name="$PROJECT_DIR$/app/templates/MishTamalates" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Python.flask">
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -175,8 +152,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.__init__" />
       <item itemvalue="Python.flask" />
+      <item itemvalue="Python.__init__" />
       <item itemvalue="Python.models" />
       <item itemvalue="Python.routes" />
     </list>
@@ -204,6 +181,7 @@
       <workItem from="1580898741243" duration="6233000" />
       <workItem from="1580917568094" duration="4856000" />
       <workItem from="1581519979156" duration="4200000" />
+      <workItem from="1584015210575" duration="18000" />
     </task>
     <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
       <created>1580753469582</created>
@@ -315,10 +293,10 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state width="263" height="500" key="HiddenNamespacesPopup/67.27.1853.1053@67.27.1853.1053" timestamp="1580765892187" />
-    <state x="482" y="188" key="SettingsEditor" timestamp="1580660233366">
+    <state x="482" y="188" key="SettingsEditor" timestamp="1584015227303">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="482" y="188" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1580660233366" />
+    <state x="482" y="188" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1584015227303" />
     <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1581520052544">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -329,6 +307,6 @@
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1580753772079" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1584010655709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1584015230465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

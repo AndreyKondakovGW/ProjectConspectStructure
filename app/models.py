@@ -1,5 +1,5 @@
 from app import Session
-from app.__init__ import engine
+from app import engine
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from app import login

@@ -22,6 +22,7 @@ DESKTOP_MODE = True
 if DESKTOP_MODE:
     from webbrowser import open as webopen
     webopen(r'http://127.0.0.1:5000/')
+    DESKTOP_MODE = False
 
 # ---------LoginManagerSection-----------
 from flask_login import LoginManager

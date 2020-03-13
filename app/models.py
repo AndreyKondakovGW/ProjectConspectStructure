@@ -1,5 +1,5 @@
 from app import Session
-from app.__init__ import engine
+from app import engine
 from sqlalchemy import Column, Integer, String, Date, ForeignKey, PrimaryKeyConstraint, ForeignKeyConstraint, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from app import db, login

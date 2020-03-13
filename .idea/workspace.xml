@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataBaseControler.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataBaseControler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,6 +193,9 @@
       <workItem from="1583754097889" duration="5793000" />
       <workItem from="1583943262854" duration="8296000" />
       <workItem from="1584010649518" duration="682000" />
+      <workItem from="1584015285155" duration="1716000" />
+      <workItem from="1584113092840" duration="5385000" />
+      <workItem from="1584121466079" duration="1586000" />
     </task>
     <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
       <created>1580753469582</created>
@@ -307,10 +311,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="удалил лишний класс из models, который нигде не использовался" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580586143564">
+    <state x="464" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584122704110">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="451" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1580586143564" />
+    <state x="464" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1584122704110" />
     <state x="726" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580753891986">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -323,22 +327,38 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1584012874881" />
-    <state width="1807" height="344" key="GridCell.Tab.0.bottom" timestamp="1583970938711">
+    <state width="1807" height="344" key="GridCell.Tab.0.bottom" timestamp="1584123008930">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="344" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1583970938711" />
-    <state width="1807" height="344" key="GridCell.Tab.0.center" timestamp="1583970938711">
+    <state width="1807" height="344" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1584123008930" />
+    <state width="1807" height="344" key="GridCell.Tab.0.center" timestamp="1584123008928">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="344" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1583970938711" />
-    <state width="1807" height="344" key="GridCell.Tab.0.left" timestamp="1583970938710">
+    <state width="1807" height="344" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1584123008928" />
+    <state width="1807" height="344" key="GridCell.Tab.0.left" timestamp="1584123008927">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="344" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1583970938710" />
-    <state width="1807" height="344" key="GridCell.Tab.0.right" timestamp="1583970938711">
+    <state width="1807" height="344" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1584123008927" />
+    <state width="1807" height="344" key="GridCell.Tab.0.right" timestamp="1584123008929">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="344" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1583970938711" />
+    <state width="1807" height="344" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1584123008929" />
+    <state width="1807" height="344" key="GridCell.Tab.1.bottom" timestamp="1584120228394">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="344" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1584120228394" />
+    <state width="1807" height="344" key="GridCell.Tab.1.center" timestamp="1584120228394">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="344" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1584120228394" />
+    <state width="1807" height="344" key="GridCell.Tab.1.left" timestamp="1584120228393">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="344" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1584120228393" />
+    <state width="1807" height="344" key="GridCell.Tab.1.right" timestamp="1584120228394">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="344" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1584120228394" />
     <state width="263" height="500" key="HiddenNamespacesPopup" timestamp="1580765892187">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -347,16 +367,16 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="482" y="188" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1583950567363" />
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1584010653133">
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1584121467902">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1584010653133" />
+    <state x="649" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1584121467902" />
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1583968949312">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1583968949312" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1584010655709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1584123008903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

@@ -1,4 +1,3 @@
-from app import db
 from app.models import UserDB
 from app.models import session
 

@@ -3,8 +3,8 @@ from app.config import basedir
 from app.config import Config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
 from app.config import basedir
+from flask_sqlalchemy import SQLAlchemy
 import os
 
 # ----------db section ----------------------------
@@ -16,6 +16,8 @@ Session = sessionmaker(bind=engine)
 # ----------configure section ---------------------
 app = Flask(__name__)
 app.config.from_object(Config)
+
+db = SQLAlchemy(app) #объект, через который происходит работа с бд
 
 DESKTOP_MODE = True
 
@@ -29,6 +31,6 @@ from flask_login import LoginManager
 login = LoginManager(app)
 login.login_view = 'index'
 
-db = {}  # dict
+#db = {}  # dict
 
 from app import routes, models

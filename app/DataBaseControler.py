@@ -3,43 +3,6 @@ from app.models import session, UserDB
 from app.models import ConspectDB, PhotoDB, Tag, ConspectTagRelation, FragmentDB, FragmentToTagRelations, FragmentsRelation, AccessDB
 from app.UserDBAPI import get_user
 
-# --------------sessions control--------------
-# controlled_session = Session()
-#
-#
-# def commit_decorator(wrapped_fun, flag, f_session):
-#     def wrapper(self, *args, **kwargs):
-#         wrapped_fun(self, *args, **kwargs)
-#         f_session.commit()
-#
-#     if flag:
-#         return wrapper
-#     else:
-#         return wrapped_fun
-#
-#
-# def add_decorator(wrapped_fun, flag, f_session):
-#     def wrapper(self, *args, **kwargs):
-#         obj = wrapped_fun(self, *args, **kwargs)
-#         f_session.add(obj)
-#         return obj
-#
-#     if flag:
-#         return wrapper
-#     else:
-#         return wrapped_fun
-#
-#
-# class DBController:
-#     commit_flag = True
-#     add_flag = True
-#
-#     def __init__(self, db_session):
-#         self.db_session = db_session
-#
-#     def commit(self, fun_to_decorate):
-#         fun_to_decorate = commit_decorator(fun_to_decorate, self.commit_flag, self.db_session)
-
 
 # Основные функции требующие реализацие в базе текущий код просто заглушки
 # также требуется добавит больше функций для взоимодействия с базой

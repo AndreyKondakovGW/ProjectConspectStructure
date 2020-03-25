@@ -2,7 +2,7 @@ from app import Session
 from app import engine
 from sqlalchemy import Column, Integer, String, Date, ForeignKey, PrimaryKeyConstraint, ForeignKeyConstraint, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from app import db, login
+from app import login
 from flask_login import UserMixin
 import random
 

@@ -9,3 +9,4 @@ class Config():
     SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
     UPLOAD_FOLDER = '/home/andrew/Документы/Flask/Project1/app/static/upload'
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

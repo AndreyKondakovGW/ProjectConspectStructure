@@ -3,8 +3,7 @@
 from app import app
 from flask import render_template, flash, redirect, url_for, session, request
 from app.forms import LoginForm, RegistrationForm
-from app.UserDBAPI import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
-from app.models import UserDB
+from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
 from app.config import Config
 from app.DataBaseControler import check_conspect_in_base, add_conspect, \
      get_conspect

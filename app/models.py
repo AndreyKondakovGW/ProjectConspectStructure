@@ -2,6 +2,7 @@ from app import Session
 from app import engine
 from sqlalchemy import Column, Integer, String, Date, ForeignKey, PrimaryKeyConstraint, ForeignKeyConstraint, create_engine
 from sqlalchemy.ext.declarative import declarative_base
+from app import db
 from app import login
 from flask_login import UserMixin
 import random
@@ -16,6 +17,22 @@ id_dict = {}
 
 Base = declarative_base()  # описание таблицы пользователей вместе с классом пользователя
 session = Session()  # создание объекта-сессии
+
+
+class User(UserMixin, db.Model):
+    id = db.Column(Integer, primary_key=True, autoincrement=True)
+    name = db.Column(String, unique=True)
+    password = db.Column(String, nullable=False)
+
+    @staticmethod
+    @login.user_loader
+    def load_user(id):
+        print(id)
+        user = User.query.filter_by(id=id).first()
+        return user
+
+
+db.create_all()
 
 
 # Класс пользователья с использованием базы данных скюл лайт

@@ -1,7 +1,7 @@
 from app import Session
 from app.models import session, UserDB
 from app.models import ConspectDB, PhotoDB, Tag, ConspectTagRelation, FragmentDB, FragmentToTagRelations, FragmentsRelation, AccessDB
-from app.UserDBAPI import get_user
+from app.UserDBAPI1 import get_user
 
 
 # Основные функции требующие реализацие в базе текущий код просто заглушки

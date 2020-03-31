@@ -46,10 +46,10 @@
 				<br>
 				<br>
 				
-				<a class="btn btn-lg btn-primary btn-block cnopka" href="osnovnaya.html" >Основная</a>
+				<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('index') }}" >Основная</a>
 				<br>
 					<label for="upload" ><div class="btn btn-lg btn-primary btn-block cnopka"> Загрузить фото </div></label>
-					<input style="opacity: 0; z-index: -1; none" type="file" accept=image/* name="upload" id="upload">
+					<input style="opacity: 0; z-index: -1; " type="file" accept=image/* name="upload" id="upload">
 					<!-- часть для обрезки фото -->
 									<!-- ширина(w) и высота(h) картинки -->
 									<input type="hidden" name="w" value="" />

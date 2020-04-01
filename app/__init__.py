@@ -7,12 +7,6 @@ from app.config import basedir
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-# ----------db section ----------------------------
-
-engine = create_engine("postgresql+psycopg2://postgres:123@localhost:5432/postgres")
-
-Session = sessionmaker(bind=engine)
-
 # ----------configure section ---------------------
 app = Flask(__name__)
 app.config.from_object(Config)

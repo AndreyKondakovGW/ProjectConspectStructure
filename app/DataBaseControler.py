@@ -1,5 +1,4 @@
-from app import Session
-from app.models import session, UserDB
+from app import db
 from app.models import ConspectDB, PhotoDB, Tag, ConspectTagRelation, FragmentDB, FragmentToTagRelations, FragmentsRelation, AccessDB
 from app.UserDBAPI1 import get_user
 
@@ -13,20 +12,20 @@ def check_conspect_in_base(name):
 def add_conspect(name, date, user_id):
     # TODO: настроить корректную работу с датой между питоном и sql
     conspect = ConspectDB(name=name, date=date)
-    session.add(conspect)
-    session.add(AccessDB(user_id=user_id, conspect_id=conspect.id))
+    db.session.add(conspect)
+    db.session.add(AccessDB(user_id=user_id, conspect_id=conspect.id))
 
 
 def add_photo_to_conspect(name, predname, nextname, conspectid):
     photo = PhotoDB(name=name, predname=predname, nextname=nextname, conspect_id=conspectid)
-    session.add(photo)
+    db.session.add(photo)
     # TODO: загрузка фото на сервер
     print('пользователь загрузил фото', name, 'в базу')
     return photo
 
 
 def all_user_concpects(user_id):
-    return session.query(AccessDB.conspect_id).filter_by(user_id=user_id).all()
+    return map(lambda x: x.conspect_id, AccessDB.query.filter_by(user_id=user_id).all())
 
 
 def check_user_access(user_id, conspect_id):
@@ -37,7 +36,7 @@ def check_user_access(user_id, conspect_id):
 def conspect_id_by_name(conspect_ids, name):
     res = None
     for id in conspect_ids:
-        cname = session.query(ConspectDB.name).filter_by(id=id).first()[0]
+        cname = ConspectDB.query.filter_by(id=id).first().name
         if (cname==name):
             res = cname
             break
@@ -49,7 +48,7 @@ def get_conspect(name, conspect_name, username):
     conspect_ids = all_user_concpects(user_id)
     conspect_id = conspect_id_by_name(conspect_ids, conspect_name)
     if conspect_id:
-        fnames = [name for name in session.query(PhotoDB.filename).filter_by(id_conspect=conspect_id).all()]
+        fnames = [photo.filename for photo in PhotoDB.query.filter_by(id_conspect=conspect_id).all()]
     else:
         fnames = []
     return fnames

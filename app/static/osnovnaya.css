@@ -84,7 +84,13 @@ body {
   margin-top: 0;
 }
 
-
+.pdf{
+    text-align: center
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-right: 30px;
+    margin-left: 30px;
+}
 /*
  * Placeholder dashboard ideas
  */

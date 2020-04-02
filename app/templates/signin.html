@@ -50,33 +50,10 @@
     </div>
       <!-- /container -->
 
-	<div class="container" id="regist">
-
-      <form class="form-signin" method="post">
-        <h2 class="form-signin-heading">Регистрация на <br>Conspect structure </h2>
-        {{ Rform.hidden_tag() }}
-        <p>{{Rform.username.label(class="sr-only", for="inputLog")}}<br>
-          {{ Rform.username(class="form-control", id="inputLog", placeholder="Придумайте логин") }}
-          {% for error in Rform.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-          {% endfor %}</p>
-        <p>{{Rform.password.label(class="sr-only", for="inputLog")}}
-          {{ Rform.password(class="form-control", id="inputPassword", placeholder="Придумайте пароль") }}
-          {% for error in Rform.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-          {% endfor %}</p>
-        <p>{{ Rform.remember_me(class="checkbox",value="remember-me") }} {{ Rform.remember_me.label }}</p>
-        {{ Rform.submit2(class="btn btn-lg btn-primary btn-block cnopka") }}
-      </form>
-    </div>
-	
-	
 	</div>
 	<div class="form-signin">
-	<button class="btn btn-lg btn-primary btn-block cnopka" id="reg">Перейти к регистрации</button>
-	<button class="btn btn-lg btn-primary btn-block cnopka" id="vh" style="display: none;">Перейти ко входу</button>
+	<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('registration')}}" id="reg">Перейти к регистрации</a>
 	</div>
     <!-- скрипт для регистрации -->
-    <script src={{url_for('static', filename = "signin2.js")}}></script>
   </body>
 </html>

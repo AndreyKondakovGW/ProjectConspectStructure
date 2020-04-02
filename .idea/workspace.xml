@@ -3,12 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DataBaseControler.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/DataBaseControler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/UserDBAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/UserDBAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pdf_creater.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/pdf_creater.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/Photo/Topic1_14.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/Topic1_14.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -53,18 +50,21 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="CommandLine" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static/Topics/Topic3" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/static/Topics/Topic2" />
+      <recent name="$PROJECT_DIR$/app/static/Topics/Topic1" />
       <recent name="$PROJECT_DIR$/app/static/Photo" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/static" />
-      <recent name="$PROJECT_DIR$/app/static/upload" />
-      <recent name="$PROJECT_DIR$/app/templates" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/static/Topics/Topic3" />
+      <recent name="$PROJECT_DIR$/app/static/Photo" />
+      <recent name="$PROJECT_DIR$/app/static/Topics/Topic1" />
       <recent name="$PROJECT_DIR$/app/templates" />
       <recent name="$PROJECT_DIR$/app/templates/MishTamalates" />
     </key>
@@ -99,6 +99,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="FLASK_APP" value="start.py" />
+        <env name="FLASK_DEBUG" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -159,14 +160,38 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Project1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/start.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.flask" />
       <item itemvalue="Python.__init__" />
       <item itemvalue="Python.models" />
       <item itemvalue="Python.routes" />
+      <item itemvalue="Python.start" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.start" />
         <item itemvalue="Python.__init__" />
         <item itemvalue="Python.models" />
         <item itemvalue="Python.routes" />
@@ -188,6 +213,7 @@
       <workItem from="1580660043367" duration="22479000" />
       <workItem from="1580898741243" duration="6233000" />
       <workItem from="1580917568094" duration="4856000" />
+<<<<<<< HEAD
       <workItem from="1581519979156" duration="4997000" />
       <workItem from="1583091327489" duration="1167000" />
       <workItem from="1583162646075" duration="1886000" />
@@ -201,6 +227,11 @@
       <workItem from="1584121466079" duration="2626000" />
       <workItem from="1584805798562" duration="3926000" />
       <workItem from="1585147721285" duration="2018000" />
+=======
+      <workItem from="1581519979156" duration="4200000" />
+      <workItem from="1584015210575" duration="18000" />
+      <workItem from="1585821315208" duration="2109000" />
+>>>>>>> master
     </task>
     <task id="LOCAL-00001" summary="убрал лишнее описание basedir в файле DataBase.py">
       <created>1580753469582</created>
@@ -336,6 +367,7 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="667" y="159" width="642" height="787" key="#flask/67.27.1853.1053@67.27.1853.1053" timestamp="1580586449968" />
+<<<<<<< HEAD
     <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1584123158044">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -372,6 +404,28 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state width="1807" height="344" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1584120228394" />
+=======
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2" timestamp="1585823650187">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="558" y="146" width="860" height="812" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1585823650187" />
+    <state width="1807" height="344" key="GridCell.Tab.0.bottom" timestamp="1585823499233">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="344" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1585823499233" />
+    <state width="1807" height="344" key="GridCell.Tab.0.center" timestamp="1585823499233">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="344" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1585823499233" />
+    <state width="1807" height="344" key="GridCell.Tab.0.left" timestamp="1585823499233">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="344" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1585823499233" />
+    <state width="1807" height="344" key="GridCell.Tab.0.right" timestamp="1585823499233">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1807" height="344" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1585823499233" />
+>>>>>>> master
     <state width="263" height="500" key="HiddenNamespacesPopup" timestamp="1580765892187">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -390,6 +444,10 @@
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1583968949312" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+<<<<<<< HEAD
     <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1585149944073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+=======
+    <SUITE FILE_PATH="coverage/ProjectConspectStructure$flask.coverage" NAME="flask Coverage Results" MODIFIED="1585823499223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+>>>>>>> master
   </component>
 </prject>

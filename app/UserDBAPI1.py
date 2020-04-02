@@ -2,6 +2,7 @@ from app.models import User
 from app import db
 
 
+
 def add_to_db_user(user):
     db.session.add(user)
     db.session.commit()
@@ -15,6 +16,7 @@ def add_to_db(name, password):
 def get_user(name):
     # print(session.query(UserDB).filter_by(name=name).first())
     return User.query.filter_by(name=name).first()
+
 
 
 def get_password(name):

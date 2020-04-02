@@ -7,6 +7,6 @@ class Config():
     #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123@localhost:5432/postgres"
     SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
-    UPLOAD_FOLDER = '/home/andrew/Документы/Flask/Project1/app/static/upload'
+    UPLOAD_FOLDER = basedir+'/static/Photo'
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
     SQLALCHEMY_TRACK_MODIFICATIONS = False

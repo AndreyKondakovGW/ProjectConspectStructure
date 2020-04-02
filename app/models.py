@@ -6,12 +6,6 @@ import random
 
 # ----------db section ----------------------------
 
-ROLE_USER = 0
-ROLE_ADMIN = 1
-ID_VALUE = 1010
-id_dict = {}
-
-
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
@@ -28,6 +22,12 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return "<User('%s', '%s')>" % (self.name, self.password)
+
+    def get_all_conspects(self):
+        # сложный запрос с join
+        conspect_arr = ConspectDB.query.join(AccessDB, ConspectDB.id == AccessDB.conspect_id)\
+                        .filter(AccessDB.id == self.id).all()
+        return conspect_arr
 
 
 class ConspectDB(db.Model):
@@ -54,6 +54,10 @@ class AccessDB(db.Model):
     __table_args__ = (PrimaryKeyConstraint('user_id', 'conspect_id'),
                       ForeignKeyConstraint(['conspect_id'], ['conspects.id']),
                       ForeignKeyConstraint(['user_id'], ['users.id']))
+
+    @staticmethod
+    def check_access(user: User, conspect: ConspectDB):
+        return len(AccessDB.query.filter_by(conspect_id=conspect.id).filter_by(user_id=user.id).all()) != 0
 
 
 class Tag(db.Model):
@@ -91,6 +95,12 @@ class PhotoDB(db.Model):
     def set_pred(self, id_pred):
         self.id_pred = id_pred
         # незакомиченные изменения
+
+    def next(self):
+        return PhotoDB.query.filter_by(id=self.id_next).first()
+
+    def pred(self):
+        return PhotoDB.query.filter_by(id=self.id_pred).first()
 
 
 class FragmentDB(db.Model):

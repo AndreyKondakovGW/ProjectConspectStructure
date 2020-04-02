@@ -1,8 +1,8 @@
 from app import Session
-from app.__init__ import engine
+from app import engine
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from app import db, login
+from app import login
 from flask_login import UserMixin
 import random
 
@@ -12,26 +12,6 @@ ROLE_USER = 0
 ROLE_ADMIN = 1
 ID_VALUE = 1010
 id_dict = {}
-
-
-def gererate_id():
-    return ID_VALUE + random.randint(1, 100)
-
-
-# Демо версия класс пользователья которую потом надо будет реализовать
-# через базу данных
-class User(UserMixin):
-    def __init__(self, nickname, password):
-        self.id = str(gererate_id())
-        self.nickname = nickname
-        self.password = int(password)
-        id_dict[self.id] = self.nickname
-
-    def __repr__(self):
-        return '<User %r>' % (self.nickname)
-
-
-db['admin'] = User('admin', 123)
 
 
 Base = declarative_base()  # описание таблицы пользователей вместе с классом пользователя

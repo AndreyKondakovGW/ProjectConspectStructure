@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6dbe1744-59a1-4327-b390-8844694fecdb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/static/coordinat2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Project1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/coordinat.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/imgareaselect-default.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/jquery-1.5.1.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/jquery-1.5.1.min2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/jquery.imgareaselect.pack.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/jquery.imgareaselect.pack2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/redactorMisha.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/Photo/Topic1_14.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/Photo/Topic1_14.pdf" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -56,18 +51,21 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="CommandLine" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static/Topics/Topic3" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/static/Topics/Topic2" />
+      <recent name="$PROJECT_DIR$/app/static/Topics/Topic1" />
       <recent name="$PROJECT_DIR$/app/static/Photo" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/static" />
-      <recent name="$PROJECT_DIR$/app/static/upload" />
-      <recent name="$PROJECT_DIR$/app/templates" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/static/Topics/Topic3" />
+      <recent name="$PROJECT_DIR$/app/static/Photo" />
+      <recent name="$PROJECT_DIR$/app/static/Topics/Topic1" />
       <recent name="$PROJECT_DIR$/app/templates" />
       <recent name="$PROJECT_DIR$/app/templates/MishTamalates" />
     </key>
@@ -114,6 +112,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="FLASK_APP" value="start.py" />
+        <env name="FLASK_DEBUG" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -174,14 +173,37 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Project1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/start.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.flask" />
       <item itemvalue="Python.__init__" />
       <item itemvalue="Python.models" />
       <item itemvalue="Python.routes" />
+      <item itemvalue="Python.start" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.start" />
         <item itemvalue="Python.__init__" />
         <item itemvalue="Python.models" />
         <item itemvalue="Python.routes" />

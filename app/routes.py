@@ -2,7 +2,7 @@
 #  запросы пользователя
 from app import app
 from flask import render_template, flash, redirect, url_for, session, request
-from app.forms import LoginForm, RegistrationForm,RedactorForm
+from app.forms import LoginForm, RegistrationForm, RedactorForm
 from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
 from app.config import Config, basedir
 from app.DataBaseControler import check_conspect_in_base, add_conspect, get_conspect
@@ -58,7 +58,8 @@ def main(username=current_user, filename='American_Beaver.jpg'):
         if request.method == 'POST':
             req = (request.form.get('img_name'))
             if req:
-                if check_conspect_in_base(req):
+                print("req: " + req)
+                if check_conspect_in_base(current_user, req):
                     get_conspect(req)
                     return render_template('osnovnaya.html', filename='Photo/'+req)
 
@@ -132,7 +133,7 @@ def TryLoginUser(name, password,remember_me):
         print('пользователь существует')
         if check_password(name, password):
             user = get_user(name)
-            login_user(user,remember=remember_me)
+            login_user(user, remember=remember_me)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('index')

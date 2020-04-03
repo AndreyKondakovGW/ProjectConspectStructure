@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired,Length,ValidationError
-from app.UserDBAPI import user_exist,check_password
+from wtforms.validators import DataRequired, Length, ValidationError
+from app.UserDBAPI1 import user_exist, check_password
 
 
 class LoginForm(FlaskForm):

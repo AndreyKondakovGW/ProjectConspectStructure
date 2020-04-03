@@ -3,8 +3,13 @@ from app.models import User, ConspectDB, PhotoDB, Tag, ConspectTagRelation, Frag
 from app.UserDBAPI1 import get_user
 
 
-def check_conspect_in_base(name):
-    ...
+def check_conspect_in_base(user: User, name: str):
+    conspects = user.get_all_conspects()
+    res = False
+    for conspect in conspects:
+        if conspect.name == name:
+            res = True
+    return res
 
 
 def add_conspect(name, date, user_id):

@@ -1,8 +1,6 @@
 from flask import Flask
 from app.config import basedir
 from app.config import Config
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from app.config import basedir
 from flask_sqlalchemy import SQLAlchemy
 import os

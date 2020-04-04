@@ -1,4 +1,5 @@
 body {
+	font-family: century gothic;
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #7d5c735e;
@@ -40,7 +41,7 @@ body {
 }
 .cnopka{
 	background-image: none;
-	background-color:#fddc64;
+	background-color:#02dac5;
 	color: black;
 	
 }

@@ -15,11 +15,14 @@ def create_simple_pdf(name,text):
 
 
 def create_pdf_from_images(name, image_list):
+    print("creating pdf")
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     pdf.add_page()
     for img in image_list:
+        print(img)
         if os.path.exists(img):
-            pdf.image(img,w=200)
+            print("exists")
+            pdf.image(img, w=200)
             pdf.set_font("Arial", size=12)
             pdf.ln(10)
             pdf.cell(200, 10, txt="{}".format(img[img.rindex('/')+1:]), ln=1)

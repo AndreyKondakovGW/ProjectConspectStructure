@@ -5,7 +5,8 @@ from flask import render_template, flash, redirect, url_for, session, request
 from app.forms import LoginForm, RegistrationForm, RedactorForm
 from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
 from app.config import Config, basedir
-from app.DataBaseControler import check_conspect_in_base, add_conspect, get_conspect
+from app.DataBaseControler import check_conspect_in_base, add_conspect, conspect_by_name, get_conspect_photoes,\
+        add_photo, add_photo_to_conspect
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
@@ -60,9 +61,12 @@ def main(username=current_user, filename='American_Beaver.jpg'):
             if req:
                 print("req: " + req)
                 if check_conspect_in_base(current_user, req):
-                    get_conspect(req)
-                    return render_template('osnovnaya.html', filename='Photo/'+req)
-
+                    conspect = conspect_by_name(current_user, req)
+                    photoes = [basedir+"/static/Photo/"+photoname for photoname in get_conspect_photoes(conspect=conspect)]
+                    pdf_name = req+'_14'
+                    if photoes:
+                        create_pdf_from_images(pdf_name, photoes)
+                        return render_template('osnovnaya.html', filename='Photo/'+pdf_name+'.pdf')
         return render_template('osnovnaya.html', filename='Photo/'+filename)
     else:
         flash('please log in')
@@ -97,17 +101,17 @@ def openTopic(index):
 def redactor(filename='American_Beaver.jpg'):
     Rform = RedactorForm()
     if request.method == 'POST':
-        # filename = uploads()
-        if Rform.submit.data:
-            tags = Rform.teg1.data
-            for t in [Rform.teg2.data, Rform.teg3.data]:
-                if t:
-                    tags = tags+'/'+t
-            tags = basedir+'/static/Topics/'+tags
-            if not(os.path.exists(tags)):
-                os.mkdir(tags)
-            cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),\
-                int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
+        filename = uploads("conspect1")
+        # if Rform.submit.data:
+        #     tags = Rform.teg1.data
+        #     for t in [Rform.teg2.data, Rform.teg3.data]:
+        #         if t:
+        #             tags = tags+'/'+t
+        #     tags = basedir+'/static/Topics/'+tags
+        #     if not(os.path.exists(tags)):
+        #         os.mkdir(tags)
+        #     cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),\
+        #         int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
     return render_template('redactorMisha.html', filename='Photo/'+filename, RF=Rform)
 
 
@@ -116,15 +120,24 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in Config.ALLOWED_EXTENSIONS
 
 
-def uploads():
+def uploads(conspect_name: str):
     print(request)
     file = request.files['file']
     print(file, allowed_file(file.filename))
     if file and allowed_file(file.filename):
+            path = app.config['UPLOAD_FOLDER']+'/'+current_user.name
+            if not(os.path.exists(path)):
+                os.mkdir(path)
             filename1 = file.filename
             print(filename1)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename1))
-            return filename1
+            file.save(os.path.join(path+'/', filename1))
+            photo = add_photo(current_user.name+'/'+filename1)
+            if (check_conspect_in_base(current_user,conspect_name)):
+                conspect = conspect_by_name(current_user, conspect_name)
+            else:
+                conspect = add_conspect(conspect_name, current_user)
+            add_photo_to_conspect(photo=photo, conspect=conspect)
+            return current_user.name+'/'+filename1
     return 'American_Beaver.jpg'
 
 

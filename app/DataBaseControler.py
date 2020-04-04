@@ -12,12 +12,13 @@ def check_conspect_in_base(user: User, name: str):
     return res
 
 
-def add_conspect(name, date, user_id):
-    # TODO: настроить корректную работу с датой между питоном и sql
-    conspect = ConspectDB(name=name, date=date)
+def add_conspect(name,  user: User):
+    conspect = ConspectDB(name=name)
     db.session.add(conspect)
-    db.session.add(AccessDB(user_id=user_id, conspect_id=conspect.id))
     db.session.commit()
+    db.session.add(AccessDB(user_id=user.id, conspect_id=conspect.id))
+    db.session.commit()
+    return conspect
 
 
 def add_photo(filename: str):
@@ -61,20 +62,20 @@ def add_all_photoes(names: [], conspect: ConspectDB):
 
 
 # находит в списке айдишников тот, у которого имя конспекта = name
-def conspect_id_by_name(conspect_ids: [], name: str):
+def conspect_by_name(user: User, name: str):
     res = None
-    for id in conspect_ids:
-        cname = ConspectDB.query.filter_by(id=id).first().name
-        if cname == name:
-            res = cname
+    conspects = user.get_all_conspects()
+    for conspect in conspects:
+        if conspect.name == name:
+            res = conspect
             break
     return res
 
 
 # выдаёт все фото конспекта
-def get_conspect(*_, conspect: ConspectDB):
+def get_conspect_photoes(*_, conspect: ConspectDB):
     if conspect.id is not None:
-        return [photo for photo in PhotoDB.query.filter_by(id_conspect=conspect.id)]
+        return [photo.filename for photo in PhotoDB.query.filter_by(id_conspect=conspect.id)]
     else:
         return []
 

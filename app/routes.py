@@ -6,7 +6,7 @@ from app.forms import LoginForm, RegistrationForm, RedactorForm
 from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
 from app.config import Config, basedir
 from app.DataBaseControler import check_conspect_in_base, add_conspect, conspect_by_name, get_conspect_photoes,\
-        add_photo, add_photo_to_conspect
+        add_photo, add_photo_to_conspect, create_pdf_conspect
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
@@ -62,12 +62,9 @@ def main(username=current_user, filename='American_Beaver.jpg'):
             if req:
                 print("req: " + req)
                 if check_conspect_in_base(current_user, req):
-                    conspect = conspect_by_name(current_user, req)
-                    photoes = [basedir+"/static/Photo/"+photoname for photoname in get_conspect_photoes(conspect=conspect)]
-                    pdf_name = req+'_'+current_user.name
-                    if photoes:
-                        create_pdf_from_images(pdf_name, photoes)
-                        return render_template('osnovnaya.html', filename='Photo/'+pdf_name+'.pdf')
+                    pdf_name = create_pdf_conspect(current_user, req)
+                    if pdf_name:
+                        return render_template('osnovnaya.html', filename='Photo/'+pdf_name)
         return render_template('osnovnaya.html', filename='Photo/'+filename)
     else:
         flash('please log in')

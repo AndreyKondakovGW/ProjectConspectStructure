@@ -4,6 +4,9 @@ from app import login
 from flask_login import UserMixin
 import random
 
+# ----------костыль для редактора----------------
+filename = "American_Beaver.jpg"
+
 # ----------db section ----------------------------
 
 

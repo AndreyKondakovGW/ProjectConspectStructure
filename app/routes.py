@@ -10,6 +10,7 @@ from app.DataBaseControler import check_conspect_in_base, add_conspect, conspect
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
+from app.models import filename
 import os
 
 
@@ -63,7 +64,7 @@ def main(username=current_user, filename='American_Beaver.jpg'):
                 if check_conspect_in_base(current_user, req):
                     conspect = conspect_by_name(current_user, req)
                     photoes = [basedir+"/static/Photo/"+photoname for photoname in get_conspect_photoes(conspect=conspect)]
-                    pdf_name = req+'_14'
+                    pdf_name = req+'_'+current_user.name
                     if photoes:
                         create_pdf_from_images(pdf_name, photoes)
                         return render_template('osnovnaya.html', filename='Photo/'+pdf_name+'.pdf')
@@ -98,20 +99,23 @@ def openTopic(index):
 
 @app.route('/redactor', methods=['GET', 'POST'])
 @login_required
-def redactor(filename='American_Beaver.jpg'):
+def redactor():
+    global filename
     Rform = RedactorForm()
     if request.method == 'POST':
-        filename = uploads("conspect1")
-        # if Rform.submit.data:
-        #     tags = Rform.teg1.data
-        #     for t in [Rform.teg2.data, Rform.teg3.data]:
-        #         if t:
-        #             tags = tags+'/'+t
-        #     tags = basedir+'/static/Topics/'+tags
-        #     if not(os.path.exists(tags)):
-        #         os.mkdir(tags)
-        #     cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),\
-        #         int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
+        if request.files.get('file'):
+            filename = uploads("conspect1", filename)
+        print(filename)
+        if Rform.submit.data:
+            tags = Rform.teg1.data
+            for t in [Rform.teg2.data, Rform.teg3.data]:
+                if t:
+                    tags = tags+'-'+t
+            tags = basedir+'/static/Topics/'+tags
+            if not(os.path.exists(tags)):
+                os.mkdir(tags)
+            cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),\
+                int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
     return render_template('redactorMisha.html', filename='Photo/'+filename, RF=Rform)
 
 
@@ -120,16 +124,16 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in Config.ALLOWED_EXTENSIONS
 
 
-def uploads(conspect_name: str):
+def uploads(conspect_name: str, filename: str):
     print(request)
-    file = request.files['file']
-    print(file, allowed_file(file.filename))
+    file = request.files.get('file')
+    # print(file, allowed_file(file.filename))
     if file and allowed_file(file.filename):
             path = app.config['UPLOAD_FOLDER']+'/'+current_user.name
             if not(os.path.exists(path)):
                 os.mkdir(path)
             filename1 = file.filename
-            print(filename1)
+            # print(filename1)
             file.save(os.path.join(path+'/', filename1))
             photo = add_photo(current_user.name+'/'+filename1)
             if (check_conspect_in_base(current_user,conspect_name)):
@@ -138,7 +142,7 @@ def uploads(conspect_name: str):
                 conspect = add_conspect(conspect_name, current_user)
             add_photo_to_conspect(photo=photo, conspect=conspect)
             return current_user.name+'/'+filename1
-    return 'American_Beaver.jpg'
+    return filename
 
 
 def TryLoginUser(name, password,remember_me):

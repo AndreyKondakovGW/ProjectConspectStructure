@@ -10,3 +10,4 @@ class Config():
     UPLOAD_FOLDER = basedir+'/static/Photo'
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SEND_FILE_MAX_AGE_DEFAULT = 0

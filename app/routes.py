@@ -58,7 +58,6 @@ def main(username=current_user, filename='American_Beaver.jpg'):
     print(filename)
     if username != '':
         conspects =current_user.get_all_conspects()
-        print(conspects)
         if request.method == 'POST':
             req = (request.form.get('img_name'))
             if req:
@@ -67,7 +66,7 @@ def main(username=current_user, filename='American_Beaver.jpg'):
                     pdf_name = create_pdf_conspect(current_user, req)
                     if pdf_name:
                         return render_template('osnovnaya.html', filename='Photo/'+pdf_name,conspects=conspects)
-        return render_template('osnovnaya.html', filename='Photo/'+filename,conspects=conspects)
+        return render_template('osnovnaya.html', filename='Photo/'+filename,conspects=conspects, currentuser=current_user.name)
     else:
         flash('please log in')
         logout()
@@ -103,8 +102,8 @@ def redactor():
     Rform = RedactorForm()
     if request.method == 'POST':
         if request.files.get('file'):
-            filename = uploads("conspect1", filename)
-        print(filename)
+            conspect= request.form.get('conspect')
+            filename = uploads(conspect, filename)
         if Rform.submit.data:
             tags = Rform.teg1.data
 
@@ -114,8 +113,9 @@ def redactor():
             tags = basedir+'/static/Topics/'+tags
             if not(os.path.exists(tags)):
                 os.mkdir(tags)
-            cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),\
-                int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
+            if (Rform.y1.data) and (Rform.x1.data) and (Rform.w.data) and int(Rform.h.data):
+                cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),
+                    int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
     return render_template('redactorMisha.html', filename='Photo/'+filename, RF=Rform)
 
 
@@ -125,15 +125,12 @@ def allowed_file(filename):
 
 
 def uploads(conspect_name: str, filename: str):
-    print(request)
     file = request.files.get('file')
-    # print(file, allowed_file(file.filename))
     if file and allowed_file(file.filename):
             path = app.config['UPLOAD_FOLDER']+'/'+current_user.name
             if not(os.path.exists(path)):
                 os.mkdir(path)
             filename1 = file.filename
-            # print(filename1)
             file.save(os.path.join(path+'/', filename1))
             photo = add_photo(current_user.name+'/'+filename1)
             if (check_conspect_in_base(current_user,conspect_name)):

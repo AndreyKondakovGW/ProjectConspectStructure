@@ -75,25 +75,19 @@ def main(username=current_user, filename='American_Beaver.jpg'):
 
 @app.route('/openTopic/<index>', methods=['POST'])
 def openTopic(index):
-    topicaname = index
+    conspectname = index
     # cut('0Vf2QKFahu4.jpg',0,0,200,100)
-    print('creating pdf from '+topicaname)
-    dir = basedir+'/static/Topics/'+topicaname
-    if os.path.exists(dir):
-        files = [dir+'/'+file for file in os.listdir(dir)]
+    print('creating pdf from '+conspectname)
+    if check_conspect_in_base(current_user, conspectname):
+        pdf_name = create_pdf_conspect(user=current_user, conspect_name=conspectname)
+        if pdf_name:
+            print(pdf_name)
+            return main(filename=pdf_name)
+        else:
+            print('empty')
+            return main()
     else:
         return main()
-    #for i in range(len(files)):
-    #    files[i] = dir+'/' + files[i]
-    pdf_name = topicaname+'_14'
-    if files:
-        create_pdf_from_images(pdf_name, files)
-        print(pdf_name)
-        return main(filename=pdf_name+'.pdf')
-    else:
-        print('empty')
-        return main()
-
 
 
 @app.route('/redactor', methods=['GET', 'POST'])
@@ -103,7 +97,7 @@ def redactor():
     Rform = RedactorForm()
     if request.method == 'POST':
         if request.files.get('file'):
-            filename = uploads("conspect1", filename)
+            filename = uploads('conspect1', filename)
         print(filename)
         if Rform.submit.data:
             tags = Rform.teg1.data

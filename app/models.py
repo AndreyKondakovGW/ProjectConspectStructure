@@ -88,7 +88,7 @@ class ConspectTagRelation(db.Model):
 class PhotoDB(db.Model):
     __tablename__ = 'photoes'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    filename = db.Column(db.String, unique=True, nullable=False)
+    filename = db.Column(db.String, nullable=False)
     id_pred = db.Column(db.Integer)
     id_next = db.Column(db.Integer)
     id_conspect = db.Column(db.Integer, db.ForeignKey('conspects.id'))

@@ -57,6 +57,8 @@ def logout():
 def main(username=current_user, filename='American_Beaver.jpg'):
     print(filename)
     if username != '':
+        conspects =current_user.get_all_conspects()
+        print(conspects)
         if request.method == 'POST':
             req = (request.form.get('img_name'))
             if req:
@@ -64,8 +66,8 @@ def main(username=current_user, filename='American_Beaver.jpg'):
                 if check_conspect_in_base(current_user, req):
                     pdf_name = create_pdf_conspect(current_user, req)
                     if pdf_name:
-                        return render_template('osnovnaya.html', filename='Photo/'+pdf_name)
-        return render_template('osnovnaya.html', filename='Photo/'+filename)
+                        return render_template('osnovnaya.html', filename='Photo/'+pdf_name,conspects=conspects)
+        return render_template('osnovnaya.html', filename='Photo/'+filename,conspects=conspects)
     else:
         flash('please log in')
         logout()
@@ -73,7 +75,7 @@ def main(username=current_user, filename='American_Beaver.jpg'):
 
 @app.route('/openTopic/<index>', methods=['POST'])
 def openTopic(index):
-    topicaname = 'Topic'+index
+    topicaname = index
     # cut('0Vf2QKFahu4.jpg',0,0,200,100)
     print('creating pdf from '+topicaname)
     dir = basedir+'/static/Topics/'+topicaname
@@ -105,6 +107,7 @@ def redactor():
         print(filename)
         if Rform.submit.data:
             tags = Rform.teg1.data
+
             for t in [Rform.teg2.data, Rform.teg3.data]:
                 if t:
                     tags = tags+'-'+t

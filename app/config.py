@@ -8,6 +8,6 @@ class Config():
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:123@localhost:5432/postgres"
     SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
     UPLOAD_FOLDER = basedir+'/static/Photo'
-    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SEND_FILE_MAX_AGE_DEFAULT = 0

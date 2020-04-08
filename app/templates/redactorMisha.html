@@ -61,7 +61,9 @@
 
 				<form action="" method=post enctype=multipart/form-data>
 					<input type=file class="btn btn-lg btn-primary btn-block cnopka" name=file value="Выберете фото">
+					<input type=text class="form-control" name=conspect value="Выберете имя конспекта" required autofocus>
 					<input type=submit class="btn btn-lg btn-primary btn-block cnopka"  value="Загрузить фото">
+
 				</form>
 
 			<form class="form-signin" method="post">
@@ -79,7 +81,7 @@
 				{{RF.teg1.label(for="teg", class="sr-only", value="добавить тег")}}
 				{{RF.teg1(type="text", id="teg1", class="form-control", placeholder="Добавить тег...")}}
 				{{RF.teg2.label(for="teg", class="sr-only", value="добавить тег")}}
-				{{RF.teg2(type="text", id="teg3", class="form-control", placeholder="Добавить тег...")}}
+				{{RF.teg2(type="text", id="teg2", class="form-control", placeholder="Добавить тег...")}}
 				{{RF.teg3.label(for="teg", class="sr-only", value="добавить тег")}}
 				{{RF.teg3(type="text", id="teg3", class="form-control", placeholder="Добавить тег...")}}
 				<br>

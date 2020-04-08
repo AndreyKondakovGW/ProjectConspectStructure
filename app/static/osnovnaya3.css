@@ -2,30 +2,73 @@
  * Base structure
  */
 
-/* Move down content because we have a fixed navbar that is 50px tall */
-/body {
-  padding-top: 50px;
-  
+/* Move down content because we have a fixed navbar that is 50px tall
+html {
+height: 100%;
+}
+*/
+
+body {
+  font-family: century gothic;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  /*background-color: #7d5c735e;*/
+    margin: 0; /* Убираем отступы */
+    height: 100%; /* Высота страницы */
+    background: url(../static/Photo/bground2.jpg);/* Параметры фона */
+    background-size: cover; /* Фон занимает всю доступную площадь */
+
+}
+* {
+font-family: century gothic;
 }
 
-
+body{
+background-color: #e5e5e5;
+}
 /*
  * Global add-ons
  */
 
-.sub-header {
+/*.sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
-}
-
+  background-color:#018786;
+}*/
 /*
  * Top navigation
  * Hide default border to remove 1px line.
  */
-.navbar-fixed-top {
-	font-family: century gothic;
-  border: 0;
+/*.navbar-fixed-top {
+    border: 0;
+}*/
+
+.stnavbar {
+	/*background-color:#018786;
+	background-color:#02dac5;
+	background-color: rgb(220, 222, 234);
+	background-color: rgb(211, 213, 225);
+	background-color:#018786;*/
+	background-color: rgb(220, 222, 234);
+	color: black;
+	font-size:2.5vmax;
 }
+
+.navbar {
+margin: 0;
+padding: 0;
+border: 0;
+font-size:1.8em;
+color: black;
+min-size: 100px;
+}
+
+.navbar-brand {
+font-size:1.1em;
+color: black;
+}
+
 
 /*
  * Sidebar
@@ -35,6 +78,7 @@
 
 @media (min-width: 768px) {
   .sidebar {
+    font-size: 20px;
     position: fixed;
     top: 51px;
     bottom: 0;
@@ -45,7 +89,8 @@
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #e5e5e5;
-    border-right: 1px solid #eee;
+    /*border-right: 1px solid #eee;*/
+    max-width: 300px
   }
 }
 
@@ -72,14 +117,11 @@
  */
 
 .main {
-	font-family: century gothic;
-  padding: 20px;
-  margin-top: 4%;
-  background-color: #e5e5e5;
+  margin-top:1.8%;
+  padding: 7%;
+  /*background-color: #e5e5e5;*/
+  font-size:2.5vmax;
 }
-
-
-
 
 /*
  * Placeholder dashboard ideas
@@ -88,46 +130,75 @@
 .placeholders {
   margin-bottom: 30px;
   text-align: center;
+
 }
 .placeholders h4 {
   margin-bottom: 0;
+
 }
 .placeholder {
   margin-bottom: 20px;
+
 }
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+
 }
 
+.sr-only{
+float: center;
+margin: 5% auto;
+font-size:0.67em;
+}
+
+.form-control{
+margin:1% auto;
+	padding:3%;
+font-size:0.67em;
+}
 .cnopka{
-	font-family: century gothic;
 	background-image: none;
 	background-color:#02dac5;
+	/*font-size:1vmax;*/
+	font-size:0.67em;
 	color: black;
-	
+	margin:2% auto;
+	padding:2%;
 }
 
 .cnopka:hover{
 	background-color:#018786;
 	color: black;
 }
-.stnavbar{
-	background-color:#018786; color: black;
-}
-.foto{
-	width: 90%; height:50%;
-}
-.photo{
-	width: 80%; height:30%; margin-top: 4%; margin-left:10%
-}
 
 .foto{
-	margin-top: 5%; 
+    display: block;
+	max-width: 100%;
+    height: auto;
+	margin-top: 5%;
 }
+.logo{
+ max-width: 100%;
+  height: auto;
+  display: block;
+  margin-top:4%;
+  margin-bottom:14%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.photo{
+	width: 80%;
+	height:30%;
+
+	/*margin-top: 4%;*/
+	/*margin-left:10%*/
+}
+
 .sidebar{
-	font-family: century gothic;
-	background-color: #e5e5e5;
+	/*background-color: #e5e5e5;*/
+	background-color: rgb(220, 222, 234);
+	font-size:2vmax;
 }
 
 

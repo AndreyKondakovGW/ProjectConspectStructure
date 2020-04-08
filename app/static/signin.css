@@ -1,8 +1,17 @@
+html {
+height: 100%;
+}
+
 body {
-	font-family: century gothic;
+  font-family: century gothic;
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #7d5c735e;
+
+    margin: 0; /* Убираем отступы */
+    height: 100%; /* Высота страницы */
+    background: url(../static/Photo/bground2.jpg);/* Параметры фона */
+    background-size: cover; /* Фон занимает всю доступную площадь */
 }
 
 .form-signin {
@@ -43,11 +52,10 @@ body {
 	background-image: none;
 	background-color:#02dac5;
 	color: black;
-	
 }
 
 .cnopka:hover{
-	background-color:#8f84be;
+	background-color:#018786;
 	color: black;
 }
 

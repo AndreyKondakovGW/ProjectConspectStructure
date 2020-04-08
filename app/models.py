@@ -34,6 +34,9 @@ class User(UserMixin, db.Model):
         conspect_arr = [ConspectDB.query.filter_by(id=conspect_id).first() for conspect_id in conspect_ids]
         return conspect_arr
 
+    def get_all_tags(self):
+        return Tag.query.filter_by(user_id=self.id).all()
+
 
 class ConspectDB(db.Model):
     __tablename__ = "conspects"
@@ -69,7 +72,7 @@ class Tag(db.Model):
     __tablename__ = "tags"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, unique=True, nullable=False)
-    user_id = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def rename(self, newname):
         self.name = newname
@@ -88,7 +91,7 @@ class ConspectTagRelation(db.Model):
 class PhotoDB(db.Model):
     __tablename__ = 'photoes'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    filename = db.Column(db.String, unique=True, nullable=False)
+    filename = db.Column(db.String, nullable=False)
     id_pred = db.Column(db.Integer)
     id_next = db.Column(db.Integer)
     id_conspect = db.Column(db.Integer, db.ForeignKey('conspects.id'))
@@ -112,10 +115,10 @@ class FragmentDB(db.Model):
     __tablename__ = "fragments"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     photo_id = db.Column(db.Integer, db.ForeignKey('photoes.id'), nullable=False)
-    x1 = db.Column(db.Integer, nullable=False)
-    y1 = db.Column(db.Integer, nullable=False)
-    x2 = db.Column(db.Integer, nullable=False)
-    y2 = db.Column(db.Integer, nullable=False)
+    x1 = db.Column(db.Float, nullable=False)
+    y1 = db.Column(db.Float, nullable=False)
+    x2 = db.Column(db.Float, nullable=False)
+    y2 = db.Column(db.Float, nullable=False)
     name = db.Column(db.String)
 
     def set_name(self, name):
@@ -124,7 +127,7 @@ class FragmentDB(db.Model):
 
     def set_tag(self, tag):
         if tag in Tag.query.filter_by(id=tag.id):
-            ftrelation = FragmentToTagRelations(self.id, tag.id)
+            ftrelation = FragmentToTagRelations(fragment_id=self.id, tag_id=tag.id)
             db.session.add(ftrelation)
             db.session.commit()
 
@@ -148,3 +151,9 @@ class FragmentToTagRelations(db.Model):
 
 
 db.create_all()
+
+
+# ----------------------default photo object---------------------------
+default_photo = PhotoDB(filename="American_Beaver.jpg")
+global_photo = default_photo
+# db.session.add(default_photo)

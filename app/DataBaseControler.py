@@ -2,7 +2,7 @@ from app import db
 from app.models import User, ConspectDB, PhotoDB, Tag, ConspectTagRelation, FragmentDB, FragmentToTagRelations, FragmentsRelation, AccessDB
 from app.UserDBAPI1 import get_user
 from app.config import basedir
-from app.pdf_creater import create_pdf_from_images
+from app.pdf_creater import create_pdf_from_images, cut
 
 
 def check_conspect_in_base(user: User, name: str):
@@ -89,8 +89,24 @@ def create_pdf_conspect(user: User, conspect_name: str):
         return ""
 
 
-def add_fragment(user: User, photoname: str, *_, name=None, x1, y1, x2, y2):
-    photo = get_photo_by_filename(photoname)
+# -----------------------fragments-tags-section----------------
+
+def tag_by_name(user: User, name: str):
+    tag_arr = user.get_all_tags()
+    for tag in tag_arr:
+        if tag.name == name:
+            return tag
+    return None
+
+
+def add_tag(user: User, name: str):
+    tag = Tag(name=name, user_id=user.id)
+    db.session.add(tag)
+    db.session.commit()
+    return tag
+
+
+def add_fragment(user: User, photo: PhotoDB, *_, name=None, x1, y1, x2, y2):
     if photo is not None:
         fragment = FragmentDB(photo_id=photo.id, x1=x1, x2=x2, y1=y1, y2=y2)
         if name:
@@ -106,3 +122,20 @@ def all_fragments_by_tag(tag: Tag):
     farr = FragmentDB.query.join(FragmentToTagRelations, FragmentDB.id == FragmentToTagRelations.fragment_id).\
                         filter(FragmentToTagRelations.tag_id == tag.id).all()
     return farr
+
+
+def pdf_fragments_by_tag(user: User, tagname: str):
+    tag = tag_by_name(user, tagname)
+    if tag:
+        farr = all_fragments_by_tag(tag)
+        filenames = list()
+        for i in range(0, len(farr)):
+            photo = PhotoDB.query.filter_by(id=farr[i].photo_id).first()
+            filename = basedir+"/static/Photo/"+tagname+"_fragment_"+str(i+1)+'.png'
+            cut(photo.filename, farr[i].x1, farr[i].y1, farr[i].x2, farr[i].y2, filename)
+            filenames.append(filename)
+        name = user.name+"_"+tagname
+        create_pdf_from_images(name, filenames)
+        return name+".pdf"
+    else:
+        return ""

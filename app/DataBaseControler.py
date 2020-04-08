@@ -131,7 +131,7 @@ def pdf_fragments_by_tag(user: User, tagname: str):
         filenames = list()
         for i in range(0, len(farr)):
             photo = PhotoDB.query.filter_by(id=farr[i].photo_id).first()
-            filename = basedir+"/static/Photo/"+"_fragment_"+str(i+1)+'.png'
+            filename = basedir+"/static/Photo/"+user.name+"_fragment_"+str(i+1)+'.png'
             cut(photo.filename, farr[i].x1, farr[i].y1, farr[i].x2, farr[i].y2, filename)
             filenames.append(filename)
         name = user.name+"_set"

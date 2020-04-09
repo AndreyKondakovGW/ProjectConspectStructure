@@ -31,10 +31,11 @@ class RegistrationForm(FlaskForm):
         if user_exist(username.data):
             raise ValidationError('Данное имя пользователя уже занято.')
 
+
 class RedactorForm(FlaskForm):
-    teg1=StringField('Добавте тег', validators=[DataRequired()])
-    teg2=StringField('Добавте тег', [Length(max=25,message="Название тэга слишком большое")])
-    teg3=StringField('Добавте тег', [Length(max=25,message="Название тэга слишком большое")])
+    teg1=StringField('Добавте тег', validators=[DataRequired(), Length(max=25,message="Название тэга слишком большое")])
+    teg2=StringField('Добавте тег', validators=[Length(max=25,message="Название тэга слишком большое")])
+    teg3=StringField('Добавте тег', validators=[Length(max=25,message="Название тэга слишком большое")])
     comments=StringField('Добавте комментарий')
     w=StringField()
     h=StringField()

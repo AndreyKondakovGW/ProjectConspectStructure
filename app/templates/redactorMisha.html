@@ -83,10 +83,19 @@
 
 				{{RF.teg1.label(for="teg", class="sr-only", value="добавить тег")}}
 				{{RF.teg1(type="text", id="teg1", class="form-control", placeholder="Добавить тег...")}}
+				{% for error in RF.teg1.errors %}
+            		<span style="color: #ff0000;">[{{ error }}]</span>
+          		{% endfor %}
 				{{RF.teg2.label(for="teg", class="sr-only", value="добавить тег")}}
 				{{RF.teg2(type="text", id="teg2", class="form-control", placeholder="Добавить тег...")}}
+				{% for error in RF.teg1.errors %}
+            		<span style="color: red;">[{{ error }}]</span>
+          		{% endfor %}
 				{{RF.teg3.label(for="teg", class="sr-only", value="добавить тег")}}
 				{{RF.teg3(type="text", id="teg3", class="form-control", placeholder="Добавить тег...")}}
+				{% for error in RF.teg3.errors %}
+            		<span style="color: red;">[{{ error }}]</span>
+          		{% endfor %}
 
 
 				<!-- {{RF.comments(type="text", class="form-control", placeholder=RF.commentdata)}} -->

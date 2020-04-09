@@ -5,7 +5,11 @@
 /* Move down content because we have a fixed navbar that is 50px tall
 */
 html {
-height: 100%;
+background: url(../static/Photo/bground2.jpg) no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
 }
 body {
 font-family:

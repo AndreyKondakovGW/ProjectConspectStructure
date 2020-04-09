@@ -36,7 +36,7 @@ def registration():
     if Rform.submit2.data and Rform.validate():
         print('начата регистрация')
         add_to_db(name= Rform.username.data, password=Rform.password.data)
-        TryLoginUser( Rform.username.data,  Rform.password.data, Rform.remember_me.data)
+        return TryLoginUser( Rform.username.data,  Rform.password.data, Rform.remember_me.data)
     return render_template('registrate.html', Rform=Rform)
 
 
@@ -105,9 +105,14 @@ def redactor():
             tags = list()
             tags.append(Rform.teg1.data)
 
-            for t in [Rform.teg2.data, Rform.teg3.data]:
-                if t:
-                    tags.append(t)
+            if Rform.teg2.data != Rform.teg3.data:
+                for t in [Rform.teg2.data, Rform.teg3.data]:
+                    if t:
+                        if t != tags[0]:
+                            tags.append(t)
+            else:
+                if Rform.teg2.data!=tags[0]:
+                    tags.append(Rform.teg2.data)
 
             if (Rform.y1.data) and (Rform.x1.data) and (Rform.w.data) and (Rform.h.data):
                 x1 = int(Rform.x1.data) / int(Rform.w.data)
@@ -119,7 +124,7 @@ def redactor():
                 y1 = 0
                 x2 = 1
                 y2 = 1
-            photo = photo_by_id(session.get('redactorfoto_id')) if session.get('redactorfoto_id') else default_photo.id
+            photo = photo_by_id(session.get('redactorfoto_id')) if session.get('redactorfoto_id') else default_photo
             fragment = add_fragment(current_user, photo, x1=x1, x2=x2, y1=y1, y2=y2)
             for t in tags:
                 tag = tag_by_name(current_user, t)

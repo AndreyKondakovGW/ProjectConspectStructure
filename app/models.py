@@ -154,7 +154,7 @@ db.create_all()
 
 
 # ----------------------default photo object---------------------------
-# default_photo = PhotoDB(filename="American_beaver.jpg")
+# default_photo = PhotoDB(filename="American_Beaver.jpg")
 # db.session.add(default_photo)
 # db.session.commit()
-default_photo = PhotoDB.query.filter_by(id=1).first()
+default_photo = PhotoDB.query.filter_by(id=71).first()

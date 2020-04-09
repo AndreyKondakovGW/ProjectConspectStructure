@@ -12,29 +12,29 @@ class LoginForm(FlaskForm):
 
     def validate_username(self, username):
         if not(user_exist(username.data)):
-            raise ValidationError('This user not exist.')
+            raise ValidationError('Пользователь не существует.')
 
     def validate_password(self, password):
         print(password.data,self.username.data)
 
         if not(check_password(self.username.data,password.data)):
-            raise ValidationError('Wrong password.')
+            raise ValidationError('Неправильный пароль.')
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Придумайте Логин', [Length(min=4, max=25,message="Username to short or too long")])
+    username = StringField('Придумайте Логин', [Length(min=4, max=25,message="Имя пользователя либо слишком большое либо слишком маленькое")])
     password = PasswordField('Придумайте Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомни меня')
     submit2 = SubmitField('Зарегистрироваться')
 
     def validate_username(self, username):
         if user_exist(username.data):
-            raise ValidationError('Please use a different username.')
+            raise ValidationError('Данное имя пользователя уже занято.')
 
 class RedactorForm(FlaskForm):
     teg1=StringField('Добавте тег', validators=[DataRequired()])
-    teg2=StringField('Добавте тег')
-    teg3=StringField('Добавте тег')
+    teg2=StringField('Добавте тег', [Length(max=25,message="Название тэга слишком большое")])
+    teg3=StringField('Добавте тег', [Length(max=25,message="Название тэга слишком большое")])
     comments=StringField('Добавте комментарий')
     w=StringField()
     h=StringField()

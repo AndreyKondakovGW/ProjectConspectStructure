@@ -10,7 +10,7 @@
 
 
 <title>Project Structure</title>
-<link rel="shortcut icon"  type="image/x-icon" href={{url_for('static', filename = 'favicon.ico')}}>
+<link rel="shortcut icon"  type="image/x-icon" href={{url_for('static', filename = 'Photo/favicon.ico')}}>
 
         <!-- Последняя компиляция и сжатый CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -61,7 +61,7 @@
 
 				<form action="" method=post enctype=multipart/form-data>
 					<input type=file class="btn btn-lg btn-primary btn-block cnopka" name=file value="Выберете фото">
-					<input type=text class="form-control" name=conspect value="Выберете имя конспекта" required autofocus>
+					<input type=text class="form-control" name=conspect placeholder="Выберете имя конспекта" required autofocus>
 					<input type=submit class="btn btn-lg btn-primary btn-block cnopka"  value="Загрузить фото">
 
 				</form>

@@ -51,13 +51,13 @@
         <p>{{ Rform.remember_me(class="checkbox",value="remember-me") }} {{ Rform.remember_me.label }}</p>
         {{ Rform.submit2(class="btn btn-lg btn-primary btn-block cnopka") }}
       </form>
+
+      <div class="form-signin">
+	  <a class="btn btn-lg btn-primary btn-block cnopka" id="vh" href="{{ url_for('index')}}">Перейти ко входу</a>
+	  </div>
     </div>
-
-
 	</div>
-	<div class="form-signin">
-	<a class="btn btn-lg btn-primary btn-block cnopka" id="vh" href="{{ url_for('index')}}">Перейти ко входу</a>
-	</div>
+
     <!-- скрипт для регистрации -->
   </body>
 </html>

@@ -6,11 +6,12 @@ from app.forms import LoginForm, RegistrationForm, RedactorForm
 from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
 from app.config import Config, basedir
 from app.DataBaseControler import check_conspect_in_base, add_conspect, conspect_by_name, get_conspect_photoes,\
-        add_photo, add_photo_to_conspect, create_pdf_conspect, tag_by_name, add_tag, add_fragment, pdf_fragments_by_tag
+        add_photo, add_photo_to_conspect, create_pdf_conspect, tag_by_name, add_tag, add_fragment, pdf_fragments_by_tag,\
+        photo_by_id
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
-from app.models import filename, default_photo, global_photo
+from app.models import filename, default_photo
 import os
 
 
@@ -49,6 +50,7 @@ def login(form):
 def logout():
     print('пользователь', current_user, 'вышел из сети')
     logout_user()
+    session.clear()
     return redirect(url_for('index'))
 
 
@@ -91,13 +93,13 @@ def openTopic(index):
 @app.route('/redactor', methods=['GET', 'POST'])
 @login_required
 def redactor():
-    global global_photo
     Rform = RedactorForm()
     if request.method == 'POST':
         if request.files.get('file'):
             conspect = request.form.get('conspect')
-            session['redactorfoto'] = uploads(conspect, global_photo)
-            filename = session.get('redactorfoto').filename
+            photo = uploads(conspect, default_photo)
+            session['redactorfoto_id'] = photo.id
+            filename = photo.filename
         if Rform.submit.data:
             tags = list()
             tags.append(Rform.teg1.data)
@@ -112,11 +114,12 @@ def redactor():
                 x2 = int(Rform.x2.data) / int(Rform.w.data)
                 y2 = int(Rform.y2.data) / int(Rform.h.data)
             else:
-                x1=0
-                y1=0
-                x2=0
-                y2=0
-            fragment = add_fragment(current_user,session.get('redactorfoto') if session.get('redactorfoto') else global_photo, x1=x1, x2=x2, y1=y1, y2=y2)
+                x1 = 0
+                y1 = 0
+                x2 = 1
+                y2 = 1
+            photo = photo_by_id(session.get('redactorfoto_id')) if session.get('redactorfoto_id') else default_photo.id
+            fragment = add_fragment(current_user, photo, x1=x1, x2=x2, y1=y1, y2=y2)
             for t in tags:
                 tag = tag_by_name(current_user, t)
                 if not tag:
@@ -125,7 +128,13 @@ def redactor():
 
                 # cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),
                 #   int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
-    return render_template('redactorMisha.html', filename='Photo/'+(session.get('redactorfoto').filename if session.get('redactorfoto') else global_photo.filename), RF=Rform)
+    id = session.get('redactorfoto_id')
+    filename = 'Photo/American_Beaver.jpg'
+    if id:
+        photo = photo_by_id(id)
+        if photo:
+            filename = 'Photo/'+photo.filename
+    return render_template('redactorMisha.html', filename=filename, RF=Rform)
 
 
 def allowed_file(filename):

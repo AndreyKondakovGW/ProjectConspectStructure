@@ -39,6 +39,10 @@ def get_photo_by_filename(filename: str):
     return PhotoDB.query.filter_by(filename=filename).first()
 
 
+def photo_by_id(id: int):
+    return PhotoDB.query.filter_by(id=id).first()
+
+
 def set_photo_order(*_, first: PhotoDB, photoes: []):
     if not photoes:
         exit()

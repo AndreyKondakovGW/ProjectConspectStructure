@@ -85,7 +85,7 @@ def get_conspect_photoes(*_, conspect: ConspectDB):
 def create_pdf_conspect(user: User, conspect_name: str):
     conspect = conspect_by_name(user, conspect_name)
     photoes = [basedir + "/static/Photo/" + photoname for photoname in get_conspect_photoes(conspect=conspect)]
-    pdf_name = conspect_name + '_' + user.name
+    pdf_name = 'conspect_' + user.name
     if photoes:
         create_pdf_from_images(pdf_name, photoes)
         return pdf_name+'.pdf'

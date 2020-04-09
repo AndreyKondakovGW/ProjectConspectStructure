@@ -12,6 +12,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
 from app.models import filename, default_photo
+from tempfile import NamedTemporaryFile
 import os
 
 
@@ -142,14 +143,29 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in Config.ALLOWED_EXTENSIONS
 
 
+def filename_gen(path: str, file):
+    ext = file.filename.split('.')[1]
+    tf = NamedTemporaryFile(dir=path)
+    filename = tf.name+'.'+ext
+    tf.close()
+    while os.path.exists(filename):
+        tf = NamedTemporaryFile(dir=path)
+        filename = tf.name + '.' + ext
+        tf.close()
+    file.save(filename)
+    filename = filename.split('/')[-1]
+    return filename
+
+
 def uploads(conspect_name: str, default_photo):
     file = request.files.get('file')
     if file and allowed_file(file.filename):
             path = app.config['UPLOAD_FOLDER']+'/'+current_user.name
             if not(os.path.exists(path)):
                 os.mkdir(path)
-            filename1 = file.filename
-            file.save(os.path.join(path+'/', filename1))
+            #filename1 = file.filename
+            #file.save(os.path.join(path+'/', filename1))
+            filename1 = filename_gen(path, file)
             photo = add_photo(current_user.name+'/'+filename1)
             if check_conspect_in_base(current_user, conspect_name):
                 conspect = conspect_by_name(current_user, conspect_name)

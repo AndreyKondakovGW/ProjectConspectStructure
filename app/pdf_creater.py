@@ -33,6 +33,9 @@ def create_pdf_from_images(name, image_list):
 def cut(image_path, left, top, right, bottom, name):
     im = Image.open(basedir+'/static/Photo/'+image_path)
     w, h = im.size
-    im1 = im.crop((w*left, h*top, w*right, h*bottom))
+    if ((left) and (top) and (right) and (bottom)):
+        im1 = im.crop((w*left, h*top, w*right, h*bottom))
+    else:
+        im1=im
     im1.save(name)
     #im1.show()

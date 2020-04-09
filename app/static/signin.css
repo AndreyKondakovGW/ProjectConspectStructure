@@ -3,7 +3,11 @@ height: 100%;
 }
 
 body {
-  font-family: century gothic;
+  font-family:
+  "century gothic",
+  "Lucida Sans Unicode",
+  sans-serif;
+
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #7d5c735e;
@@ -13,7 +17,12 @@ body {
     background: url(../static/Photo/bground2.jpg);/* Параметры фона */
     background-size: cover; /* Фон занимает всю доступную площадь */
 }
-
+* {
+font-family:
+  "century gothic",
+  "Lucida Sans Unicode",
+  sans-serif;
+}
 .form-signin {
   max-width: 330px;
   padding: 15px;

@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 <!-- Последняя компиляция и сжатый JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity=								"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- Custom styles for this template -->
     <link href={{url_for('static', filename = 'osnovnaya3.css')}} rel="stylesheet">
@@ -57,15 +57,18 @@
 				<img src={{url_for('static', filename = 'Photo/logo.png')}}
                      class="foto logo">
 				
-				<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('index') }}" >На основную</a>
+				<a class="btn btn-lg btn-primary btn-block cnopka" href="{{ url_for('index') }}" >Главная</a>
 
+				<br>
+				<p class="text-center" style="font-size:0.68em;">Добавление фото:</p>
 				<form action="" method=post enctype=multipart/form-data>
-					<input type=file class="btn btn-lg btn-primary btn-block cnopka" name=file value="Выберете фото">
-					<input type=text class="form-control" name=conspect placeholder="Выберете имя конспекта" required autofocus>
+					<input type=text class="form-control" name=conspect placeholder="Имя конспекта..." required autofocus>
+					<input type=file class="btn btn-lg btn-primary btn-block cnopka" name=file accept=image/* value="Выбрать файл">
 					<input type=submit class="btn btn-lg btn-primary btn-block cnopka"  value="Загрузить фото">
 
 				</form>
-
+			<br>
+			<p class="text-center" style="font-size:0.68em;">Добавление тегов:</p>
 			<form class="form-signin" method="post">
 					<!-- часть для обрезки фото -->
 									<!-- ширина(w) и высота(h) картинки -->
@@ -84,10 +87,10 @@
 				{{RF.teg2(type="text", id="teg2", class="form-control", placeholder="Добавить тег...")}}
 				{{RF.teg3.label(for="teg", class="sr-only", value="добавить тег")}}
 				{{RF.teg3(type="text", id="teg3", class="form-control", placeholder="Добавить тег...")}}
-				<br>
+
 
 				<!-- {{RF.comments(type="text", class="form-control", placeholder=RF.commentdata)}} -->
-				{{RF.comments(type="text", class="form-control", placeholder="Комментарий...")}}
+				<!--{{RF.comments(type="text", class="form-control", placeholder="Комментарий...")}} -->
 				{{RF.submit( id="t1", class="btn btn-lg btn-primary btn-block cnopka", value="Сохранить")}}
 
 			</form>

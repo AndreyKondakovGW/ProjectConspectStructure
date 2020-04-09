@@ -3,9 +3,6 @@
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall
-html {
-height: 100%;
-}
 */
 html {
 height: 100%;
@@ -57,7 +54,7 @@ font-family:
 	background-color:#018786;*/
 	background-color: rgb(220, 222, 234);
 	color: black;
-	font-size:2.5vmax;
+	font-size:30px;
 }
 
 .navbar {
@@ -125,7 +122,7 @@ color: black;
   margin-top:1.8%;
   padding: 7%;
   /*background-color: #e5e5e5;*/
-  font-size:2.5vmax;
+  font-size:30px;
 }
 
 /*
@@ -135,7 +132,6 @@ color: black;
 .placeholders {
   margin-bottom: 30px;
   text-align: center;
-
 }
 .placeholders h4 {
   margin-bottom: 0;
@@ -154,19 +150,18 @@ color: black;
 .sr-only{
 float: center;
 margin: 5% auto;
-font-size:0.67em;
+font-size:1em;
 }
 
 .form-control{
 margin:1% auto;
 	padding:3%;
-font-size:0.67em;
+font-size:0.9em;
 }
 .cnopka{
 	background-image: none;
 	background-color:#02dac5;
-	/*font-size:1vmax;*/
-	font-size:0.67em;
+	font-size:0.9em;
 	color: black;
 	margin:2% auto;
 	padding:2%;
@@ -203,7 +198,7 @@ font-size:0.67em;
 .sidebar{
 	/*background-color: #e5e5e5;*/
 	background-color: rgb(220, 222, 234);
-	font-size:2vmax;
+	font-size:20px;
 }
 
 

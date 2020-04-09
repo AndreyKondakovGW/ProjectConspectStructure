@@ -91,14 +91,13 @@ def openTopic(index):
 @app.route('/redactor', methods=['GET', 'POST'])
 @login_required
 def redactor():
-    global filename
     global global_photo
     Rform = RedactorForm()
     if request.method == 'POST':
         if request.files.get('file'):
             conspect = request.form.get('conspect')
-            global_photo = uploads(conspect, global_photo)
-            filename = global_photo.filename
+            session['redactorfoto'] = uploads(conspect, global_photo)
+            filename = session.get('redactorfoto').filename
         if Rform.submit.data:
             tags = list()
             tags.append(Rform.teg1.data)
@@ -112,16 +111,21 @@ def redactor():
                 y1 = int(Rform.y1.data) / int(Rform.h.data)
                 x2 = int(Rform.x2.data) / int(Rform.w.data)
                 y2 = int(Rform.y2.data) / int(Rform.h.data)
-                fragment = add_fragment(current_user, global_photo, x1=x1, x2=x2, y1=y1, y2=y2)
-                for t in tags:
-                    tag = tag_by_name(current_user, t)
-                    if not tag:
-                        tag = add_tag(current_user, t)
-                    fragment.set_tag(tag)
+            else:
+                x1=0
+                y1=0
+                x2=0
+                y2=0
+            fragment = add_fragment(current_user,session.get('redactorfoto') if session.get('redactorfoto') else global_photo, x1=x1, x2=x2, y1=y1, y2=y2)
+            for t in tags:
+                tag = tag_by_name(current_user, t)
+                if not tag:
+                    tag = add_tag(current_user, t)
+                fragment.set_tag(tag)
 
                 # cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),
                 #   int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
-    return render_template('redactorMisha.html', filename='Photo/'+filename, RF=Rform)
+    return render_template('redactorMisha.html', filename='Photo/'+(session.get('redactorfoto').filename if session.get('redactorfoto') else global_photo.filename), RF=Rform)
 
 
 def allowed_file(filename):
@@ -165,14 +169,6 @@ def TryLoginUser(name, password,remember_me):
     else:
         print('пользователь не существует')
         return redirect(url_for('index'))
-        '''
-        user = get_user(form.username.data)
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('login'))
-        login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
-        '''
 
 
 

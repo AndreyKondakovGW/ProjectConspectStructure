@@ -57,7 +57,7 @@ def logout():
 
 @app.route('/main/<username>', methods=['GET', 'POST'])
 @login_required
-def main(username=current_user, filename='Pomosch.pdf'):
+def main(username=current_user, filename='Pomosch1.pdf'):
     print(filename)
     if username != '':
         conspects =current_user.get_all_conspects()

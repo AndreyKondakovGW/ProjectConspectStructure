@@ -139,7 +139,7 @@ def redactor():
     if id:
         photo = photo_by_id(id)
         if photo:
-            filename = 'Photo/'+photo.filename
+            filename = 'Photo/users/'+photo.filename
     return render_template('redactorMisha.html', filename=filename, RF=Rform)
 
 
@@ -165,7 +165,7 @@ def filename_gen(path: str, file):
 def uploads(conspect_name: str, default_photo):
     file = request.files.get('file')
     if file and allowed_file(file.filename):
-            path = app.config['UPLOAD_FOLDER']+'/'+current_user.name
+            path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
             if not(os.path.exists(path)):
                 os.mkdir(path)
             #filename1 = file.filename

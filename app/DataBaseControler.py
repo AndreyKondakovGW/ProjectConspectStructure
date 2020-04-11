@@ -84,8 +84,8 @@ def get_conspect_photoes(*_, conspect: ConspectDB):
 
 def create_pdf_conspect(user: User, conspect_name: str):
     conspect = conspect_by_name(user, conspect_name)
-    photoes = [basedir + "/static/Photo/" + photoname for photoname in get_conspect_photoes(conspect=conspect)]
-    pdf_name = 'conspect_' + user.name
+    photoes = [basedir + "/static/Photo/users/" + photoname for photoname in get_conspect_photoes(conspect=conspect)]
+    pdf_name = 'pdfs/conspect_' + user.name
     if photoes:
         create_pdf_from_images(pdf_name, photoes)
         return pdf_name+'.pdf'
@@ -135,10 +135,10 @@ def pdf_fragments_by_tag(user: User, tagname: str):
         filenames = list()
         for i in range(0, len(farr)):
             photo = PhotoDB.query.filter_by(id=farr[i].photo_id).first()
-            filename = basedir+"/static/Photo/"+user.name+"_fragment_"+str(i+1)+'.png'
-            cut(photo.filename, farr[i].x1, farr[i].y1, farr[i].x2, farr[i].y2, filename)
+            filename = basedir+"/static/Photo/pdfs/"+user.name+"_fragment_"+str(i+1)+'.png'
+            cut("users/"+photo.filename, farr[i].x1, farr[i].y1, farr[i].x2, farr[i].y2, filename)
             filenames.append(filename)
-        name = user.name+"_set"
+        name = "pdfs/"+user.name+"_set"
         create_pdf_from_images(name, filenames)
         return name+".pdf"
     else:

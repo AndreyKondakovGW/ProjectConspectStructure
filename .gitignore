@@ -2,5 +2,5 @@ __pycache__/
 .vscode/
 .db
 .idea
-app/Photo/pdfs/
-app/Photo/users/
+app/static/Photo/pdfs/
+app/static/Photo/users/

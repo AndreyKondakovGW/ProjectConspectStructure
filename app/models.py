@@ -28,10 +28,10 @@ class User(UserMixin, db.Model):
 
     def get_all_conspects(self):
         # сложный запрос с join
-        # conspect_arr = ConspectDB.query.join(AccessDB, ConspectDB.id == AccessDB.conspect_id)\
-        #                .filter(AccessDB.user_id == self.id).all()
-        conspect_ids = [access.conspect_id for access in AccessDB.query.filter_by(user_id=self.id).all()]
-        conspect_arr = [ConspectDB.query.filter_by(id=conspect_id).first() for conspect_id in conspect_ids]
+        conspect_arr = ConspectDB.query.join(AccessDB, ConspectDB.id == AccessDB.conspect_id)\
+                        .filter(AccessDB.user_id == self.id).all()
+        # conspect_ids = [access.conspect_id for access in AccessDB.query.filter_by(user_id=self.id).all()]
+        # conspect_arr = [ConspectDB.query.filter_by(id=conspect_id).first() for conspect_id in conspect_ids]
         return conspect_arr
 
     def get_all_tags(self):
@@ -65,6 +65,10 @@ class AccessDB(db.Model):
 
     @staticmethod
     def check_access(user: User, conspect: ConspectDB):
+        if not user:
+            return False
+        if not conspect:
+            return False
         return len(AccessDB.query.filter_by(conspect_id=conspect.id).filter_by(user_id=user.id).all()) != 0
 
 

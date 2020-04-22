@@ -74,23 +74,31 @@ def conspect_by_name(user: User, name: str):
     return res
 
 
+def conspect_by_id(id: int):
+    return ConspectDB.query.filter_by(id=id).first()
+
+
 # выдаёт все фото конспекта
-def get_conspect_photoes(*_, conspect: ConspectDB):
-    if conspect.id is not None:
-        return [photo.filename for photo in PhotoDB.query.filter_by(id_conspect=conspect.id)]
+def get_conspect_photoes(conspect: ConspectDB):
+    if conspect is not None:
+        return [photo for photo in PhotoDB.query.filter_by(id_conspect=conspect.id)]
     else:
         return []
 
 
 def create_pdf_conspect(user: User, conspect_name: str):
     conspect = conspect_by_name(user, conspect_name)
-    photoes = [basedir + "/static/Photo/users/" + photoname for photoname in get_conspect_photoes(conspect=conspect)]
+    photoes = [basedir + "/static/Photo/users/" + photo.filename for photo in get_conspect_photoes(conspect=conspect)]
     pdf_name = 'pdfs/conspect_' + user.name
     if photoes:
         create_pdf_from_images(pdf_name, photoes)
         return pdf_name+'.pdf'
     else:
         return ""
+
+# -----------------------access-section----------------------------------
+
+
 
 
 # -----------------------fragments-tags-section----------------
@@ -101,6 +109,10 @@ def tag_by_name(user: User, name: str):
         if tag.name == name:
             return tag
     return None
+
+
+def tag_by_id(id: int):
+    return Tag.query.filter_by(id=id).first()
 
 
 def add_tag(user: User, name: str):

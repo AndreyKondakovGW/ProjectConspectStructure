@@ -1,4 +1,4 @@
-from app.models import User
+from app.models import User, AccessDB, ConspectDB
 from app import db
 
 
@@ -41,14 +41,19 @@ def print_all_users():
         print(user)
 
 
-# нетронутые заглушки
-def right_user_data(key, value):
-    if db:
-        return db[key].password == int(value)
+# ----------------------sharing section--------------------------------
+
+def check_access(user: User, conspect: ConspectDB):
+    print(user.id)
+    print(conspect.id)
+    return AccessDB.check_access(user, conspect)
+
+
+def add_access(user: User, conspect: ConspectDB):
+    if user and conspect:
+        access = AccessDB(user_id=user.id, conspect_id=conspect.id)
+        db.session.add(access)
+        db.session.commit()
     else:
-        return False
-
-
-def show_all_user():
-    if db:
-        print(db)
+        access = None
+    return access

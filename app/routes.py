@@ -1,17 +1,17 @@
 # Основной скрипт сайта задаёт как сайт будет отвечать на те или иные
 #  запросы пользователя
 from app import app
-from flask import render_template, flash, redirect, url_for, session, request
+from flask import render_template, flash, redirect, url_for, session, request, jsonify, send_file, abort
 from app.forms import LoginForm, RegistrationForm, RedactorForm
-from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users
+from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users, check_access
 from app.config import Config, basedir
 from app.DataBaseControler import check_conspect_in_base, add_conspect, conspect_by_name, get_conspect_photoes,\
         add_photo, add_photo_to_conspect, create_pdf_conspect, tag_by_name, add_tag, add_fragment, pdf_fragments_by_tag,\
-        photo_by_id
+        photo_by_id, tag_by_id, conspect_by_id
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
-from app.models import filename, default_photo
+from app.models import filename, default_photo, AccessDB
 from tempfile import NamedTemporaryFile
 import os
 
@@ -48,12 +48,140 @@ def login(form):
 
 
 @app.route('/logout', methods=['GET'])
+@login_required
 def logout():
     print('пользователь', current_user, 'вышел из сети')
     logout_user()
     session.clear()
     return redirect(url_for('index'))
 
+
+def TryLoginUser(name, password, remember_me):
+    if user_exist(name):
+        print('пользователь существует')
+        if check_password(name, password):
+            user = get_user(name)
+            login_user(user, remember=remember_me)
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('index')
+            return redirect(next_page)
+        else:
+            print('введён пароль', password)
+            pw = get_password(name)
+            print('Пользователь', name, 'имеет другой пароль', pw)
+            return redirect(url_for('index'))
+    else:
+        print('пользователь не существует')
+        return redirect(url_for('index'))
+
+
+# выдаёт список конспектов пользователя в виде JSON-массива
+@app.route('/getconspects', methods=['GET'])
+@login_required
+def get_conspects():
+    """return all user's conspects in JSON - list of dicts with 'id' and 'name' keys"""
+    user = current_user
+    conspects = user.get_all_conspects()
+    jsonlist = list()
+    for conspect in conspects:
+        jsonlist.append({"id": conspect.id, "name": conspect.name})
+    return jsonify(jsonlist)
+
+
+@app.route('/gettags', methods=['GET'])
+@login_required
+def get_tags():
+    """return all user's tags in JSON - list of dicts with 'id' and 'name' keys"""
+    user = current_user
+    tags = user.get_all_tags()
+    jsonlist = list()
+    for tag in tags:
+        jsonlist.append({"id": tag.id, "name": tag.name})
+    return jsonify(jsonlist)
+
+
+@app.route('/gettagpdf/<string:tagname>')
+@login_required
+def get_tag_pdf(tagname:str):
+    """return pdf-file created from fragments with tag by name of tag"""
+    pdf_name = basedir+'/static/Photo/'+pdf_fragments_by_tag(current_user, tagname)
+    print(pdf_name)
+    print(os.path.exists(pdf_name))
+    return send_file(pdf_name, mimetype='application/pdf')
+
+
+@app.route('/getconspectphotos/<int:id>', methods=['GET'])
+@login_required
+def get_conspect_photos(id: int):
+    """return all photoes in conspects (only information about photoes, not files themself"""
+    print(id)
+    print(type(id))
+    user = current_user
+    conspect = conspect_by_id(id)
+    if not conspect:
+        abort(404)
+    if not check_access(user, conspect):
+        abort(403)
+    jsonlist = list()
+    if conspect:
+        photoes = get_conspect_photoes(conspect)
+        for photo in photoes:
+            dict = {"id": photo.id, "filename": photo.filename}
+            jsonlist.append(dict)
+    return jsonify(jsonlist)
+
+
+@app.route('/getphotobyid/<int:id>')
+@login_required
+def get_photo_by_id(id: int):
+    """return photo-file by photo id"""
+    photo = photo_by_id(id)
+    conspect = conspect_by_id(photo.id_conspect)
+    if not check_access(current_user, conspect):
+        abort(403)
+    return send_file('static/Photo/users/'+photo.filename, mimetype='image')
+
+
+@app.route('/getconspectpdf/<string:conspectname>')
+@login_required
+def get_conspect_pdf(conspectname: str):
+    pdf_name = create_pdf_conspect(current_user, conspectname)
+    if (pdf_name):
+        pdf_name = "static/Photo/"+pdf_name
+    else:
+        abort(404)
+    return send_file(pdf_name, mimetype='application/pdf')
+
+
+@app.route('/savephoto/<string:conspectname>', methods=['POST'])
+@login_required
+def save_conspect_photo(conspectname: str):
+    photo = uploads(conspectname)
+
+
+def uploads(conspect_name: str):
+    file = request.files.get('file')
+    if file and allowed_file(file.filename):
+            path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
+            if not(os.path.exists(path)):
+                os.mkdir(path)
+            #filename1 = file.filename
+            #file.save(os.path.join(path+'/', filename1))
+            filename1 = filename_gen(path, file)
+            photo = add_photo(current_user.name+'/'+filename1)
+            if check_conspect_in_base(current_user, conspect_name):
+                conspect = conspect_by_name(current_user, conspect_name)
+            else:
+                conspect = add_conspect(conspect_name, current_user)
+            add_photo_to_conspect(photo=photo, conspect=conspect)
+            return photo
+    return None
+
+
+
+
+# -----------------old section-------------------
 
 @app.route('/main/<username>', methods=['GET', 'POST'])
 @login_required
@@ -98,7 +226,9 @@ def redactor():
     if request.method == 'POST':
         if request.files.get('file'):
             conspect = request.form.get('conspect')
-            photo = uploads(conspect, default_photo)
+            photo = uploads(conspect)
+            if photo is None:
+                photo = default_photo
             session['redactorfoto_id'] = photo.id
             filename = photo.filename
         if Rform.submit.data:
@@ -131,9 +261,6 @@ def redactor():
                 if not tag:
                     tag = add_tag(current_user, t)
                 fragment.set_tag(tag)
-
-                # cut(filename, int(Rform.x1.data)/int(Rform.w.data), int(Rform.y1.data)/int(Rform.h.data),
-                #   int(Rform.x2.data)/int(Rform.w.data), int(Rform.y2.data)/int(Rform.h.data), tags+'/'+filename)
     id = session.get('redactorfoto_id')
     filename = 'Photo/American_Beaver.jpg'
     if id:
@@ -162,43 +289,10 @@ def filename_gen(path: str, file):
     return filename
 
 
-def uploads(conspect_name: str, default_photo):
-    file = request.files.get('file')
-    if file and allowed_file(file.filename):
-            path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
-            if not(os.path.exists(path)):
-                os.mkdir(path)
-            #filename1 = file.filename
-            #file.save(os.path.join(path+'/', filename1))
-            filename1 = filename_gen(path, file)
-            photo = add_photo(current_user.name+'/'+filename1)
-            if check_conspect_in_base(current_user, conspect_name):
-                conspect = conspect_by_name(current_user, conspect_name)
-            else:
-                conspect = add_conspect(conspect_name, current_user)
-            add_photo_to_conspect(photo=photo, conspect=conspect)
-            return photo
-    return default_photo
 
 
-def TryLoginUser(name, password,remember_me):
-    if user_exist(name):
-        print('пользователь существует')
-        if check_password(name, password):
-            user = get_user(name)
-            login_user(user, remember=remember_me)
-            next_page = request.args.get('next')
-            if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('index')
-            return redirect(next_page)
-        else:
-            print('введён пароль', password)
-            pw = get_password(name)
-            print('Пользователь', name, 'имеет другой пароль', pw)
-            return redirect(url_for('index'))
-    else:
-        print('пользователь не существует')
-        return redirect(url_for('index'))
+
+
 
 
 

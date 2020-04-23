@@ -61,7 +61,7 @@ def TryLoginUser(name, password, remember_me):
         print('пользователь существует')
         if check_password(name, password):
             user = get_user(name)
-            login_user(user, remember=remember_me)
+            login_user(user, remember=False)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('index')
@@ -195,8 +195,8 @@ def main(username=current_user, filename='Pomosch1.pdf'):
                 print("req: " + req)
                 pdf_name = pdf_fragments_by_tag(current_user, req)
                 if pdf_name:
-                    return render_template('osnovnaya.html', filename='Photo/'+pdf_name, conspects=conspects)
-        return render_template('osnovnaya.html', filename='Photo/'+filename, conspects=conspects, currentuser=current_user.name)
+                      return render_template('build/index.html') # return render_template('osnovnaya.html', filename='Photo/'+pdf_name, conspects=conspects)
+        return render_template('build/index.html')# return render_template('osnovnaya.html', filename='Photo/'+filename, conspects=conspects, currentuser=current_user.name)
     else:
         flash('please log in')
         logout()

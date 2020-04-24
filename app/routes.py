@@ -104,6 +104,7 @@ def get_tags():
 @app.route('/gettagpdf/<string:tagname>')
 @login_required
 def get_tag_pdf(tagname:str):
+    print(tagname)
     """return pdf-file created from fragments with tag by name of tag"""
     pdf_name = basedir+'/static/Photo/'+pdf_fragments_by_tag(current_user, tagname)
     print(pdf_name)
@@ -195,8 +196,8 @@ def main(username=current_user, filename='Pomosch1.pdf'):
                 print("req: " + req)
                 pdf_name = pdf_fragments_by_tag(current_user, req)
                 if pdf_name:
-                      return render_template('build/index.html') # return render_template('osnovnaya.html', filename='Photo/'+pdf_name, conspects=conspects)
-        return render_template('build/index.html')# return render_template('osnovnaya.html', filename='Photo/'+filename, conspects=conspects, currentuser=current_user.name)
+                     return render_template('build/index.html') # return render_template('osnovnaya.html', filename='Photo/'+pdf_name, conspects=conspects)
+        return render_template('build/index.html') # return render_template('osnovnaya.html', filename='Photo/'+filename, conspects=conspects, currentuser=current_user.name)# return render_template('build/index.html')
     else:
         flash('please log in')
         logout()

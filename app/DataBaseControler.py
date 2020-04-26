@@ -14,6 +14,16 @@ def check_conspect_in_base(user: User, name: str):
     return res
 
 
+def conspect_by_id(id: int):
+    return ConspectDB.query.filter_by(id=id).first()
+
+
+def delete_conspect_by_id(id: int):
+    conspect = conspect_by_id(id)
+    db.session.delete(conspect)
+    db.session.commit()
+
+
 def add_conspect(name,  user: User):
     conspect = ConspectDB(name=name)
     db.session.add(conspect)
@@ -28,6 +38,16 @@ def add_photo(filename: str):
     db.session.add(photo)
     db.session.commit()
     return photo
+
+
+def delete_photo_db(photo: PhotoDB):
+    db.session.delete(photo)
+    db.session.commit()
+
+
+def remove_from_conspect(photo: PhotoDB):
+    photo.id_conspect = None
+    db.session.commit()
 
 
 def add_photo_to_conspect(photo: PhotoDB, conspect: ConspectDB):
@@ -96,10 +116,10 @@ def create_pdf_conspect(user: User, conspect_name: str):
     else:
         return ""
 
-# -----------------------access-section----------------------------------
 
-
-
+def all_photo_fragments(photo: PhotoDB):
+    fragments = FragmentDB.query.filter_by(photo_id=photo.id).all()
+    return fragments
 
 # -----------------------fragments-tags-section----------------
 

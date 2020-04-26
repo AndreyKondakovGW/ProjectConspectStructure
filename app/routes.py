@@ -7,7 +7,7 @@ from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_
 from app.config import Config, basedir
 from app.DataBaseControler import check_conspect_in_base, add_conspect, conspect_by_name, get_conspect_photoes,\
         add_photo, add_photo_to_conspect, create_pdf_conspect, tag_by_name, add_tag, add_fragment, pdf_fragments_by_tag,\
-        photo_by_id, tag_by_id, conspect_by_id
+        photo_by_id, tag_by_id, conspect_by_id, delete_conspect_by_id, delete_photo_db, all_photo_fragments, remove_from_conspect
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
@@ -148,17 +148,25 @@ def get_photo_by_id(id: int):
 @login_required
 def get_conspect_pdf(conspectname: str):
     pdf_name = create_pdf_conspect(current_user, conspectname)
-    if (pdf_name):
+    if pdf_name:
         pdf_name = "static/Photo/"+pdf_name
     else:
         abort(404)
     return send_file(pdf_name, mimetype='application/pdf')
 
 
-@app.route('/savephoto/<string:conspectname>', methods=['POST'])
+@app.route('/savephoto/<string:conspectname>', methods=['GET', 'POST'])
 @login_required
 def save_conspect_photo(conspectname: str):
-    photo = uploads(conspectname)
+    session['redactorfoto_id'] = default_photo
+    if request.method == 'POST':
+        photo = uploads(conspectname)
+        if photo is None:
+            photo = default_photo
+        session['redactorfoto_id'] = photo.id
+    if session.get('redactorfoto_id'):
+        photo = photo_by_id(session.get('redactorfoto_id'))
+    return jsonify({"id": photo.id, "filename": photo.filename, "id_conspect": photo.id_conspect})
 
 
 def uploads(conspect_name: str):
@@ -180,6 +188,23 @@ def uploads(conspect_name: str):
     return None
 
 
+@app.route('/deletephoto/<int:id>', methods=['DELETE'])
+@login_required
+def delete_photo(id: int):
+    print(id)
+    photo = photo_by_id(id)
+    conspect = conspect_by_id(photo.id_conspect)
+    if check_access(current_user, conspect):
+        fragments = all_photo_fragments(photo)
+        if fragments:
+            remove_from_conspect(photo)
+        else:
+            delete_photo_db(photo)
+
+
+@app.route('/deleteconspect/<int:id>', methods=['DELETE'])
+def delete_conspect(id: int):
+    ...
 
 
 # -----------------old section-------------------

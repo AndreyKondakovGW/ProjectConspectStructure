@@ -155,17 +155,15 @@ def get_conspect_pdf(conspectname: str):
     return send_file(pdf_name, mimetype='application/pdf')
 
 
-@app.route('/savephoto/<string:conspectname>', methods=['GET', 'POST'])
+@app.route('/savephoto/<string:conspectname>', methods=['POST'])
 @login_required
 def save_conspect_photo(conspectname: str):
-    session['redactorfoto_id'] = default_photo
-    if request.method == 'POST':
-        photo = uploads(conspectname)
-        if photo is None:
-            photo = default_photo
-        session['redactorfoto_id'] = photo.id
-    if session.get('redactorfoto_id'):
-        photo = photo_by_id(session.get('redactorfoto_id'))
+    # session['redactorfoto_id'] = default_photo
+    photo = uploads(conspectname)
+    if photo is None:
+        abort(400)
+        photo = default_photo
+    # session['redactorfoto_id'] = photo.id
     return jsonify({"id": photo.id, "filename": photo.filename, "id_conspect": photo.id_conspect})
 
 
@@ -205,6 +203,36 @@ def delete_photo(id: int):
 @app.route('/deleteconspect/<int:id>', methods=['DELETE'])
 def delete_conspect(id: int):
     ...
+
+
+@app.route("/sendfragment/<string:username>", methods=['POST'])
+# @login_required
+def post_fragment(username: str):
+    # user = current_user
+    user = get_user(username)
+    data = request.get_json()
+    # data = {"photo_id": id, "x1": x1, "y1": y1, "x2": x2, "y2": y2, "tags": [tag1, tag2]}
+    photo_id = data.get("photo_id")
+    if photo_id:
+        photo = photo_by_id(photo_id)
+    else:
+        photo = default_photo
+    x1 = data.get("x1")
+    y1 = data.get("y1")
+    x2 = data.get("x2")
+    y2 = data.get("y2")
+    if not (x1 and x2 and y1 and y2):
+        x1, y1 = 0, 0
+        x2, y2 = 1, 1
+    fragment = add_fragment(user, photo, x1=x1, y1=y1, x2=x2, y2=y2)
+    tags = data.get("tags")
+    if tags:
+        for t in tags:
+            tag = tag_by_name(user, t)
+            if not tag:
+                tag = add_tag(user, t)
+            fragment.set_tag(tag)
+    return jsonify({"fragment_id": fragment.id})
 
 
 # -----------------old section-------------------

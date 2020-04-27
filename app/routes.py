@@ -205,13 +205,13 @@ def delete_conspect(id: int):
     ...
 
 
-@app.route("/sendfragment/<string:username>", methods=['POST'])
-# @login_required
-def post_fragment(username: str):
-    # user = current_user
-    user = get_user(username)
+@app.route("/sendfragment", methods=['POST'])
+@login_required
+def post_fragment():
+    user = current_user
+    # user = get_user(username)
     data = request.get_json()
-    # data = {"photo_id": id, "x1": x1, "y1": y1, "x2": x2, "y2": y2, "tags": [tag1, tag2]}
+    # data == {"photo_id": id, "x1": x1, "y1": y1, "x2": x2, "y2": y2, "tags": [tag1, tag2]}
     photo_id = data.get("photo_id")
     if photo_id:
         photo = photo_by_id(photo_id)

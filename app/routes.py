@@ -9,6 +9,7 @@ from app.DataBaseControler import check_conspect_in_base, add_conspect, conspect
         add_photo, add_photo_to_conspect, create_pdf_conspect, tag_by_name, add_tag, add_fragment, pdf_fragments_by_tag,\
         photo_by_id, tag_by_id, conspect_by_id, delete_conspect_by_id, delete_photo_db, all_photo_fragments, remove_from_conspect
 from flask_login import current_user, login_user, logout_user, login_required
+from app import login_manager
 from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
 from app.models import filename, default_photo, AccessDB
@@ -52,7 +53,7 @@ def login(form):
 def logout():
     print('пользователь', current_user, 'вышел из сети')
     logout_user()
-    session.clear()
+    login_manager.unauthorized()
     return redirect(url_for('index'))
 
 
@@ -61,7 +62,7 @@ def TryLoginUser(name, password, remember_me):
         print('пользователь существует')
         if check_password(name, password):
             user = get_user(name)
-            login_user(user, remember=False)
+            login_user(user, remember=remember_me)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('index')

@@ -20,7 +20,7 @@ if DESKTOP_MODE:
 
 # ---------LoginManagerSection-----------
 from flask_login import LoginManager
-login = LoginManager(app)
-login.login_view = 'index'
+login_manager = LoginManager(app)
+login_manager.login_view = 'index'
 
 from app import routes, models

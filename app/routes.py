@@ -13,6 +13,7 @@ from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
 from app.models import filename, default_photo, AccessDB
 from tempfile import NamedTemporaryFile
+import json
 import os
 
 
@@ -158,6 +159,7 @@ def get_conspect_pdf(conspectname: str):
 @app.route('/savephoto/<string:conspectname>', methods=['GET', 'POST'])
 @login_required
 def save_conspect_photo(conspectname: str):
+    print(request.files['file'])
     session['redactorfoto_id'] = default_photo
     if request.method == 'POST':
         photo = uploads(conspectname)
@@ -170,7 +172,9 @@ def save_conspect_photo(conspectname: str):
 
 
 def uploads(conspect_name: str):
-    file = request.files.get('file')
+    print(request.files['file'])
+    print(request)
+    file = request.files['file']
     if file and allowed_file(file.filename):
             path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
             if not(os.path.exists(path)):

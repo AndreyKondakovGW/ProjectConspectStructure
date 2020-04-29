@@ -157,6 +157,17 @@ def get_conspect_pdf(conspectname: str):
     return send_file(pdf_name, mimetype='application/pdf')
 
 
+@app.route('/put_conspect/<string:conspectname>', methods=['PUT'])
+@login_required
+def put_conspect(conspectname: str):
+    user = current_user
+    if not check_conspect_in_base(user, conspectname):
+        conspect = add_conspect(conspectname, user)
+    else:
+        conspect = conspect_by_name(user, conspectname)
+    return jsonify({"conspect_id": conspect.id, "conspect_name": conspectname})
+
+
 @app.route('/savephoto/<string:conspectname>', methods=['POST'])
 @login_required
 def save_conspect_photo(conspectname: str):
@@ -183,8 +194,9 @@ def uploads(conspect_name: str):
             if check_conspect_in_base(current_user, conspect_name):
                 conspect = conspect_by_name(current_user, conspect_name)
             else:
-                conspect = add_conspect(conspect_name, current_user)
-            add_photo_to_conspect(photo=photo, conspect=conspect)
+                conspect = None
+            if conspect:
+                add_photo_to_conspect(photo=photo, conspect=conspect)
             return photo
     return None
 

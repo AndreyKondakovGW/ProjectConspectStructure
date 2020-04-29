@@ -1,6 +1,6 @@
 from sqlalchemy import PrimaryKeyConstraint, ForeignKeyConstraint
 from app import db
-from app import login
+from app import login_manager
 from flask_login import UserMixin
 import random
 
@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String, nullable=False)
 
     @staticmethod
-    @login.user_loader
+    @login_manager.user_loader
     def load_user(id):
         print(id)
         user = User.query.filter_by(id=id).first()

@@ -214,16 +214,17 @@ def post_fragment():
     user = current_user
     # user = get_user(username)
     data = request.get_json()
+    print(data)
     # data == {"photo_id": id, "x1": x1, "y1": y1, "x2": x2, "y2": y2, "tags": [tag1, tag2]}
     photo_id = data.get("photo_id")
     if photo_id:
         photo = photo_by_id(photo_id)
     else:
         photo = default_photo
-    x1 = data.get("x1")
-    y1 = data.get("y1")
-    x2 = data.get("x2")
-    y2 = data.get("y2")
+    x1 = int(data.get("x1"))/100
+    y1 = int(data.get("y1"))/100
+    x2 = int(data.get("x2"))/100
+    y2 = int(data.get("y2"))/100
     if not (x1 and x2 and y1 and y2):
         x1, y1 = 0, 0
         x2, y2 = 1, 1

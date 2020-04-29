@@ -42,7 +42,7 @@ class ConspectDB(db.Model):
     __tablename__ = "conspects"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date = db.Column(db.Date)
-    name = db.Column(db.String)
+    name = db.Column(db.String, unique=True)
 
     def set_date(self, date):
         self.date = date

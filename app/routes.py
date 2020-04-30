@@ -12,6 +12,7 @@ from werkzeug.urls import url_parse
 from app.pdf_creater import create_pdf_from_images, cut
 from app.models import filename, default_photo, AccessDB
 from tempfile import NamedTemporaryFile
+import json
 import os
 
 
@@ -168,7 +169,6 @@ def put_conspect(conspectname: str):
 @app.route('/savephoto/<string:conspectname>', methods=['POST'])
 @login_required
 def save_conspect_photo(conspectname: str):
-    # session['redactorfoto_id'] = default_photo
     photo = uploads(conspectname)
     if photo is None:
         abort(400)
@@ -178,7 +178,9 @@ def save_conspect_photo(conspectname: str):
 
 
 def uploads(conspect_name: str):
-    file = request.files.get('file')
+    print(request.files['file'])
+    print(request)
+    file = request.files['file']
     if file and allowed_file(file.filename):
             path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
             if not(os.path.exists(path)):
@@ -253,16 +255,17 @@ def post_fragment():
     user = current_user
     # user = get_user(username)
     data = request.get_json()
+    print(data)
     # data == {"photo_id": id, "x1": x1, "y1": y1, "x2": x2, "y2": y2, "tags": [tag1, tag2]}
     photo_id = data.get("photo_id")
     if photo_id:
         photo = photo_by_id(photo_id)
     else:
         photo = default_photo
-    x1 = data.get("x1")
-    y1 = data.get("y1")
-    x2 = data.get("x2")
-    y2 = data.get("y2")
+    x1 = int(data.get("x1"))/100
+    y1 = int(data.get("y1"))/100
+    x2 = int(data.get("x2"))/100
+    y2 = int(data.get("y2"))/100
     if not (x1 and x2 and y1 and y2):
         x1, y1 = 0, 0
         x2, y2 = 1, 1

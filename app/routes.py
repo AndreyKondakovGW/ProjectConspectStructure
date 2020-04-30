@@ -3,7 +3,7 @@
 from app import app
 from flask import render_template, flash, redirect, url_for, session, request, jsonify, send_file, abort
 from app.forms import LoginForm, RegistrationForm, RedactorForm
-from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users, check_access
+from app.UserDBAPI1 import *
 from app.config import Config, basedir
 from app.DataBaseControler import *
 from flask_login import current_user, login_user, logout_user, login_required
@@ -116,8 +116,6 @@ def get_tag_pdf(tagname:str):
 @login_required
 def get_conspect_photos(id: int):
     """return all photoes in conspects (only information about photoes, not files themself"""
-    print(id)
-    print(type(id))
     user = current_user
     conspect = conspect_by_id(id)
     if not conspect:
@@ -178,8 +176,6 @@ def save_conspect_photo(conspectname: str):
 
 
 def uploads(conspect_name: str):
-    print(request.files['file'])
-    print(request)
     file = request.files['file']
     if file and allowed_file(file.filename):
             path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
@@ -202,7 +198,6 @@ def uploads(conspect_name: str):
 @app.route('/deletephoto/<int:id>', methods=['DELETE'])
 @login_required
 def delete_photo(id: int):
-    print(id)
     photo = photo_by_id(id)
     conspect = conspect_by_id(photo.id_conspect)
     if check_access(current_user, conspect):
@@ -278,6 +273,29 @@ def post_fragment():
                 tag = add_tag(user, t)
             fragment.set_tag(tag)
     return jsonify({"fragment_id": fragment.id})
+
+
+@app.route('/add_friend/<int:user_id>/<int:friend_id>', methods=['POST'])
+def add_friend(user_id: int, friend_id: int):
+    user = user_by_id(user_id)
+    adding_succes = user.add_to_friends(friend_id)
+    return str(adding_succes)
+
+
+@app.route('/friend_list/<int:user_id>', methods=['GET'])
+def friend_list(user_id: int):
+    user = user_by_id(user_id)
+    friends = get_friends_list(user)
+    jsonlist = list()
+    for friend in friends:
+        jsonlist.append({"user_id": friend.id, "username": friend.name})
+    return jsonify(jsonlist)
+
+
+@app.route('/search_users/<string:search>', methods=['GET'])
+def search_users(search: str):
+    users = search_for_user(search)
+    return jsonify([{"user_id": user.id, "username": user.name} for user in users])
 
 
 # -----------------old section-------------------

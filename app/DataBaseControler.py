@@ -195,7 +195,7 @@ def pdf_fragments_by_tag(user: User, tagname: str):
 
 def all_fragment_relations_with_fragment(fragment: FragmentDB):
     fragment_relations = FragmentsRelation.query\
-            .filter((FragmentsRelation.id_master==fragment.id) or (FragmentsRelation.id_slave==fragment.id)).all()
+            .filter((FragmentsRelation.id_master == fragment.id) or (FragmentsRelation.id_slave == fragment.id)).all()
     return fragment_relations
 
 

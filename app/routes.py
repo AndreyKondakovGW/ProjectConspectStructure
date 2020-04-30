@@ -5,9 +5,7 @@ from flask import render_template, flash, redirect, url_for, session, request, j
 from app.forms import LoginForm, RegistrationForm, RedactorForm
 from app.UserDBAPI1 import user_exist, add_to_db, check_password, get_user, get_password, print_all_users, check_access
 from app.config import Config, basedir
-from app.DataBaseControler import check_conspect_in_base, add_conspect, conspect_by_name, get_conspect_photoes,\
-        add_photo, add_photo_to_conspect, create_pdf_conspect, tag_by_name, add_tag, add_fragment, pdf_fragments_by_tag,\
-        photo_by_id, tag_by_id, conspect_by_id, delete_conspect_by_id, delete_photo_db, all_photo_fragments, remove_from_conspect
+from app.DataBaseControler import *
 from flask_login import current_user, login_user, logout_user, login_required
 from app import login_manager
 from werkzeug.urls import url_parse
@@ -210,12 +208,43 @@ def delete_photo(id: int):
         if fragments:
             remove_from_conspect(photo)
         else:
+            path = app.config['UPLOAD_FOLDER']+'/users/'+photo.filename
             delete_photo_db(photo)
+            os.remove(path)
+
+
+@app.route('/related_tags/<int:conspect_id>', methods=['GET'])
+def get_related_tags(conspect_id: int):
+    conspect = conspect_by_id(conspect_id)
+    photoes = get_conspect_photoes(conspect)
+    tags = set()
+    for photo in photoes:
+        for fragment in all_photo_fragments(photo):
+            for tag in all_tags_by_fragment(fragment):
+                if tag:
+                    tags.add(tag)
+    json = list()
+    for tag in tags:
+        json.append({"tag_id": tag.id, "tag_name": tag.name})
+    return jsonify(json)
 
 
 @app.route('/deleteconspect/<int:id>', methods=['DELETE'])
+@login_required
 def delete_conspect(id: int):
-    ...
+    conspect = conspect_by_id(id)
+    if not check_access(current_user, conspect):
+        abort(403)
+    for photo in get_conspect_photoes(conspect):
+        path = app.config['UPLOAD_FOLDER'] +'/users/' + photo.filename
+        success = delete_photo_with_fragments(photo)
+        if success:
+            if os.path.exists(path):
+                os.remove(path)
+            print("removed photo")
+    delete_conspect_from_db(conspect=conspect)
+    return "Deleted"
+
 
 
 @app.route("/sendfragment", methods=['POST'])

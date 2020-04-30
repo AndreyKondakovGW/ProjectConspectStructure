@@ -121,6 +121,22 @@ def all_photo_fragments(photo: PhotoDB):
     fragments = FragmentDB.query.filter_by(photo_id=photo.id).all()
     return fragments
 
+
+def delete_conspect_from_db(conspect: ConspectDB):
+    try:
+        accesses = AccessDB.query.filter_by(conspect_id=conspect.id).all()
+        for access in accesses:
+            db.session.delete(access)
+        db.session.commit()
+        db.session.delete(conspect)
+        db.session.commit()
+        print("we are here")
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        print("rolling back")
+
+
 # -----------------------fragments-tags-section----------------
 
 def tag_by_name(user: User, name: str):
@@ -175,3 +191,56 @@ def pdf_fragments_by_tag(user: User, tagname: str):
         return name+".pdf"
     else:
         return ""
+
+
+def all_fragment_relations_with_fragment(fragment: FragmentDB):
+    fragment_relations = FragmentsRelation.query\
+            .filter((FragmentsRelation.id_master==fragment.id) or (FragmentsRelation.id_slave==fragment.id)).all()
+    return fragment_relations
+
+
+def all_tag_relations_with_fragment(fragment: FragmentDB):
+    tag_relations = FragmentToTagRelations.query.filter_by(fragment_id=fragment.id).all()
+    return tag_relations
+
+
+def all_tags_by_fragment(fragment: FragmentDB):
+    relations = all_tag_relations_with_fragment(fragment)
+    tags = [tag_by_id(relation.tag_id) if relation.tag_id is not None else None for relation in relations]
+    return tags
+
+
+def delete_fragment(fragment: FragmentDB):
+    fragment_relations = all_fragment_relations_with_fragment(fragment)
+    tag_relations = all_tag_relations_with_fragment(fragment)
+    is_deleted = True
+    try:
+        if tag_relations:
+            for tr in tag_relations:
+                db.session.delete(tr)
+        if fragment_relations:
+            for fr in fragment_relations:
+                db.session.delete(fr)
+        db.session.commit()
+        db.session.delete(fragment)
+        db.session.commit()
+        print("deleted fragment"+str(fragment.id))
+    except Exception as e:
+        print(e)
+        is_deleted = False
+        db.session.rollback()
+    return is_deleted
+
+
+def delete_photo_with_fragments(photo: PhotoDB):
+    fragments = all_photo_fragments(photo)
+    success = True
+    for fragment in fragments:
+        is_deleted = delete_fragment(fragment)
+        if not is_deleted:
+            success = False
+            break
+    if success:
+        db.session.delete(photo)
+        db.session.commit()
+    return success

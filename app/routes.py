@@ -275,16 +275,18 @@ def post_fragment():
     return jsonify({"fragment_id": fragment.id})
 
 
-@app.route('/add_friend/<int:user_id>/<int:friend_id>', methods=['POST'])
-def add_friend(user_id: int, friend_id: int):
-    user = user_by_id(user_id)
+@app.route('/add_friend/<int:friend_id>', methods=['POST'])
+@login_required
+def add_friend(friend_id: int):
+    user = current_user
     adding_succes = user.add_to_friends(friend_id)
     return str(adding_succes)
 
 
-@app.route('/friend_list/<int:user_id>', methods=['GET'])
-def friend_list(user_id: int):
-    user = user_by_id(user_id)
+@app.route('/friend_list', methods=['GET'])
+@login_required
+def friend_list():
+    user = current_user
     friends = get_friends_list(user)
     jsonlist = list()
     for friend in friends:
@@ -293,6 +295,7 @@ def friend_list(user_id: int):
 
 
 @app.route('/search_users/<string:search>', methods=['GET'])
+@login_required
 def search_users(search: str):
     users = search_for_user(search)
     return jsonify([{"user_id": user.id, "username": user.name} for user in users])

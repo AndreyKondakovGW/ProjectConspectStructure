@@ -1,4 +1,4 @@
-from app.models import User, AccessDB, ConspectDB
+from app.models import User, AccessDB, ConspectDB, Friendship
 from app import db
 
 
@@ -41,6 +41,9 @@ def print_all_users():
         print(user)
 
 
+def user_by_id(id: int):
+    return User.query.filter_by(id=id).first()
+
 # ----------------------sharing section--------------------------------
 
 def check_access(user: User, conspect: ConspectDB):
@@ -57,3 +60,16 @@ def add_access(user: User, conspect: ConspectDB):
     else:
         access = None
     return access
+
+
+def add_to_friends(adder: User, adding: User):
+    adder.add_to_friends(adding.id)
+
+
+def get_friends_list(user: User):
+    return [user_by_id(friendship.user2_id) for friendship in Friendship.query.filter_by(user1_id=user.id).all()]
+
+
+def search_for_user(search_input: str):
+    users = User.query.filter(User.name.startswith(search_input)).all()
+    return users

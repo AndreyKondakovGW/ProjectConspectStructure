@@ -19,7 +19,6 @@ class User(UserMixin, db.Model):
     @staticmethod
     @login_manager.user_loader
     def load_user(id):
-        print(id)
         user = User.query.filter_by(id=id).first()
         return user
 
@@ -36,6 +35,18 @@ class User(UserMixin, db.Model):
 
     def get_all_tags(self):
         return Tag.query.filter_by(user_id=self.id).all()
+
+    def add_to_friends(self, user_id):
+        success = True
+        try:
+            friendship = Friendship(user1_id=self.id, user2_id=user_id)
+            db.session.add(friendship)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            success = False
+        return success
 
 
 class ConspectDB(db.Model):
@@ -152,6 +163,15 @@ class FragmentToTagRelations(db.Model):
     __table_args__ = (PrimaryKeyConstraint('fragment_id', 'tag_id'),
                       ForeignKeyConstraint(['fragment_id'], ['fragments.id']),
                       ForeignKeyConstraint(['tag_id'], ['tags.id']))
+
+
+class Friendship(db.Model):
+    __tablename__ = "friendship"
+    user1_id = db.Column(db.Integer, nullable=False)
+    user2_id = db.Column(db.Integer, nullable=False)
+    __table_args__ = (PrimaryKeyConstraint('user1_id', 'user2_id'),
+                      ForeignKeyConstraint(['user1_id'], ['users.id']),
+                      ForeignKeyConstraint(['user2_id'], ['users.id']))
 
 
 db.create_all()

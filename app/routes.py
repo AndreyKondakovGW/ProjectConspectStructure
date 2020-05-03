@@ -24,7 +24,7 @@ def index():
         login(Lform)
     if current_user.is_authenticated:
         print('пользователь', current_user, 'вошёл в сеть')
-        return redirect(url_for('main', username=current_user))
+        return redirect(url_for('main', username=current_user.name))
     return render_template('signin.html', Lform=Lform)
 
 
@@ -306,7 +306,6 @@ def search_users(search: str):
 @app.route('/main/<username>', methods=['GET', 'POST'])
 @login_required
 def main(username=current_user, filename='Pomosch1.pdf'):
-    print(filename)
     if username != '':
         conspects =current_user.get_all_conspects()
         if request.method == 'POST':

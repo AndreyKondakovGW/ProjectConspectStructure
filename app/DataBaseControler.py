@@ -3,6 +3,7 @@ from app.models import User, ConspectDB, PhotoDB, Tag, ConspectTagRelation, Frag
 from app.UserDBAPI1 import get_user
 from app.config import basedir
 from app.pdf_creater import create_pdf_from_images, cut
+import re
 
 
 def check_conspect_in_base(user: User, name: str):
@@ -244,3 +245,18 @@ def delete_photo_with_fragments(photo: PhotoDB):
         db.session.delete(photo)
         db.session.commit()
     return success
+
+
+def query_conrtoller(user: User, string: str):
+    tagsarr = set()
+    strings = re.split('\s[|]\s', string)
+    for tagset in strings:
+        tags = re.findall('[\S]{2,}', tagset)
+        for tag in tags:
+            tagsarr.add(tag)
+    tarr = User.query.join(AccessDB, AccessDB.user_id == User.id). \
+        join(ConspectDB, ConspectDB.id == AccessDB.conspect_id). \
+        join(ConspectTagRelation, ConspectTagRelation.conspect_id == ConspectDB.id). \
+        join(Tag, Tag.id == ConspectTagRelation.tag_id). \
+        filter(Tag.id in tagsarr).all()
+    return tarr

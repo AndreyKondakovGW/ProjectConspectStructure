@@ -46,15 +46,16 @@ def user_by_id(id: int):
 
 # ----------------------sharing section--------------------------------
 
-def check_access(user: User, conspect: ConspectDB):
+
+def check_access(user: User, conspect: ConspectDB, status: str = "owner"):
     print(user.id)
     print(conspect.id)
-    return AccessDB.check_access(user, conspect)
+    return AccessDB.check_access(user, conspect, status)
 
 
-def add_access(user: User, conspect: ConspectDB):
+def add_access(user: User, conspect: ConspectDB, status: str):
     if user and conspect:
-        access = AccessDB(user_id=user.id, conspect_id=conspect.id)
+        access = AccessDB(user_id=user.id, conspect_id=conspect.id, status=status)
         db.session.add(access)
         db.session.commit()
     else:
@@ -63,7 +64,7 @@ def add_access(user: User, conspect: ConspectDB):
 
 
 def add_to_friends(adder: User, adding: User):
-    adder.add_to_friends(adding.id)
+    return adder.add_to_friends(adding.id)
 
 
 def get_friends_list(user: User):
@@ -73,3 +74,14 @@ def get_friends_list(user: User):
 def search_for_user(search_input: str):
     users = User.query.filter(User.name.startswith(search_input)).all()
     return users
+
+
+def get_users_conspects(cur_user: User, user: User):
+    access_alias1 = db.aliased(AccessDB)
+    access_alias2 = db.aliased(AccessDB)
+    conspects = ConspectDB.query.join(access_alias1, access_alias1.conspect_id == ConspectDB.id)\
+        .join(access_alias2, access_alias2.conspect_id == ConspectDB.id)\
+        .filter(db.or_(db.and_(access_alias1.user_id == user.id, access_alias1.status == "owner"),
+                       access_alias2.user_id == cur_user.id))\
+        .filter(db.or_(ConspectDB.is_global, access_alias2.status == "view")).all()
+    return conspects

@@ -25,11 +25,11 @@ def delete_conspect_by_id(id: int):
     db.session.commit()
 
 
-def add_conspect(name,  user: User):
-    conspect = ConspectDB(name=name)
+def add_conspect(name,  user: User, status: str = "owner", is_global: bool = True):
+    conspect = ConspectDB(name=name, is_global=is_global)
     db.session.add(conspect)
     db.session.commit()
-    db.session.add(AccessDB(user_id=user.id, conspect_id=conspect.id))
+    db.session.add(AccessDB(user_id=user.id, conspect_id=conspect.id, status=status))
     db.session.commit()
     return conspect
 

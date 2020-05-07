@@ -28,7 +28,8 @@ class User(UserMixin, db.Model):
     def get_all_conspects(self):
         # сложный запрос с join
         conspect_arr = ConspectDB.query.join(AccessDB, ConspectDB.id == AccessDB.conspect_id)\
-                        .filter(AccessDB.user_id == self.id).all()
+                        .filter(AccessDB.user_id == self.id)\
+                        .filter(db.or_(AccessDB.status == "owner", AccessDB.status == "redactor")).all()
         # conspect_ids = [access.conspect_id for access in AccessDB.query.filter_by(user_id=self.id).all()]
         # conspect_arr = [ConspectDB.query.filter_by(id=conspect_id).first() for conspect_id in conspect_ids]
         return conspect_arr
@@ -38,6 +39,8 @@ class User(UserMixin, db.Model):
 
     def add_to_friends(self, user_id):
         success = True
+        if self.id == user_id:
+            return False
         try:
             friendship = Friendship(user1_id=self.id, user2_id=user_id)
             db.session.add(friendship)
@@ -54,6 +57,7 @@ class ConspectDB(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date = db.Column(db.Date)
     name = db.Column(db.String, unique=True)
+    is_global = db.Column(db.Boolean, nullable=False)
 
     def set_date(self, date):
         self.date = date
@@ -70,17 +74,18 @@ class AccessDB(db.Model):
     __tablename__ = "accesses"
     user_id = db.Column(db.Integer, nullable=False)
     conspect_id = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.String, nullable=False)
     __table_args__ = (PrimaryKeyConstraint('user_id', 'conspect_id'),
                       ForeignKeyConstraint(['conspect_id'], ['conspects.id']),
                       ForeignKeyConstraint(['user_id'], ['users.id']))
 
     @staticmethod
-    def check_access(user: User, conspect: ConspectDB):
+    def check_access(user: User, conspect: ConspectDB, status: str = "owner"):
         if not user:
             return False
         if not conspect:
             return False
-        return len(AccessDB.query.filter_by(conspect_id=conspect.id).filter_by(user_id=user.id).all()) != 0
+        return AccessDB.query.filter_by(conspect_id=conspect.id).filter_by(user_id=user.id).first().status == status
 
 
 class Tag(db.Model):

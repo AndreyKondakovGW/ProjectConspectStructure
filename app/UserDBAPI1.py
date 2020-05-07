@@ -2,7 +2,6 @@ from app.models import User, AccessDB, ConspectDB, Friendship
 from app import db
 
 
-
 def add_to_db_user(user):
     db.session.add(user)
     db.session.commit()
@@ -16,7 +15,6 @@ def add_to_db(name, password):
 def get_user(name):
     # print(session.query(UserDB).filter_by(name=name).first())
     return User.query.filter_by(name=name).first()
-
 
 
 def get_password(name):
@@ -53,7 +51,7 @@ def check_access(user: User, conspect: ConspectDB, status: str = "owner"):
     return AccessDB.check_access(user, conspect, status)
 
 
-def add_access(user: User, conspect: ConspectDB, status: str):
+def add_access(user: User, conspect: ConspectDB, status: str = "viewer"):
     if user and conspect:
         access = AccessDB(user_id=user.id, conspect_id=conspect.id, status=status)
         db.session.add(access)

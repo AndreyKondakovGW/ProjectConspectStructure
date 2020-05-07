@@ -76,6 +76,12 @@ def TryLoginUser(name, password, remember_me):
         return redirect(url_for('index'))
 
 
+@app.route('/get_current_user', methods=['GET'])
+@login_required
+def get_current_user():
+    return jsonify({"id": current_user.id, "name": current_user.name})
+
+
 # выдаёт список конспектов пользователя в виде JSON-массива
 @app.route('/getconspects', methods=['GET'])
 @login_required
@@ -85,7 +91,7 @@ def get_conspects():
     conspects = user.get_all_conspects()
     jsonlist = list()
     for conspect in conspects:
-        jsonlist.append({"id": conspect.id, "name": conspect.name})
+        jsonlist.append({"id": conspect.id, "name": conspect.name, "is_global": conspect.is_global})
     return jsonify(jsonlist)
 
 
@@ -142,10 +148,10 @@ def get_photo_by_id(id: int):
     return send_file('static/Photo/users/'+photo.filename, mimetype='image')
 
 
-@app.route('/getconspectpdf/<string:conspectname>')
+@app.route('/getconspectpdf/<int:id>')
 @login_required
-def get_conspect_pdf(conspectname: str):
-    pdf_name = create_pdf_conspect(current_user, conspectname)
+def get_conspect_pdf(id: int):
+    pdf_name = create_pdf_conspect(current_user, id)
     if pdf_name:
         pdf_name = "static/Photo/"+pdf_name
     else:
@@ -153,21 +159,22 @@ def get_conspect_pdf(conspectname: str):
     return send_file(pdf_name, mimetype='application/pdf')
 
 
-@app.route('/put_conspect/<string:conspectname>', methods=['PUT'])
+@app.route('/put_conspect/<string:conspectname>/<is_global>', methods=['PUT'])
 @login_required
-def put_conspect(conspectname: str):
+def put_conspect(conspectname: str, is_global: str):
     user = current_user
+    is_global = is_global == "True"
     if not check_conspect_in_base(user, conspectname):
-        conspect = add_conspect(conspectname, user)
+        conspect = add_conspect(conspectname, user, is_global=is_global)
     else:
         conspect = conspect_by_name(user, conspectname)
-    return jsonify({"conspect_id": conspect.id, "conspect_name": conspectname})
+    return jsonify({"conspect_id": conspect.id, "conspect_name": conspectname, "is_global": conspect.is_global})
 
 
-@app.route('/savephoto/<string:conspectname>', methods=['POST'])
+@app.route('/savephoto/<int:conspectid>', methods=['POST'])
 @login_required
-def save_conspect_photo(conspectname: str):
-    photo = uploads(conspectname)
+def save_conspect_photo(conspectid: int):
+    photo = uploads(conspectid)
     if photo is None:
         abort(400)
         photo = default_photo
@@ -175,23 +182,20 @@ def save_conspect_photo(conspectname: str):
     return jsonify({"id": photo.id, "filename": photo.filename, "id_conspect": photo.id_conspect})
 
 
-def uploads(conspect_name: str):
+def uploads(conspect_id: int):
     file = request.files['file']
     if file and allowed_file(file.filename):
-            path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
-            if not(os.path.exists(path)):
-                os.mkdir(path)
-            #filename1 = file.filename
-            #file.save(os.path.join(path+'/', filename1))
-            filename1 = filename_gen(path, file)
-            photo = add_photo(current_user.name+'/'+filename1)
-            if check_conspect_in_base(current_user, conspect_name):
-                conspect = conspect_by_name(current_user, conspect_name)
-            else:
-                conspect = None
-            if conspect:
-                add_photo_to_conspect(photo=photo, conspect=conspect)
-            return photo
+        path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
+        if not(os.path.exists(path)):
+            os.mkdir(path)
+        #filename1 = file.filename
+        #file.save(os.path.join(path+'/', filename1))
+        filename1 = filename_gen(path, file)
+        photo = add_photo(current_user.name+'/'+filename1)
+        conspect = conspect_by_id(conspect_id)
+        if conspect:
+            add_photo_to_conspect(photo=photo, conspect=conspect)
+        return photo
     return None
 
 
@@ -313,6 +317,23 @@ def get_opened_conspects(cur_user_id: int, user_id: int):
     else:
         return jsonify([{"id": conspect.id, "name": conspect.name} for conspect in conspects])
 
+
+@app.route('/share_conspect/<int:conspect_id>/<int:user_id>/<string:status>', methods=['POST'])
+@login_required
+def share_conspect(conspect_id: int, user_id: int, status: str = "viewer"):
+    conspect = conspect_by_id(conspect_id)
+    if AccessDB.check_access(current_user, conspect):
+        user = user_by_id(user_id)
+        access = add_access(user, conspect, status)
+        if access:
+            return "success"
+        else:
+            abort(520)
+            return "error"
+    else:
+        abort(403)
+        return "error"
+
 # -----------------old section-------------------
 
 
@@ -340,7 +361,8 @@ def openTopic(index):
     # cut('0Vf2QKFahu4.jpg',0,0,200,100)
     print('creating pdf from '+conspectname)
     if check_conspect_in_base(current_user, conspectname):
-        pdf_name = create_pdf_conspect(user=current_user, conspect_name=conspectname)
+        conspect = conspect_by_name(current_user, conspectname)
+        pdf_name = create_pdf_conspect(user=current_user, id=conspect.id)
         if pdf_name:
             print(pdf_name)
             return main(filename=pdf_name)

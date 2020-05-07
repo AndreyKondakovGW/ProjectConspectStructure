@@ -51,6 +51,10 @@ def check_access(user: User, conspect: ConspectDB, status: str = "owner"):
     return AccessDB.check_access(user, conspect, status)
 
 
+def check_any_access(user: User, conspect: ConspectDB):
+    return len(AccessDB.query.filter_by(user_id=user.id).filter_by(conspect_id=conspect.id).all()) > 0
+
+
 def add_access(user: User, conspect: ConspectDB, status: str = "viewer"):
     if user and conspect:
         access = AccessDB(user_id=user.id, conspect_id=conspect.id, status=status)

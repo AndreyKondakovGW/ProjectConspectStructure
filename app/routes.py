@@ -126,7 +126,7 @@ def get_conspect_photos(id: int):
     conspect = conspect_by_id(id)
     if not conspect:
         abort(404)
-    if not check_access(user, conspect):
+    if not check_any_access(user, conspect):
         abort(403)
     jsonlist = list()
     if conspect:
@@ -143,7 +143,7 @@ def get_photo_by_id(id: int):
     """return photo-file by photo id"""
     photo = photo_by_id(id)
     conspect = conspect_by_id(photo.id_conspect)
-    if not check_access(current_user, conspect):
+    if not check_any_access(current_user, conspect):
         abort(403)
     return send_file('static/Photo/users/'+photo.filename, mimetype='image')
 
@@ -151,6 +151,9 @@ def get_photo_by_id(id: int):
 @app.route('/getconspectpdf/<int:id>')
 @login_required
 def get_conspect_pdf(id: int):
+    conspect = conspect_by_id(id)
+    if not check_any_access(current_user, conspect):
+        abort(403)
     pdf_name = create_pdf_conspect(current_user, id)
     if pdf_name:
         pdf_name = "static/Photo/"+pdf_name
@@ -174,6 +177,9 @@ def put_conspect(conspectname: str, is_global: str):
 @app.route('/savephoto/<int:conspectid>', methods=['POST'])
 @login_required
 def save_conspect_photo(conspectid: int):
+    conspect = conspect_by_id(conspectid)
+    if not (check_access(current_user, conspect, "owner") or check_access(current_user, conspect, "redactor")):
+        abort(403)
     photo = uploads(conspectid)
     if photo is None:
         abort(400)
@@ -182,7 +188,7 @@ def save_conspect_photo(conspectid: int):
     return jsonify({"id": photo.id, "filename": photo.filename, "id_conspect": photo.id_conspect})
 
 
-def uploads(conspect_id: int):
+def uploads(conspect: ConspectDB):
     file = request.files['file']
     if file and allowed_file(file.filename):
         path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
@@ -192,7 +198,6 @@ def uploads(conspect_id: int):
         #file.save(os.path.join(path+'/', filename1))
         filename1 = filename_gen(path, file)
         photo = add_photo(current_user.name+'/'+filename1)
-        conspect = conspect_by_id(conspect_id)
         if conspect:
             add_photo_to_conspect(photo=photo, conspect=conspect)
         return photo
@@ -204,7 +209,7 @@ def uploads(conspect_id: int):
 def delete_photo(id: int):
     photo = photo_by_id(id)
     conspect = conspect_by_id(photo.id_conspect)
-    if check_access(current_user, conspect):
+    if check_access(current_user, conspect, "owner") or check_access(current_user, conspect, "redactor"):
         fragments = all_photo_fragments(photo)
         if fragments:
             remove_from_conspect(photo)
@@ -234,7 +239,7 @@ def get_related_tags(conspect_id: int):
 @login_required
 def delete_conspect(id: int):
     conspect = conspect_by_id(id)
-    if not check_access(current_user, conspect):
+    if not check_access(current_user, conspect, "owner"):
         abort(403)
     for photo in get_conspect_photoes(conspect):
         path = app.config['UPLOAD_FOLDER'] +'/users/' + photo.filename

@@ -1,18 +1,16 @@
-from app import db
+from app import db, app
 from app.models import User, ConspectDB, PhotoDB, Tag, ConspectTagRelation, FragmentDB, FragmentToTagRelations, FragmentsRelation, AccessDB
 from app.UserDBAPI1 import get_user
 from app.config import basedir
 from app.pdf_creater import create_pdf_from_images, cut
+from app.pdf_creater import save_copy, filename_gen
 import re
 
 
 def check_conspect_in_base(user: User, name: str):
-    conspects = user.get_all_conspects()
-    res = False
-    for conspect in conspects:
-        if conspect.name == name:
-            res = True
-    return res
+    return len(ConspectDB.query.join(AccessDB, ConspectDB.id == AccessDB.conspect_id).filter(AccessDB.user_id == user.id)
+                .filter(db.or_(AccessDB.status == "owner", AccessDB.status == "redactor"))
+                .filter(ConspectDB.name == name).all()) > 0
 
 
 def conspect_by_id(id: int):
@@ -86,13 +84,10 @@ def add_all_photoes(names: [], conspect: ConspectDB):
 
 # находит в списке айдишников тот, у которого имя конспекта = name
 def conspect_by_name(user: User, name: str):
-    res = None
-    conspects = user.get_all_conspects()
-    for conspect in conspects:
-        if conspect.name == name:
-            res = conspect
-            break
-    return res
+    conspect = ConspectDB.query.join(AccessDB, ConspectDB.id == AccessDB.conspect_id).filter(AccessDB.user_id == user.id)\
+                        .filter(db.or_(AccessDB.status == "owner", AccessDB.status == "redactor"))\
+                        .filter(ConspectDB.name == name).first()
+    return conspect
 
 
 def conspect_by_id(id: int):
@@ -102,7 +97,7 @@ def conspect_by_id(id: int):
 # выдаёт все фото конспекта
 def get_conspect_photoes(conspect: ConspectDB):
     if conspect is not None:
-        return [photo for photo in PhotoDB.query.filter_by(id_conspect=conspect.id)]
+        return PhotoDB.query.filter_by(id_conspect=conspect.id).all()
     else:
         return []
 
@@ -260,3 +255,26 @@ def query_conrtoller(user: User, string: str):
         join(Tag, Tag.id == ConspectTagRelation.tag_id). \
         filter(Tag.id in tagsarr).all()
     return tarr
+
+
+def copy_conspect(user: User, conspect: ConspectDB):
+    photos = get_conspect_photoes(conspect)
+    success = True
+    try:
+        conspect1 = ConspectDB(name=conspect.name, is_global=False)
+        db.session.add(conspect1)
+        db.session.commit()
+        for photo in photos:
+            path = app.config['UPLOAD_FOLDER'] + '/users/' + user.name
+            image_path = app.config['UPLOAD_FOLDER'] + '/users/' + photo.filename
+            copy_name = filename_gen(path, photo.filename)
+            save_copy(image_path, copy_name)
+            copy_name = copy_name.split('/')[-1]
+            photo_copy = PhotoDB(filename=user.name + '/' + copy_name, id_conspect=conspect1.id)
+            db.session.add(photo_copy)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        success = False
+    return success

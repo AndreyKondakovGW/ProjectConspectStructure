@@ -9,10 +9,9 @@ from app.DataBaseControler import *
 from flask_login import current_user, login_user, logout_user, login_required
 from app import login_manager
 from werkzeug.urls import url_parse
-from app.pdf_creater import create_pdf_from_images, cut
+from werkzeug.utils import secure_filename
+from app.pdf_creater import filename_gen, create_pdf_from_images, cut
 from app.models import filename, default_photo, AccessDB
-from tempfile import NamedTemporaryFile
-import json
 import os
 
 
@@ -194,9 +193,9 @@ def uploads(conspect: ConspectDB):
         path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
         if not(os.path.exists(path)):
             os.mkdir(path)
-        #filename1 = file.filename
-        #file.save(os.path.join(path+'/', filename1))
-        filename1 = filename_gen(path, file)
+        filename1 = filename_gen(path, secure_filename(file))
+        file.save(filename1)
+        filename1 = filename1.split('/')[-1]
         photo = add_photo(current_user.name+'/'+filename1)
         if conspect:
             add_photo_to_conspect(photo=photo, conspect=conspect)
@@ -339,6 +338,18 @@ def share_conspect(conspect_id: int, user_id: int, status: str = "viewer"):
         abort(403)
         return "error"
 
+
+@app.route('/copy_conspect/<int:id>', methods=['POST'])
+@login_required
+def post_copy_conspect(id: int):
+    conspect = conspect_by_id(id)
+    if copy_conspect(current_user, conspect):
+        return "copied"
+    else:
+        abort(520)
+        return "error"
+
+
 # -----------------old section-------------------
 
 
@@ -433,19 +444,6 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in Config.ALLOWED_EXTENSIONS
 
-
-def filename_gen(path: str, file):
-    ext = file.filename.split('.')[1]
-    tf = NamedTemporaryFile(dir=path)
-    filename = tf.name+'.'+ext
-    tf.close()
-    while os.path.exists(filename):
-        tf = NamedTemporaryFile(dir=path)
-        filename = tf.name + '.' + ext
-        tf.close()
-    file.save(filename)
-    filename = filename.split('/')[-1]
-    return filename
 
 
 

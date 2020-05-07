@@ -1,6 +1,8 @@
 from fpdf import FPDF
 import os
 from PIL import Image
+from tempfile import NamedTemporaryFile
+
 
 class MyPDF(FPDF):
     def footer(self):
@@ -53,3 +55,21 @@ def cut(image_path, left, top, right, bottom, name):
         # im1=im
     im1.save(name)
     #im1.show()
+
+
+def filename_gen(path: str, old_filename: str):
+    ext = old_filename.split('.')[-1]
+    tf = NamedTemporaryFile(dir=path)
+    filename = tf.name+'.'+ext
+    tf.close()
+    while os.path.exists(filename):
+        tf = NamedTemporaryFile(dir=path)
+        filename = tf.name + '.' + ext
+        tf.close()
+    return filename
+
+
+def save_copy(image_path, new_image_path):
+    image = Image.open(image_path)
+    new_image = image.copy()
+    new_image.save(new_image_path)

@@ -309,11 +309,10 @@ def search_users(search: str):
     return jsonify([{"user_id": user.id, "username": user.name} for user in users])
 
 
-@app.route('/get_opened_conspects/<int:cur_user_id>/<int:user_id>', methods=['GET'])
-# @login_required
-def get_opened_conspects(cur_user_id: int, user_id: int):
-    # cur_user = current_user
-    cur_user = user_by_id(cur_user_id)
+@app.route('/get_opened_conspects/<int:user_id>', methods=['GET'])
+@login_required
+def get_opened_conspects( user_id: int):
+    cur_user = current_user
     user = user_by_id(user_id)
     conspects = get_users_conspects(cur_user, user)
     if not conspects:

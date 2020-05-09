@@ -56,7 +56,7 @@ class ConspectDB(db.Model):
     __tablename__ = "conspects"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date = db.Column(db.Date)
-    name = db.Column(db.String, unique=True)
+    name = db.Column(db.String)
     is_global = db.Column(db.Boolean, nullable=False)
 
     def set_date(self, date):

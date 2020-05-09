@@ -83,7 +83,7 @@ def get_users_conspects(cur_user: User, user: User):
     access_alias2 = db.aliased(AccessDB)
     conspects = ConspectDB.query.join(access_alias1, access_alias1.conspect_id == ConspectDB.id)\
         .join(access_alias2, access_alias2.conspect_id == ConspectDB.id)\
-        .filter(db.or_(db.and_(access_alias1.user_id == user.id, access_alias1.status == "owner"),
-                       access_alias2.user_id == cur_user.id))\
-        .filter(db.or_(ConspectDB.is_global, access_alias2.status == "view")).all()
+        .filter(db.and_(db.and_(access_alias1.user_id == user.id, access_alias1.status == "owner"),
+                        access_alias2.user_id == cur_user.id))\
+        .filter(db.and_(ConspectDB.is_global, access_alias2.status == "view")).all()
     return conspects

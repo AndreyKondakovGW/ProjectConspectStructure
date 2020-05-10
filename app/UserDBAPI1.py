@@ -73,6 +73,20 @@ def add_to_friends(adder: User, adding: User):
     return adder.add_to_friends(adding.id)
 
 
+def remove_from_friends(remover: User, removing: User):
+    success = True
+    try:
+        friendship = Friendship.query.filter_by(user1_id=remover.id).filter_by(user2_id=removing.id).first()
+        if friendship:
+            db.session.delete(friendship)
+            db.session.commit()
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        success = False
+    return success
+
+
 def get_friends_list(user: User):
     return [user_by_id(friendship.user2_id) for friendship in Friendship.query.filter_by(user1_id=user.id).all()]
 

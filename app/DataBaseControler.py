@@ -232,29 +232,59 @@ def delete_photo_with_fragments(photo: PhotoDB):
     fragments = all_photo_fragments(photo)
     success = True
     for fragment in fragments:
+        tagarr = all_tags_by_fragment(fragment)
         is_deleted = delete_fragment(fragment)
         if not is_deleted:
             success = False
             break
+        for tag in tagarr:
+            if not all_fragments_by_tag(tag):
+                try:
+                    db.session.delete(tag)
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    print(e)
     if success:
         db.session.delete(photo)
         db.session.commit()
     return success
 
 
-def query_conrtoller(user: User, string: str):
+def query_conrtoller(user: User,string: str):
     tagsarr = set()
-    strings = re.split('\s[|]\s', string)
+    res = list()
+    strings = re.split('\s[|]\s',string)
     for tagset in strings:
-        tags = re.findall('[\S]{2,}', tagset)
+        tags = re.findall('[\S]{2,}',tagset)
         for tag in tags:
             tagsarr.add(tag)
-    tarr = User.query.join(AccessDB, AccessDB.user_id == User.id). \
-        join(ConspectDB, ConspectDB.id == AccessDB.conspect_id). \
-        join(ConspectTagRelation, ConspectTagRelation.conspect_id == ConspectDB.id). \
-        join(Tag, Tag.id == ConspectTagRelation.tag_id). \
-        filter(Tag.id in tagsarr).all()
-    return tarr
+    tarr = Tag.query.join(ConspectTagRelation, ConspectTagRelation.tag_id == Tag.id).\
+        join(ConspectDB, ConspectDB.id == ConspectTagRelation.conspect_id).\
+        join(AccessDB, AccessDB.conspect_id == ConspectDB.id).\
+        join(User, User.id == AccessDB.user_id).\
+        filter(User.id == user.id).all()
+    for tag in tarr:
+        if (tag.name in tagsarr):
+            res.append(tag)
+    return res
+
+
+def pdf_fragments_by_tags_arr(user: User, tags: [Tag]):
+    if tags:
+        filenames = list()
+        for tag in tags:
+            farr = all_fragments_by_tag(tag)
+            for i in range(0, len(farr)):
+                photo = PhotoDB.query.filter_by(id=farr[i].photo_id).first()
+                filename = basedir+"/static/Photo/pdfs/"+user.name+"_fragment_"+str(i+1)+'.png'
+                cut("users/"+photo.filename, farr[i].x1, farr[i].y1, farr[i].x2, farr[i].y2, filename)
+                filenames.append(filename)
+        name = "pdfs/"+user.name+"_set"
+        create_pdf_from_images(name, filenames)
+        return name+".pdf"
+    else:
+        return ""
 
 
 def copy_conspect(user: User, conspect: ConspectDB):
@@ -278,3 +308,24 @@ def copy_conspect(user: User, conspect: ConspectDB):
         db.session.rollback()
         success = False
     return success
+
+
+def save_tags_as_tag(user: User, tags: [Tag], new_tag_name: str):
+    conds = [(FragmentToTagRelations.tag_id == tag.id) for tag in tags]
+    fragments = FragmentDB.query.join(FragmentToTagRelations, FragmentToTagRelations.fragment_id == FragmentDB.id).\
+        filter(db.or_(*conds)).all()
+    new_tag = Tag(name=new_tag_name, user_id=user.id)
+    db.session.add(new_tag)
+    db.session.commit()
+    try:
+        for fragment in fragments:
+            fragnent_to_tag_relation = FragmentToTagRelations(fragment_id=fragment.id, tag_id=new_tag.id)
+            db.session.add(fragnent_to_tag_relation)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        db.session.delete(new_tag)
+        db.session.commit()
+        print(e)
+        return False
+    return True

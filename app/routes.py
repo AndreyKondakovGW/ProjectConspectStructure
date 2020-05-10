@@ -112,8 +112,6 @@ def get_tag_pdf(tagname:str):
     print(tagname)
     """return pdf-file created from fragments with tag by name of tag"""
     pdf_name = basedir+'/static/Photo/'+pdf_fragments_by_tag(current_user, tagname)
-    print(pdf_name)
-    print(os.path.exists(pdf_name))
     return send_file(pdf_name, mimetype='application/pdf')
 
 
@@ -251,7 +249,6 @@ def delete_conspect(id: int):
     return "Deleted"
 
 
-
 @app.route("/sendfragment", methods=['POST'])
 @login_required
 def post_fragment():
@@ -269,7 +266,7 @@ def post_fragment():
     y1 = int(data.get("y1"))/100
     x2 = int(data.get("x2"))/100
     y2 = int(data.get("y2"))/100
-    if not (x1 and x2 and y1 and y2):
+    if not ((x2-x1 != 0) and (y2-y1 != 0)):
         x1, y1 = 0, 0
         x2, y2 = 1, 1
     fragment = add_fragment(user, photo, x1=x1, y1=y1, x2=x2, y2=y2)
@@ -289,6 +286,15 @@ def add_friend(friend_id: int):
     user = current_user
     adding_succes = user.add_to_friends(friend_id)
     return str(adding_succes)
+
+
+@app.route('/delete_friend/<int:friend_id>', methods=['DELETE'])
+@login_required
+def delete_friend(friend_id: int):
+    user = user_by_id(friend_id)
+    if not remove_from_friends(current_user, user):
+        abort(520)
+    return "Deleted"
 
 
 @app.route('/friend_list', methods=['GET'])
@@ -349,7 +355,30 @@ def share_conspect_to_friends(id: int, status="viewer"):
     f_list = get_friends_list(current_user)
     conspect = conspect_by_id(id)
     for friend in f_list:
-        add_access(friend, conspect, status)
+        if not check_any_access(current_user, conspect):
+            add_access(friend, conspect, status)
+    return "success"
+
+
+@app.route('/share_conspect_to_all/<int:id>', methods=['PUT'])
+@login_required
+def share_conspect_to_all(id: int):
+    conspect = conspect_by_id(id)
+    if check_access(current_user, conspect, "owner"):
+        conspect.is_global = True
+    else:
+        abort(403)
+    return "success"
+
+
+@app.route('/set_conspect_private/<int:id>', methods=['PUT'])
+@login_required
+def set_private(id: int):
+    conspect = conspect_by_id(id)
+    if check_access(current_user, conspect, "owner"):
+        conspect.is_global = False
+    else:
+        abort(403)
     return "success"
 
 
@@ -364,6 +393,18 @@ def post_copy_conspect(id: int):
         return "error"
 
 
+@app.route('/get_sample_pdf/<string:sample>', methods=['GET'])
+@login_required
+def get_sample_pdf(sample: str):
+    tags = query_conrtoller(current_user, sample)
+    pdf_name = basedir + '/static/Photo/' + pdf_fragments_by_tags_arr(current_user, tags)
+    print(os.path.exists(pdf_name))
+    if not os.path.exists(pdf_name):
+        abort(400)
+    return send_file(pdf_name, mimetype='application/pdf')
+
+
+
 # -----------------old section-------------------
 
 
@@ -371,14 +412,14 @@ def post_copy_conspect(id: int):
 @login_required
 def main(username=current_user, filename='Pomosch1.pdf'):
     if username != '':
-        conspects =current_user.get_all_conspects()
+        conspects = current_user.get_all_conspects()
         if request.method == 'POST':
             req = (request.form.get('img_name'))
             if req:
                 print("req: " + req)
                 pdf_name = pdf_fragments_by_tag(current_user, req)
                 if pdf_name:
-                     return render_template('build/index.html') # return render_template('osnovnaya.html', filename='Photo/'+pdf_name, conspects=conspects)
+                    return render_template('build/index.html') # return render_template('osnovnaya.html', filename='Photo/'+pdf_name, conspects=conspects)
         return render_template('build/index.html') # return render_template('osnovnaya.html', filename='Photo/'+filename, conspects=conspects, currentuser=current_user.name)# return render_template('build/index.html')
     else:
         flash('please log in')

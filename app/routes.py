@@ -179,7 +179,7 @@ def save_conspect_photo(conspectid: int):
     conspect = conspect_by_id(conspectid)
     if not (check_access(current_user, conspect, "owner") or check_access(current_user, conspect, "redactor")):
         abort(403)
-    photo = uploads(conspectid)
+    photo = uploads(conspect)
     if photo is None:
         abort(400)
         photo = default_photo
@@ -193,7 +193,7 @@ def uploads(conspect: ConspectDB):
         path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
         if not(os.path.exists(path)):
             os.mkdir(path)
-        filename1 = filename_gen(path, secure_filename(file))
+        filename1 = filename_gen(path, secure_filename(file.filename))
         file.save(filename1)
         filename1 = filename1.split('/')[-1]
         photo = add_photo(current_user.name+'/'+filename1)
@@ -336,6 +336,21 @@ def share_conspect(conspect_id: int, user_id: int, status: str = "viewer"):
     else:
         abort(403)
         return "error"
+
+
+@app.route('/share_conspect_to_friends/<int:id>/<status>', methods=['POST'])
+@login_required
+def share_conspect_to_friends(id: int, status="viewer"):
+    if not status:
+        status = "viewer"
+    if not is_correct_status(status):
+        abort(400)
+        return "error"
+    f_list = get_friends_list(current_user)
+    conspect = conspect_by_id(id)
+    for friend in f_list:
+        add_access(friend, conspect, status)
+    return "success"
 
 
 @app.route('/copy_conspect/<int:id>', methods=['POST'])

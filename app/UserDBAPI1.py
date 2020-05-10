@@ -45,6 +45,10 @@ def user_by_id(id: int):
 # ----------------------sharing section--------------------------------
 
 
+def is_correct_status(status: str):
+    return (status == "viewer") or (status == "redactor") or (status == "owner")
+
+
 def check_access(user: User, conspect: ConspectDB, status: str = "owner"):
     print(user.id)
     print(conspect.id)
@@ -83,7 +87,7 @@ def get_users_conspects(cur_user: User, user: User):
     access_alias2 = db.aliased(AccessDB)
     conspects = ConspectDB.query.join(access_alias1, access_alias1.conspect_id == ConspectDB.id)\
         .join(access_alias2, access_alias2.conspect_id == ConspectDB.id)\
-        .filter(db.and_(db.and_(access_alias1.user_id == user.id, access_alias1.status == "owner"),
-                        access_alias2.user_id == cur_user.id))\
-        .filter(db.and_(ConspectDB.is_global, access_alias2.status == "view")).all()
+        .filter(db.and_(access_alias1.user_id == user.id, access_alias1.status == "owner"))\
+        .filter(db.or_(ConspectDB.is_global, db.and_(access_alias2.status == "viewer",
+                                                     access_alias2.user_id == cur_user.id))).all()
     return conspects

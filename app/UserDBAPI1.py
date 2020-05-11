@@ -59,6 +59,10 @@ def check_any_access(user: User, conspect: ConspectDB):
     return len(AccessDB.query.filter_by(user_id=user.id).filter_by(conspect_id=conspect.id).all()) > 0
 
 
+def get_access(user: User, conspect: ConspectDB):
+    return AccessDB.query.filter_by(user_id=user.id).filter_by(conspect_id=conspect.id).first()
+
+
 def add_access(user: User, conspect: ConspectDB, status: str = "viewer"):
     if user and conspect:
         access = AccessDB(user_id=user.id, conspect_id=conspect.id, status=status)
@@ -67,6 +71,21 @@ def add_access(user: User, conspect: ConspectDB, status: str = "viewer"):
     else:
         access = None
     return access
+
+
+def remove_access(user: User, conspect: ConspectDB):
+    if user and conspect:
+        if check_any_access(user, conspect):
+            access = get_access(user, conspect)
+            try:
+                db.session.delete(access)
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return False
+            return True
+    return False
 
 
 def add_to_friends(adder: User, adding: User):
@@ -109,3 +128,9 @@ def get_users_conspects(cur_user: User, user: User):
 
 def users_with_access(conspect: ConspectDB):
     return User.query.join(AccessDB, AccessDB.user_id == User.id).filter(AccessDB.conspect_id == conspect.id).all()
+
+
+def share_to_all(conspect: ConspectDB):
+    if not conspect.is_global:
+        conspect.is_global = True
+        db.session.commit()

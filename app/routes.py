@@ -402,7 +402,7 @@ def get_users_with_access(conspect_id: int):
     conspect = conspect_by_id(conspect_id)
     if not check_access(current_user, conspect, "owner"):
         abort(403)
-    users_json =[{"id": user.id, "name": user.name} for user in users_with_access(conspect)]
+    users_json =[{"user_id": user.id, "username": user.name} for user in users_with_access(conspect)]
     return jsonify(users_json)
 
 

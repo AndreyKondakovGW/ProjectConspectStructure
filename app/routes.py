@@ -355,7 +355,7 @@ def share_conspect_to_friends(id: int, status="viewer"):
     f_list = get_friends_list(current_user)
     conspect = conspect_by_id(id)
     for friend in f_list:
-        if not check_any_access(current_user, conspect):
+        if not check_any_access(friend, conspect):
             add_access(friend, conspect, status)
     return "success"
 
@@ -365,7 +365,9 @@ def share_conspect_to_friends(id: int, status="viewer"):
 def share_conspect_to_all(id: int):
     conspect = conspect_by_id(id)
     if check_access(current_user, conspect, "owner"):
-        conspect.is_global = True
+        if not conspect.is_global:
+            conspect.is_global = True
+            db.session.commit()
     else:
         abort(403)
     return "success"
@@ -398,7 +400,7 @@ def post_copy_conspect(id: int):
 def get_sample_pdf(sample: str):
     tags = query_conrtoller(current_user, sample)
     pdf_name = basedir + '/static/Photo/' + pdf_fragments_by_tags_arr(current_user, tags)
-    print(os.path.exists(pdf_name))
+    print(pdf_name)
     if not os.path.exists(pdf_name):
         abort(400)
     return send_file(pdf_name, mimetype='application/pdf')

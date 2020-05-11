@@ -251,7 +251,8 @@ def delete_photo_with_fragments(photo: PhotoDB):
     return success
 
 
-def query_conrtoller(user: User,string: str):
+def query_conrtoller(user: User, string: str):
+    print(string)
     tagsarr = set()
     res = list()
     strings = re.split('\s[|]\s',string)
@@ -264,6 +265,7 @@ def query_conrtoller(user: User,string: str):
         join(AccessDB, AccessDB.conspect_id == ConspectDB.id).\
         join(User, User.id == AccessDB.user_id).\
         filter(User.id == user.id).all()
+    print(tarr)
     for tag in tarr:
         if (tag.name in tagsarr):
             res.append(tag)
@@ -272,6 +274,7 @@ def query_conrtoller(user: User,string: str):
 
 def pdf_fragments_by_tags_arr(user: User, tags: [Tag]):
     if tags:
+        print("tags is not empty")
         filenames = list()
         for tag in tags:
             farr = all_fragments_by_tag(tag)

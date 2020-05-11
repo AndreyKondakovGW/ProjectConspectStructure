@@ -105,3 +105,7 @@ def get_users_conspects(cur_user: User, user: User):
         .filter(db.or_(ConspectDB.is_global, db.and_(access_alias2.status == "viewer",
                                                      access_alias2.user_id == cur_user.id))).all()
     return conspects
+
+
+def users_with_access(conspect: ConspectDB):
+    return User.query.join(AccessDB, AccessDB.user_id == User.id).filter(AccessDB.conspect_id == conspect.id).all()

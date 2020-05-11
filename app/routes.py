@@ -123,7 +123,7 @@ def get_conspect_photos(id: int):
     conspect = conspect_by_id(id)
     if not conspect:
         abort(404)
-    if not check_any_access(user, conspect):
+    if not (check_any_access(user, conspect) or conspect.is_global):
         abort(403)
     jsonlist = list()
     if conspect:
@@ -140,7 +140,7 @@ def get_photo_by_id(id: int):
     """return photo-file by photo id"""
     photo = photo_by_id(id)
     conspect = conspect_by_id(photo.id_conspect)
-    if not check_any_access(current_user, conspect):
+    if not (check_any_access(current_user, conspect) or conspect.is_global):
         abort(403)
     return send_file('static/Photo/users/'+photo.filename, mimetype='image')
 
@@ -312,7 +312,11 @@ def friend_list():
 @login_required
 def search_users(search: str):
     users = search_for_user(search)
-    return jsonify([{"user_id": user.id, "username": user.name} for user in users])
+    json_list = list()
+    for user in users:
+        if user.id != current_user.id:
+            json_list.append({"user_id": user.id, "username": user.name})
+    return jsonify(json_list)
 
 
 @app.route('/get_opened_conspects/<int:user_id>', methods=['GET'])
@@ -402,7 +406,11 @@ def get_users_with_access(conspect_id: int):
     conspect = conspect_by_id(conspect_id)
     if not check_access(current_user, conspect, "owner"):
         abort(403)
-    users_json =[{"user_id": user.id, "username": user.name} for user in users_with_access(conspect)]
+    users_json = list()
+    users_json.append({"user_id": -1, "username": str(conspect.is_global)})
+    for user in users_with_access(conspect):
+        if user.id != current_user.id:
+            users_json.append({"user_id": user.id, "username": user.name})
     return jsonify(users_json)
 
 
@@ -413,16 +421,17 @@ def post_copy_conspect(id: int):
     if copy_conspect(current_user, conspect):
         return "copied"
     else:
-        abort(520)
+        abort(418)
         return "error"
 
 
 @app.route('/get_sample_pdf/<string:sample>', methods=['GET'])
 @login_required
 def get_sample_pdf(sample: str):
-    tags = query_conrtoller(current_user, sample)
-    pdf_name = basedir + '/static/Photo/' + pdf_fragments_by_tags_arr(current_user, tags)
-    print(pdf_name)
+    print(sample)
+    fragments = query_conrtoller(current_user, sample)
+    pdf_name = basedir + '/static/Photo/' + pdf_fragments_by_fragments_arr(current_user, fragments)
+    # print(pdf_name)
     if not os.path.exists(pdf_name):
         abort(400)
     return send_file(pdf_name, mimetype='application/pdf')

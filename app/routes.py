@@ -400,6 +400,15 @@ def set_private(id: int):
     return "success"
 
 
+@app.route('/get_is_global/<int:id>', methods=['GET'])
+@login_required
+def get_is_global(id: int):
+    conspect = conspect_by_id(id)
+    if not conspect:
+        abort(404)
+    return jsonify({"is_global": str(conspect.is_global)})
+
+
 @app.route('/get_users_with_access/<int:conspect_id>', methods=['GET'])
 @login_required
 def get_users_with_access(conspect_id: int):

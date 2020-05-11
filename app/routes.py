@@ -344,6 +344,20 @@ def share_conspect(conspect_id: int, user_id: int, status: str = "viewer"):
         return "error"
 
 
+@app.route('/remove_user_access/<int:user_id>/<int:conspect_id>', methods=['DELETE'])
+@login_required
+def remove_user_access(user_id: int, conspect_id: int):
+    conspect = conspect_by_id(conspect_id)
+    if not check_access(current_user, conspect, "owner"):
+        abort(403)
+    user = user_by_id(user_id)
+    if remove_access(user, conspect):
+        return "success"
+    else:
+        abort(520)
+        return "error"
+
+
 @app.route('/share_conspect_to_friends/<int:id>/<status>', methods=['POST'])
 @login_required
 def share_conspect_to_friends(id: int, status="viewer"):
@@ -365,9 +379,7 @@ def share_conspect_to_friends(id: int, status="viewer"):
 def share_conspect_to_all(id: int):
     conspect = conspect_by_id(id)
     if check_access(current_user, conspect, "owner"):
-        if not conspect.is_global:
-            conspect.is_global = True
-            db.session.commit()
+        share_to_all(conspect)
     else:
         abort(403)
     return "success"
@@ -382,6 +394,16 @@ def set_private(id: int):
     else:
         abort(403)
     return "success"
+
+
+@app.route('/get_users_with_access/<int:conspect_id>', methods=['GET'])
+@login_required
+def get_users_with_access(conspect_id: int):
+    conspect = conspect_by_id(conspect_id)
+    if not check_access(current_user, conspect, "owner"):
+        abort(403)
+    users_json =[{"id": user.id, "name": user.name} for user in users_with_access(conspect)]
+    return jsonify(users_json)
 
 
 @app.route('/copy_conspect/<int:id>', methods=['POST'])

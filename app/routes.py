@@ -394,7 +394,7 @@ def share_conspect_to_all(id: int):
 def set_private(id: int):
     conspect = conspect_by_id(id)
     if check_access(current_user, conspect, "owner"):
-        conspect.is_global = False
+        make_private(conspect)
     else:
         abort(403)
     return "success"
@@ -441,12 +441,27 @@ def get_sample_pdf(sample: str):
     fragments = query_conrtoller(current_user, sample)
     pdf_name = basedir + '/static/Photo/' + pdf_fragments_by_fragments_arr(current_user, fragments)
     # print(pdf_name)
-    if not os.path.exists(pdf_name):
-        abort(400)
     return send_file(pdf_name, mimetype='application/pdf')
 
 
-
+@app.route('/create_sample_tag/<string:sample>/<string:tag_name>', methods=['POST'])
+@login_required
+def create_sample_tag(sample: str, tag_name: str):
+    user = current_user
+    fragments = query_conrtoller(current_user, sample)
+    tag = tag_by_name(user, tag_name)
+    if not tag:
+        tag = add_tag(user, tag_name)
+    try:
+        for fragment in fragments:
+            tags_ids = [rel.tag_id for rel in all_tag_relations_with_fragment(fragments)]
+            if not (tag.id in tags_ids):
+                fragment.set_tag(tag)
+    except Exception as e:
+        print(e)
+        abort(418)
+        return "error"
+    return "success"
 # -----------------old section-------------------
 
 

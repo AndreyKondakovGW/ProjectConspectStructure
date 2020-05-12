@@ -30,7 +30,7 @@ def create_pdf_from_images(name, image_list):
     pdf.set_font('Arial','B', 30)
     pdf.cell(80)
     pdf.set_text_color(0, 0, 0)
-    pdf.cell(30, 10, name, 0, 10, 'C')
+    # pdf.cell(30, 10, name, 0, 10, 'C')
     pdf.ln(20)
     for img in image_list:
         print(img)

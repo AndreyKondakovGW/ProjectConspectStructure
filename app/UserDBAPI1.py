@@ -134,3 +134,10 @@ def share_to_all(conspect: ConspectDB):
     if not conspect.is_global:
         conspect.is_global = True
         db.session.commit()
+
+
+def make_private(conspect: ConspectDB):
+    if conspect:
+        if conspect.is_global:
+            conspect.is_global = False
+            db.session.commit()

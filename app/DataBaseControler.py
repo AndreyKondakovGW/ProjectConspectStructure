@@ -275,21 +275,18 @@ def query_conrtoller(user: User, string: str):
 
 
 def pdf_fragments_by_fragments_arr(user: User, fragments: [FragmentDB]):
-    if fragments:
-        print("fragments is not empty")
-        filenames = list()
-        i = 0
-        for fragment in fragments:
-            photo = PhotoDB.query.filter_by(id=fragment.photo_id).first()
-            filename = basedir+"/static/Photo/pdfs/"+user.name+"_fragment_"+str(i)+'.png'
-            cut("users/"+photo.filename, fragment.x1, fragment.y1, fragment.x2, fragment.y2, filename)
-            filenames.append(filename)
-            i += 1
-        name = "pdfs/"+user.name+"_set"
-        create_pdf_from_images(name, filenames)
-        return name+".pdf"
-    else:
-        return ""
+    print("fragments is not empty")
+    filenames = list()
+    i = 0
+    for fragment in fragments:
+        photo = PhotoDB.query.filter_by(id=fragment.photo_id).first()
+        filename = basedir+"/static/Photo/pdfs/"+user.name+"_fragment_"+str(i)+'.png'
+        cut("users/"+photo.filename, fragment.x1, fragment.y1, fragment.x2, fragment.y2, filename)
+        filenames.append(filename)
+        i += 1
+    name = "pdfs/"+user.name+"_set"
+    create_pdf_from_images(name, filenames)
+    return name+".pdf"
 
 
 def copy_conspect(user: User, conspect: ConspectDB):

@@ -252,37 +252,39 @@ def delete_photo_with_fragments(photo: PhotoDB):
 
 
 def query_conrtoller(user: User, string: str):
-    print(string)
-    tagsarr = set()
-    res = list()
-    strings = re.split('\s[|]\s',string)
-    for tagset in strings:
-        tags = re.findall('[\S]{2,}',tagset)
-        for tag in tags:
-            tagsarr.add(tag)
-    tarr = Tag.query.join(ConspectTagRelation, ConspectTagRelation.tag_id == Tag.id).\
-        join(ConspectDB, ConspectDB.id == ConspectTagRelation.conspect_id).\
-        join(AccessDB, AccessDB.conspect_id == ConspectDB.id).\
-        join(User, User.id == AccessDB.user_id).\
-        filter(User.id == user.id).all()
-    print(tarr)
-    for tag in tarr:
-        if (tag.name in tagsarr):
-            res.append(tag)
-    return res
+    union_strings = re.split(r'\s\|\s', string)
+    ids_set = set()
+    for union_str in union_strings:
+        print(union_str)
+        tag_strings = [s[1:-2].strip() if s and len(s) > 2 else "" for s in re.split(r'\s&\s', union_str)]
+        tag_ids_set = set()
+        for tag_name in tag_strings:
+            print(tag_name)
+            tag = Tag.query.filter_by(user_id=user.id).filter_by(name=tag_name).first()
+            if tag:
+                tag_ids_set.add(tag.id)
+        conditions = [FragmentToTagRelations.tag_id == tag_id for tag_id in tag_ids_set]
+        query = db.session.query(FragmentToTagRelations.fragment_id.label('fragment_id'),
+                                 db.func.count(FragmentToTagRelations.fragment_id).label('match_count'))\
+            .filter(db.or_(*conditions)).group_by(FragmentToTagRelations.fragment_id)
+        found_records = query.cte()
+        fragment_ids = db.session.query(found_records.c.fragment_id)\
+            .filter(found_records.c.match_count == len(conditions)).all()
+        ids_set = ids_set.union(fragment_ids)
+    return [FragmentDB.query.filter_by(id=fr_id).first() for fr_id in sorted(ids_set)]
 
 
-def pdf_fragments_by_tags_arr(user: User, tags: [Tag]):
-    if tags:
-        print("tags is not empty")
+def pdf_fragments_by_fragments_arr(user: User, fragments: [FragmentDB]):
+    if fragments:
+        print("fragments is not empty")
         filenames = list()
-        for tag in tags:
-            farr = all_fragments_by_tag(tag)
-            for i in range(0, len(farr)):
-                photo = PhotoDB.query.filter_by(id=farr[i].photo_id).first()
-                filename = basedir+"/static/Photo/pdfs/"+user.name+"_fragment_"+str(i+1)+'.png'
-                cut("users/"+photo.filename, farr[i].x1, farr[i].y1, farr[i].x2, farr[i].y2, filename)
-                filenames.append(filename)
+        i = 0
+        for fragment in fragments:
+            photo = PhotoDB.query.filter_by(id=fragment.photo_id).first()
+            filename = basedir+"/static/Photo/pdfs/"+user.name+"_fragment_"+str(i)+'.png'
+            cut("users/"+photo.filename, fragment.x1, fragment.y1, fragment.x2, fragment.y2, filename)
+            filenames.append(filename)
+            i += 1
         name = "pdfs/"+user.name+"_set"
         create_pdf_from_images(name, filenames)
         return name+".pdf"
@@ -294,9 +296,7 @@ def copy_conspect(user: User, conspect: ConspectDB):
     photos = get_conspect_photoes(conspect)
     success = True
     try:
-        conspect1 = ConspectDB(name=conspect.name, is_global=False)
-        db.session.add(conspect1)
-        db.session.commit()
+        conspect1 = add_conspect(conspect.name, user, "owner", is_global=False)
         for photo in photos:
             path = app.config['UPLOAD_FOLDER'] + '/users/' + user.name
             image_path = app.config['UPLOAD_FOLDER'] + '/users/' + photo.filename

@@ -35,7 +35,7 @@ def create_pdf_from_images(name, image_list):
     for img in image_list:
         print(img)
         if os.path.exists(img):
-            print("exists")
+            # print("exists")
             pdf.set_font("Arial", size=12)
             pdf.cell(25)
             pdf.image(img, w=150)

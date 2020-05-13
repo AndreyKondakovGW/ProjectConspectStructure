@@ -253,10 +253,8 @@ def delete_conspect(id: int):
 @login_required
 def post_fragment():
     user = current_user
-    # user = get_user(username)
     data = request.get_json()
     print(data)
-    # data == {"photo_id": id, "x1": x1, "y1": y1, "x2": x2, "y2": y2, "tags": [tag1, tag2]}
     photo_id = data.get("photo_id")
     if photo_id:
         photo = photo_by_id(photo_id)
@@ -448,8 +446,6 @@ def get_sample_pdf(sample: str):
 
 
 # -----------------old section-------------------
-
-
 @app.route('/main/<username>', methods=['GET', 'POST'])
 @login_required
 def main(username=current_user, filename='Pomosch1.pdf'):
@@ -486,9 +482,9 @@ def openTopic(index):
         return main()
 
 
-@app.route('/redactor', methods=['GET', 'POST'])
+@app.route('/redactor11', methods=['GET', 'POST'])
 @login_required
-def redactor():
+def redactor11():
     Rform = RedactorForm()
     if request.method == 'POST':
         if request.files.get('file'):
@@ -541,12 +537,68 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in Config.ALLOWED_EXTENSIONS
 
+#---------------------------------------------------------------------
+
+@app.route('/myconspects', methods=['GET'])
+@login_required
+def myconspects():
+    return render_template('build/index.html')
+
+@app.route('/myconspects/<name>/<id>/content', methods=['GET'])
+@login_required
+def myconspects1(name,id):
+    return render_template('build/index.html')
+
+@app.route('/myconspects/<name>/<id>/pdf', methods=['GET'])
+@login_required
+def myconspects2(name,id):
+    return render_template('build/index.html')
+
+@app.route('/content', methods=['GET'])
+@login_required
+def content():
+    return render_template('build/index.html')
+
+@app.route('/content/<name>', methods=['GET'])
+@login_required
+def content2(name):
+    return render_template('build/index.html')
 
 
+@app.route('/creteconspect/<name>/<id>', methods=['GET'])
+@login_required
+def creteconspect2(name,id):
+    return render_template('build/index.html')
 
+@app.route('/creteconspect/newconspect', methods=['GET'])
+@login_required
+def creteconspect3():
+    return render_template('build/index.html')
 
+@app.route('/redactor/<name>/<id>', methods=['GET'])
+@login_required
+def redactor2(name,id):
+    return render_template('build/index.html')
 
+@app.route('/comunity/', methods=['GET'])
+@login_required
+def comunity():
+    return render_template('build/index.html')
 
+@app.route('/comunity/<name>/<id>/conspect_and_tags', methods=['GET'])
+@login_required
+def comunity2(name,id):
+    return render_template('build/index.html')
+
+@app.route('/subscriberconspects/<name>/<id>/content', methods=['GET'])
+@login_required
+def subscriberconspects1(name,id):
+    return render_template('build/index.html')
+
+@app.route('/subscriberconspects/<name>/<id>/pdf', methods=['GET'])
+@login_required
+def subscriberconspects2(name,id):
+    return render_template('build/index.html')
 
 
 

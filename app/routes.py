@@ -106,6 +106,13 @@ def get_tags():
     return jsonify(jsonlist)
 
 
+@app.route('/delete_tag/<int:id>', methods=['DELETE'])
+@login_required
+def delete_tag(id: int):
+    tag = tag_by_id(id)
+    return str(delete_tag_from_db(tag))
+
+
 @app.route('/gettagpdf/<string:tagname>')
 @login_required
 def get_tag_pdf(tagname:str):
@@ -452,7 +459,7 @@ def create_sample_tag(sample: str, tag_name: str):
         tag = add_tag(user, tag_name)
     try:
         for fragment in fragments:
-            tags_ids = [rel.tag_id for rel in all_tag_relations_with_fragment(fragments)]
+            tags_ids = [rel.tag_id for rel in all_tag_relations_with_fragment(fragment)]
             if not (tag.id in tags_ids):
                 fragment.set_tag(tag)
     except Exception as e:

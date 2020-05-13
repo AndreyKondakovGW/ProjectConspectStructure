@@ -136,11 +136,9 @@ def delete_conspect_from_db(conspect: ConspectDB):
 # -----------------------fragments-tags-section----------------
 
 def tag_by_name(user: User, name: str):
-    tag_arr = user.get_all_tags()
-    for tag in tag_arr:
-        if tag.name == name:
-            return tag
-    return None
+    if not (user and name):
+        return None
+    return Tag.query.filter_by(user_id=user.id).filter_by(name=name).first()
 
 
 def tag_by_id(id: int):
@@ -200,6 +198,10 @@ def all_tag_relations_with_fragment(fragment: FragmentDB):
     return tag_relations
 
 
+def all_fragment_relations_with_tag(tag: Tag):
+    return FragmentToTagRelations.query.filter_by(tag_id=tag.id).all()
+
+
 def all_tags_by_fragment(fragment: FragmentDB):
     relations = all_tag_relations_with_fragment(fragment)
     tags = [tag_by_id(relation.tag_id) if relation.tag_id is not None else None for relation in relations]
@@ -249,6 +251,23 @@ def delete_photo_with_fragments(photo: PhotoDB):
         db.session.delete(photo)
         db.session.commit()
     return success
+
+
+def delete_tag_from_db(tag: Tag):
+    if tag:
+        relations = all_fragment_relations_with_tag(tag)
+        try:
+            for relation in relations:
+                db.session.delete(relation)
+            db.session.delete(tag)
+            db.session.commit()
+            return True
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return False
+    else:
+        return False
 
 
 def query_conrtoller(user: User, string: str):

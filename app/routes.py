@@ -181,11 +181,13 @@ def put_conspect(conspectname: str, is_global: str):
 @app.route('/savephoto/<int:conspectid>', methods=['POST'])
 @login_required
 def save_conspect_photo(conspectid: int):
+    print("saving photo")
     conspect = conspect_by_id(conspectid)
     if not (check_access(current_user, conspect, "owner") or check_access(current_user, conspect, "redactor")):
         abort(403)
     photo = uploads(conspect)
     if photo is None:
+        print("photo is none")
         abort(400)
         photo = default_photo
     # session['redactorfoto_id'] = photo.id
@@ -193,8 +195,11 @@ def save_conspect_photo(conspectid: int):
 
 
 def uploads(conspect: ConspectDB):
+    print("uploads")
     file = request.files['file']
+    print("ok")
     if file and allowed_file(file.filename):
+        print("file exists")
         path = app.config['UPLOAD_FOLDER']+'/users/'+current_user.name
         if not(os.path.exists(path)):
             os.mkdir(path)

@@ -3,11 +3,13 @@ from app.config import basedir
 from app.config import Config
 from app.config import basedir
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 import os
 
 # ----------configure section ---------------------
 app = Flask(__name__)
 app.config.from_object(Config)
+CORS(app)
 
 db = SQLAlchemy(app) #объект, через который происходит работа с бд
 
